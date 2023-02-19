@@ -1,0 +1,1 @@
+# typesense-admin-dashboard
