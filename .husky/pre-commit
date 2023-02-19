@@ -12,3 +12,8 @@ npx lint-staged ||
 (
     echo "🤝🤝 Committing changes...🌚🌚🌚🌚"
 )
+
+# to initialize husky in a monorepo: 
+# npx husky install
+# npx husky add .husky/pre-commit "npm test"
+# then cd into the working directory and run the commands as above
