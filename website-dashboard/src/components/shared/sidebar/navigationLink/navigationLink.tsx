@@ -12,7 +12,7 @@ function NavigationLink({ linkName, Icon, link }: Props) {
       to={link}
       className={(navData) =>
         navData.isActive
-          ? "flex items-center px-2 p-1 my-2 bg-[#f1f0fe] cursor-pointer rounded-md"
+          ? "flex items-center px-2 p-1 my-2 font-bold bg-[#f1f0fe] cursor-pointer rounded-md"
           : "flex items-center px-2 p-1 my-2 hover:bg-[#f1f0fe] cursor-pointer rounded-md"
       }
     >

@@ -17,3 +17,4 @@ declare module "*.png" {
   const path: string;
   export default path;
 }
+declare module "react-json-editor-ajrm/locale/en";

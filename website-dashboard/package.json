@@ -12,13 +12,17 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@types/react-instantsearch-dom": "^6.12.3",
+    "@types/react-json-editor-ajrm": "^2.5.3",
     "clsx": "^1.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-instantsearch-dom": "^6.39.0",
+    "react-json-editor-ajrm": "^2.5.14",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
+    "typesense": "^1.5.2",
     "typesense-instantsearch-adapter": "^2.5.1",
+    "uniqid": "^5.4.0",
     "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import Button from "../../components/shared/button/button";
+import { ReactComponent as DeleteIcon } from "./svgs/trash.svg";
 
 interface IndexNav {
   queryString: string;
@@ -16,15 +18,26 @@ function Index() {
     { navigationName: "Synonyms", queryString: "synonyms" },
   ];
 
+  const deleteCollection = () => {
+    console.log("delete collection");
+  };
+
   return (
     <div className="w-full h-full p-5">
-      <h1 className="text-xl font-bold font-lato mb-3">
-        <Link to="/collections">
-          <span className="text-gray-400">{" Collection "}</span>
-        </Link>
-        <span className="text-gray-400">{"  >  "}</span>
-        <span>{collectionName}</span>
-      </h1>
+      <div className="flex justify-between">
+        <h1 className="text-xl font-bold font-lato mb-3">
+          <Link to="/collections">
+            <span className="text-gray-400">{" Collection "}</span>
+          </Link>
+          <span className="text-gray-400">{"  >  "}</span>
+          <span>{collectionName}</span>
+        </h1>
+        <Button
+          onClick={deleteCollection}
+          text="Drop Collection"
+          Icon={DeleteIcon}
+        />
+      </div>
       <div className="flex gap-4">
         {indexNav.map((nav) => {
           return (
