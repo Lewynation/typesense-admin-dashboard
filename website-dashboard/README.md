@@ -1,1 +1,1 @@
-## Typesenes admin website
+## Typesense admin website
