@@ -28,6 +28,11 @@ function Actions() {
     <div className="w-full">
       <h2 className="font-lato font-bold mt-1">Actions</h2>
       <SingleAction
+        title="Create new"
+        description="Creates a new document. Fails if a document with the same id already exists"
+        link="https://typesense.org/docs/0.24.0/api/documents.html#index-a-single-document"
+      />
+      <SingleAction
         title="Edit existing"
         description="Updates an existing document. Fails if a document with the given id does
         not exist. You can send a partial document containing only the fields
@@ -40,14 +45,10 @@ function Actions() {
         link="https://typesense.org/docs/0.24.0/api/documents.html#upsert-a-single-document"
       />
       <SingleAction
-        title="Create new"
-        description="Creates a new document. Fails if a document with the same id already exists"
-        link="https://typesense.org/docs/0.24.0/api/documents.html#index-a-single-document"
-      />
-      <SingleAction
         title="Import from file"
         description=" Indexes multiple documents in a batch using the import API. Has various action modes including upsert, create, update and emplace."
         link="https://typesense.org/docs/0.21.0/api/documents.html#import-documents"
+        // Add a combined radio button for the select from file import
       />
     </div>
   );

@@ -11,6 +11,7 @@ function Button({ text, onClick, Icon }: Props) {
       type="button"
       className="bg-[#4c3ded] cursor-pointer p-2 rounded-lg text-white font-lato text-sm flex items-center"
     >
+      {/* Error color #B00020 */}
       <Icon />
       <p className="ml-2">{text}</p>
     </button>
