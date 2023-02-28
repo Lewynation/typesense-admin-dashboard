@@ -10,6 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.4.6",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/react-instantsearch-dom": "^6.12.3",
     "@types/react-json-editor-ajrm": "^2.5.3",
@@ -20,6 +21,7 @@
     "react-json-editor-ajrm": "^2.5.14",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.1",
+    "react-spinners": "^0.13.8",
     "typesense": "^1.5.2",
     "typesense-instantsearch-adapter": "^2.5.1",
     "uniqid": "^5.4.0",

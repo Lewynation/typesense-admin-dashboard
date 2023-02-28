@@ -27,5 +27,5 @@ $backgroundColor: var(--backgroundColor);
 .Main {
   grid-area: Main;
   background-color: $backgroundColor;
-  overflow: hidden;
+  overflow: auto;
 }

@@ -1,7 +1,7 @@
+import Editor from "@monaco-editor/react";
 import { useEffect } from "react";
-import JSONInput from "react-json-editor-ajrm";
-import locale from "react-json-editor-ajrm/locale/en";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../../components/shared/loading/loading";
 import { getCollectionSchema } from "../../../redux/slices/typesenseSlice/typesenseSlice";
 import { RootState } from "../../../redux/store/store";
 
@@ -15,19 +15,20 @@ function Schema() {
     dispatch(getCollectionSchema("books")).unwrap();
   }, [dispatch]);
 
+  const onChange = (value: any, event: any) => {
+    console.log(value);
+  };
+
   return (
     <div>
       {" "}
-      <JSONInput
-        id="a_unique_id"
-        placeholder={schema}
-        // colors={darktheme}
-        theme="light_mitsuketa_tribute"
-        locale={locale}
-        viewOnly
-        confirmGood={false}
-        height="400px"
-        width="100%"
+      <Editor
+        height="90vh"
+        defaultLanguage="json"
+        defaultValue={JSON.stringify(schema, null, 2)}
+        onChange={onChange}
+        loading={<Loading />}
+        theme="light"
       />
     </div>
   );
