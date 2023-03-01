@@ -41,14 +41,12 @@ const typesenseSlice = createSlice({
       state.collectionSchema = action.payload;
     });
     builder.addCase(getDocumentTemplate.fulfilled, (state, action) => {
-      const document = action.payload.fields?.map((field: any) => {
-        return {
-          [field.name]: getOutput(field.type),
-        };
+      const docObject: any = {};
+      action.payload.fields?.forEach((field: any) => {
+        docObject[field.name] = getOutput(field.type);
       });
-      console.log(document);
       // eslint-disable-next-line no-param-reassign
-      state.documentTemplate = document;
+      state.documentTemplate = [docObject];
     });
   },
 });
