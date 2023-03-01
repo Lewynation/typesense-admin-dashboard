@@ -7,16 +7,17 @@ import Header from "../../components/shared/navbar/header";
 import { RootState } from "../../redux/store/store";
 import AddCurationsModal from "../../components/pages/curations/addCurationsModal/addCurationsModal";
 import AddSynonymModal from "../../components/pages/synonyms/addSynonymsModal/addSynonymModal";
+import AdminAPIKeyModal from "../../components/pages/apiKeys/adminAPIKeyModal/adminAPIKeyModal";
 
 function Home() {
-  const { openCurationModal, openSynonymModal } = useSelector(
-    (state: RootState) => state.modal
-  );
+  const { openCurationModal, openSynonymModal, openAdminAPIKeyModal } =
+    useSelector((state: RootState) => state.modal);
 
   return (
     <div className={classes.Home}>
       {openCurationModal && <AddCurationsModal />}
       {openSynonymModal && <AddSynonymModal />}
+      {openAdminAPIKeyModal && <AdminAPIKeyModal />}
       <aside className={clsx(classes.Aside, "px-5 pt-3")}>
         <Aside />
       </aside>

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   openCurationModal: false,
   openSynonymModal: false,
+  openAdminAPIKeyModal: false,
 };
 
 const modalSlice = createSlice({
@@ -19,8 +20,14 @@ const modalSlice = createSlice({
       state.openSynonymModal = !state.openSynonymModal;
       return state;
     },
+    openAdminAPIKeyModal: (state) => {
+      // eslint-disable-next-line no-param-reassign
+      state.openAdminAPIKeyModal = !state.openAdminAPIKeyModal;
+      return state;
+    },
   },
 });
 
-export const { openCurationsModal, openSynonymsModal } = modalSlice.actions;
+export const { openCurationsModal, openSynonymsModal, openAdminAPIKeyModal } =
+  modalSlice.actions;
 export default modalSlice.reducer;

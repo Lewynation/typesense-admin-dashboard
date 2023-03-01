@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
+import SearchAPIKeys from "./components/pages/apiKeys/searchAPIKeys/searchAPIKeys";
 import Home from "./layouts/home/home";
 import Aliases from "./pages/aliases/aliases";
-import ApiKeys from "./pages/apiKeys/apiKeys";
+import ApiKeys, { ApiKeysIndex } from "./pages/apiKeys/apiKeys";
 import Index from "./pages/collections";
 import AddDoc from "./pages/collections/addDoc/addDoc";
 import Collections, { CollectionIndex } from "./pages/collections/collections";
@@ -42,7 +43,10 @@ function App() {
             />
           </Route>
         </Route>
-        <Route path="/api-keys" element={<ApiKeys />} />
+        <Route path="/api-keys" element={<ApiKeys />}>
+          <Route index element={<ApiKeysIndex />} />
+          <Route path="/api-keys/search-api-key" element={<SearchAPIKeys />} />
+        </Route>
         <Route path="/aliases" element={<Aliases />} />
       </Route>
     </Routes>
