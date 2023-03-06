@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import { ReactComponent as EditIcon } from "./svgs/edit.svg";
+import date from "date-and-time";
 import { ReactComponent as Deleteicon } from "./svgs/trash.svg";
 
 interface Props {
   keyPrefix: string;
-  uniqueId: string;
+  uniqueId: number;
   description: string;
-  expiresAt: string;
+  expiresAt: number;
 }
 
 function ApiKeyListTile({
@@ -17,6 +17,12 @@ function ApiKeyListTile({
 }: Props) {
   const className = clsx("font-lato text-sm ");
   const classNameFlex = clsx("flex items-center justify-center");
+
+  const formatDate = (unformatedDate: number) => {
+    const formatedDate = new Date(unformatedDate * 1000);
+    return formatedDate;
+  };
+
   return (
     <div className="grid grid-cols-5 gap-4 px-3 border-b-2 py-2">
       <div>
@@ -29,7 +35,9 @@ function ApiKeyListTile({
         <p className={className}>{uniqueId}</p>
       </div>
       <div className={classNameFlex}>
-        <p className={className}>{expiresAt}</p>
+        <p className={className}>
+          {date.format(formatDate(expiresAt), "ddd, MMM DD YYYY")}
+        </p>
       </div>
       <div className={classNameFlex}>
         <div className={clsx(classNameFlex, "gap-5")}>

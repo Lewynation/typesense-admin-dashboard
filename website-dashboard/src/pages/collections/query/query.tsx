@@ -1,5 +1,6 @@
 import TypesenseInstantsearchAdapter from "typesense-instantsearch-adapter";
 import { Hits, InstantSearch, SearchBox } from "react-instantsearch-dom";
+import { useParams } from "react-router-dom";
 
 interface Props {
   hit: any;
@@ -14,6 +15,8 @@ function Hit({ hit }: Props) {
 }
 
 function Query() {
+  const { collectionName } = useParams();
+  console.log(collectionName);
   const typesenseIndstantSearchAdapter = new TypesenseInstantsearchAdapter({
     server: {
       apiKey: "abc",
@@ -34,7 +37,7 @@ function Query() {
   return (
     <div>
       <InstantSearch
-        indexName="books"
+        indexName={collectionName!}
         searchClient={typesenseIndstantSearchAdapter.searchClient}
       >
         <div className="flex">

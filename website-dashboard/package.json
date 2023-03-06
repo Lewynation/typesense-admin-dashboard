@@ -15,7 +15,9 @@
     "@types/react-instantsearch-dom": "^6.12.3",
     "@types/react-json-editor-ajrm": "^2.5.3",
     "clsx": "^1.2.1",
+    "date-and-time": "^2.4.2",
     "react": "^18.2.0",
+    "react-checkbox-tree": "^1.8.0",
     "react-dom": "^18.2.0",
     "react-instantsearch-dom": "^6.39.0",
     "react-json-editor-ajrm": "^2.5.14",
@@ -24,7 +26,6 @@
     "react-spinners": "^0.13.8",
     "typesense": "^1.5.2",
     "typesense-instantsearch-adapter": "^2.5.1",
-    "uniqid": "^5.4.0",
     "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {

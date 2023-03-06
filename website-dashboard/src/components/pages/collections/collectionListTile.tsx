@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
+import date from "date-and-time";
 
 interface Props {
   collectionName: string;
   collectionDocuments: number;
   collectionSchemaFields: number;
-  collectionCreatedAt: string;
+  collectionCreatedAt: number;
 }
 
 function CollectionListTiles({
@@ -20,6 +21,11 @@ function CollectionListTiles({
 
   const navigateToCollection = (): void => {
     navigate(`/collections/${collectionName}/query`);
+  };
+
+  const formatDate = (unformatedDate: number) => {
+    const formatedDate = new Date(unformatedDate * 1000);
+    return formatedDate;
   };
 
   return (
@@ -38,7 +44,9 @@ function CollectionListTiles({
         <p className={className}>{collectionSchemaFields}</p>
       </div>
       <div className={classNameFlex}>
-        <p className={className}>{collectionCreatedAt}</p>
+        <p className={className}>
+          {date.format(formatDate(collectionCreatedAt), "ddd, MMM DD YYYY")}
+        </p>
       </div>
     </div>
   );

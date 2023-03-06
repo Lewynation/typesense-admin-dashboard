@@ -4,6 +4,7 @@ const initialState = {
   openCurationModal: false,
   openSynonymModal: false,
   openAdminAPIKeyModal: false,
+  openAliasesModal: false,
 };
 
 const modalSlice = createSlice({
@@ -25,9 +26,18 @@ const modalSlice = createSlice({
       state.openAdminAPIKeyModal = !state.openAdminAPIKeyModal;
       return state;
     },
+    openAliasesModal: (state) => {
+      // eslint-disable-next-line no-param-reassign
+      state.openAliasesModal = !state.openAliasesModal;
+      return state;
+    },
   },
 });
 
-export const { openCurationsModal, openSynonymsModal, openAdminAPIKeyModal } =
-  modalSlice.actions;
+export const {
+  openCurationsModal,
+  openSynonymsModal,
+  openAdminAPIKeyModal,
+  openAliasesModal,
+} = modalSlice.actions;
 export default modalSlice.reducer;

@@ -8,16 +8,22 @@ import { RootState } from "../../redux/store/store";
 import AddCurationsModal from "../../components/pages/curations/addCurationsModal/addCurationsModal";
 import AddSynonymModal from "../../components/pages/synonyms/addSynonymsModal/addSynonymModal";
 import AdminAPIKeyModal from "../../components/pages/apiKeys/adminAPIKeyModal/adminAPIKeyModal";
+import AddAliasesModal from "../../components/pages/aliases/addAliasesModal/addAliasesModal";
 
 function Home() {
-  const { openCurationModal, openSynonymModal, openAdminAPIKeyModal } =
-    useSelector((state: RootState) => state.modal);
+  const {
+    openCurationModal,
+    openSynonymModal,
+    openAdminAPIKeyModal,
+    openAliasesModal,
+  } = useSelector((state: RootState) => state.modal);
 
   return (
     <div className={classes.Home}>
       {openCurationModal && <AddCurationsModal />}
       {openSynonymModal && <AddSynonymModal />}
       {openAdminAPIKeyModal && <AdminAPIKeyModal />}
+      {openAliasesModal && <AddAliasesModal />}
       <aside className={clsx(classes.Aside, "px-5 pt-3")}>
         <Aside />
       </aside>

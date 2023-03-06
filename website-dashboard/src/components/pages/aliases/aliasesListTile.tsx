@@ -2,34 +2,17 @@ import clsx from "clsx";
 import { ReactComponent as EditIcon } from "./svgs/edit.svg";
 import { ReactComponent as Deleteicon } from "./svgs/trash.svg";
 
-interface Props {
-  curationQuery: string;
-  curationMatchType: string;
-  curationIncudes: number;
-  curationExcludes: number;
-}
-
-function CurationsListTile({
-  curationExcludes,
-  curationIncudes,
-  curationMatchType,
-  curationQuery,
-}: Props) {
+function AliasesListTile() {
   const className = clsx("font-lato text-sm ");
   const classNameFlex = clsx("flex items-center justify-center");
   return (
-    <div className="grid grid-cols-5 gap-4 px-3 border-b-2 py-2 ">
+    <div className="grid grid-cols-3 gap-4 px-3 border-b-2 py-2 ">
       <div>
-        <p className={className}>{curationQuery}</p>
+        <p className={className}>Apple</p>
       </div>
+
       <div className={classNameFlex}>
-        <p className={className}>{curationMatchType}</p>
-      </div>
-      <div className={classNameFlex}>
-        <p className={className}>{curationIncudes}</p>
-      </div>
-      <div className={classNameFlex}>
-        <p className={className}>{curationExcludes}</p>
+        <p className={className}>1</p>
       </div>
       <div className={clsx(classNameFlex, "gap-5")}>
         <div>
@@ -43,4 +26,4 @@ function CurationsListTile({
   );
 }
 
-export default CurationsListTile;
+export default AliasesListTile;
