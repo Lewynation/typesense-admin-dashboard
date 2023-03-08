@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import clsx from "clsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./sass/home.module.scss";
 import Aside from "../../components/shared/sidebar/aside/aside";
 import Header from "../../components/shared/navbar/header";
@@ -9,17 +9,34 @@ import AddCurationsModal from "../../components/pages/curations/addCurationsModa
 import AddSynonymModal from "../../components/pages/synonyms/addSynonymsModal/addSynonymModal";
 import AdminAPIKeyModal from "../../components/pages/apiKeys/adminAPIKeyModal/adminAPIKeyModal";
 import AddAliasesModal from "../../components/pages/aliases/addAliasesModal/addAliasesModal";
+import ApiKeyDisplayModal from "../../components/shared/APIKeyDisplayModal/apiKeyDisplayModal";
+import { closeAPIKeyModal } from "../../redux/slices/typesenseSlice/typesenseSlice";
 
 function Home() {
+  const dispatch = useDispatch();
+
   const {
     openCurationModal,
     openSynonymModal,
     openAdminAPIKeyModal,
     openAliasesModal,
   } = useSelector((state: RootState) => state.modal);
+  const { adminApiKeys, keysReturned } = useSelector(
+    (state: RootState) => state.typesense
+  );
+
+  const closeKeyModal = () => {
+    dispatch(closeAPIKeyModal());
+  };
 
   return (
     <div className={classes.Home}>
+      {keysReturned && (
+        <ApiKeyDisplayModal
+          apiKey={adminApiKeys.value || "No key"}
+          onClick={closeKeyModal}
+        />
+      )}
       {openCurationModal && <AddCurationsModal />}
       {openSynonymModal && <AddSynonymModal />}
       {openAdminAPIKeyModal && <AdminAPIKeyModal />}

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import { KeySchema } from "typesense/lib/Typesense/Key";
 import { OverridesRetrieveSchema } from "typesense/lib/Typesense/Overrides";
 import getOutput from "../../../utils/typesenseFields";
 
@@ -10,6 +11,8 @@ interface IInitialState {
   documentTemplate: any;
   collections: CollectionSchema[];
   curations: OverridesRetrieveSchema;
+  adminApiKeys: KeySchema;
+  keysReturned: boolean;
 }
 
 const initialState: IInitialState = {
@@ -17,34 +20,32 @@ const initialState: IInitialState = {
   documentTemplate: [],
   collections: [] as CollectionSchema[],
   curations: {} as OverridesRetrieveSchema,
+  adminApiKeys: {} as KeySchema,
+  keysReturned: false,
 };
 
 const typesenseSlice = createSlice({
   name: "typesense",
   initialState,
-  reducers: {},
+  reducers: {
+    closeAPIKeyModal(state) {
+      // eslint-disable-next-line no-param-reassign
+      state.keysReturned = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(Thunks.getCollectionSchema.fulfilled, (state, action) => {
       // eslint-disable-next-line no-param-reassign
       state.collectionSchema = action.payload;
     });
-    builder.addCase(Thunks.getDocumentTemplate.fulfilled, (state, action) => {
-      const docObject: any = {};
-      action.payload.fields?.forEach((field: any) => {
-        docObject[field.name] = getOutput(field.type);
-      });
+    builder.addCase(Thunks.createAPIKey.fulfilled, (state, action) => {
       // eslint-disable-next-line no-param-reassign
-      state.documentTemplate = [docObject];
-    });
-    builder.addCase(Thunks.getCollections.fulfilled, (state, action) => {
+      state.keysReturned = true;
       // eslint-disable-next-line no-param-reassign
-      state.collections = action.payload;
-    });
-    builder.addCase(Thunks.getCurations.fulfilled, (state, action) => {
-      // eslint-disable-next-line no-param-reassign
-      state.curations = action.payload;
+      state.adminApiKeys = action.payload;
     });
   },
 });
 
 export default typesenseSlice.reducer;
+export const { closeAPIKeyModal } = typesenseSlice.actions;

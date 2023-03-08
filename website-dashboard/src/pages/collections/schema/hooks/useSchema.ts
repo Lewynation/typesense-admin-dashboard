@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
 import TypesenseActions from "../../../../utils/typesenseActions";
-import getOutput from "../../../../utils/typesenseFields";
 
 const getSchema = async (collectionName: string) => {
   const typesense = new TypesenseActions();

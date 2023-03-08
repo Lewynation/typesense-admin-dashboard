@@ -1,5 +1,6 @@
 import Typesense, { Client } from "typesense";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import { KeyCreateSchema, KeySchema } from "typesense/lib/Typesense/Key";
 import { KeysRetrieveSchema } from "typesense/lib/Typesense/Keys";
 import { OverridesRetrieveSchema } from "typesense/lib/Typesense/Overrides";
 
@@ -11,6 +12,8 @@ interface ITypesenseActions {
   getCurations(collectionName: string): Promise<OverridesRetrieveSchema>;
 
   getAPIKeys(): Promise<KeysRetrieveSchema>;
+
+  createAPIKey(keySchema: KeyCreateSchema): Promise<KeySchema>;
 }
 
 export default class TypesenseActions implements ITypesenseActions {
@@ -28,6 +31,10 @@ export default class TypesenseActions implements ITypesenseActions {
       apiKey: "abc",
       connectionTimeoutSeconds: 2,
     });
+  }
+
+  createAPIKey(keySchema: KeyCreateSchema): Promise<KeySchema> {
+    return this.client.keys().create(keySchema);
   }
 
   getAPIKeys(): Promise<KeysRetrieveSchema> {

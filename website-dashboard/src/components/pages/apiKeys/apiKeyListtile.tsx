@@ -36,7 +36,10 @@ function ApiKeyListTile({
       </div>
       <div className={classNameFlex}>
         <p className={className}>
-          {date.format(formatDate(expiresAt), "ddd, MMM DD YYYY")}
+          {expiresAt === 64723363199
+            ? "Never"
+            : date.format(formatDate(expiresAt), "ddd, MMM DD YYYY")}
+          {}
         </p>
       </div>
       <div className={classNameFlex}>

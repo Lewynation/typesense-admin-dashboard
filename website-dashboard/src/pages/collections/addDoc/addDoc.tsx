@@ -6,21 +6,12 @@ import { useParams } from "react-router-dom";
 import Actions from "../../../components/pages/collections/addDoc/actions";
 import Button from "../../../components/shared/button/button";
 import Loading from "../../../components/shared/loading/loading";
-import { getDocumentTemplate } from "../../../redux/slices/typesenseSlice/asyncThunks";
-import { RootState } from "../../../redux/store/store";
 import useAddDocs from "./hooks/useAddDoc";
 
 import { ReactComponent as AddDocument } from "./svgs/doc.svg";
 
 function AddDoc() {
-  const dispatch = useDispatch();
   const { collectionName } = useParams();
-  // const schema = useSelector(
-  //   (state: RootState) => state.typesense.documentTemplate
-  // );
-  // useEffect(() => {
-  //   dispatch(getDocumentTemplate("books")).unwrap();
-  // }, [dispatch]);
 
   const { schema, error, loading } = useAddDocs(collectionName || "");
 

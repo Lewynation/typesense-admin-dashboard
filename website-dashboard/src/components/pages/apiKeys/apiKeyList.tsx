@@ -1,7 +1,6 @@
 import ListLayout from "../../../layouts/listLayout/listLayout";
 import ApiKeyListTile from "./apiKeyListtile";
 import ApiKeyListTitle from "./apiKeyListTitle";
-import { apiKeyTempData } from "./mockData";
 
 import useAPIKeys from "./hooks/useAPIKeys";
 

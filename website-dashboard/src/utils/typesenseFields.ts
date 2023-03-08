@@ -1,4 +1,4 @@
-const getOutput = (type: any) => {
+const getOutput = (type: string) => {
   switch (type) {
     case "string":
       return "";
