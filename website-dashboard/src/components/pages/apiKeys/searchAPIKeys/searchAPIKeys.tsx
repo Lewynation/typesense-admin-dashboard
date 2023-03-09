@@ -7,6 +7,11 @@ import Button from "../../../shared/button/button";
 import CheckBoxesTree from "./checkBoxesTree";
 import { ReactComponent as KeySVG } from "./svgs/key.svg";
 
+const SEVENDAYS = 604800000;
+const THIRTYDAYS = 2592000000;
+const SIXTYDAYS = 5184000000;
+const NINETYDAYS = 7776000000;
+
 function SearchAPIKeysDataCollection() {
   const [epochDate, setEpochDate] = useState<number>(Date.now() + 604800000);
   const [APIKeyDescription, setAPIKKeyDescription] = useState<string>("");
@@ -20,16 +25,16 @@ function SearchAPIKeysDataCollection() {
   const handleExpiryDate = (event: React.FormEvent<HTMLSelectElement>) => {
     switch (event.currentTarget.value) {
       case "7 days":
-        setEpochDate(Date.now() + 604800000);
+        setEpochDate(Date.now() + SEVENDAYS);
         break;
       case "30 days":
-        setEpochDate(Date.now() + 2592000000);
+        setEpochDate(Date.now() + THIRTYDAYS);
         break;
       case "60 days":
-        setEpochDate(Date.now() + 5184000000);
+        setEpochDate(Date.now() + SIXTYDAYS);
         break;
       case "90 days":
-        setEpochDate(Date.now() + 7776000000);
+        setEpochDate(Date.now() + NINETYDAYS);
         break;
       default:
         setEpochDate(1);

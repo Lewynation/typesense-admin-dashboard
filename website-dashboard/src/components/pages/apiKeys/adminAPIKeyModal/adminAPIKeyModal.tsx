@@ -10,6 +10,11 @@ import { ReactComponent as Cancel } from "./svgs/cancel.svg";
 import { openAdminAPIKeyModal } from "../../../../redux/slices/modalSlice/modalSlice";
 import { createAPIKey } from "../../../../redux/slices/typesenseSlice/asyncThunks";
 
+const SEVENDAYS = 604800000;
+const THIRTYDAYS = 2592000000;
+const SIXTYDAYS = 5184000000;
+const NINETYDAYS = 7776000000;
+
 function AdminAPIKeyModal() {
   const dispatch = useDispatch();
 
@@ -54,16 +59,16 @@ function AdminAPIKeyModal() {
   const handleExpiryDate = (event: React.FormEvent<HTMLSelectElement>) => {
     switch (event.currentTarget.value) {
       case "7 days":
-        setEpochDate(Date.now() + 604800000);
+        setEpochDate(Date.now() + SEVENDAYS);
         break;
       case "30 days":
-        setEpochDate(Date.now() + 2592000000);
+        setEpochDate(Date.now() + THIRTYDAYS);
         break;
       case "60 days":
-        setEpochDate(Date.now() + 5184000000);
+        setEpochDate(Date.now() + SIXTYDAYS);
         break;
       case "90 days":
-        setEpochDate(Date.now() + 7776000000);
+        setEpochDate(Date.now() + NINETYDAYS);
         break;
       default:
         setEpochDate(1);
