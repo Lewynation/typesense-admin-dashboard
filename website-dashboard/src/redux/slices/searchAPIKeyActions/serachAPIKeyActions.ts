@@ -13,7 +13,7 @@ const initialState: IInitialState = {
   APIKeyDescription: "",
   collectionList: [],
   required: false,
-  expiryDate: Date.now() + 604800000,
+  expiryDate: Date.now() + 604800000, // 7 days epoch time
   collectionEmpty: false,
 };
 

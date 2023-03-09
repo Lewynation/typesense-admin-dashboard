@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -12,22 +13,18 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openCurationsModal: (state) => {
-      // eslint-disable-next-line no-param-reassign
       state.openCurationModal = !state.openCurationModal;
       return state;
     },
     openSynonymsModal: (state) => {
-      // eslint-disable-next-line no-param-reassign
       state.openSynonymModal = !state.openSynonymModal;
       return state;
     },
     openAdminAPIKeyModal: (state) => {
-      // eslint-disable-next-line no-param-reassign
       state.openAdminAPIKeyModal = !state.openAdminAPIKeyModal;
       return state;
     },
     openAliasesModal: (state) => {
-      // eslint-disable-next-line no-param-reassign
       state.openAliasesModal = !state.openAliasesModal;
       return state;
     },
