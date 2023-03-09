@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 import clsx from "clsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import classes from "./sass/home.module.scss";
 import Aside from "../../components/shared/sidebar/aside/aside";
 import Header from "../../components/shared/navbar/header";
-import { RootState } from "../../redux/store/store";
+import { useAppSelector } from "../../redux/store/store";
 import AddCurationsModal from "../../components/pages/curations/addCurationsModal/addCurationsModal";
 import AddSynonymModal from "../../components/pages/synonyms/addSynonymsModal/addSynonymModal";
 import AdminAPIKeyModal from "../../components/pages/apiKeys/adminAPIKeyModal/adminAPIKeyModal";
@@ -20,13 +20,13 @@ function Home() {
     openSynonymModal,
     openAdminAPIKeyModal,
     openAliasesModal,
-  } = useSelector((state: RootState) => state.modal);
-  const { adminApiKeys, keysReturned } = useSelector(
-    (state: RootState) => state.typesense
-  );
+  } = useAppSelector((state) => state.modal);
 
-  const closeKeyModal = () => {
-    dispatch(closeAPIKeyModal());
+  const { adminApiKeys, keysReturned, searchKeysReturned, searchAPIKeys } =
+    useAppSelector((state) => state.typesense);
+
+  const closeKeyModal = (adminOrSearch: "admin" | "search") => {
+    dispatch(closeAPIKeyModal({ value: adminOrSearch }));
   };
 
   return (
@@ -34,7 +34,13 @@ function Home() {
       {keysReturned && (
         <ApiKeyDisplayModal
           apiKey={adminApiKeys.value || "No key"}
-          onClick={closeKeyModal}
+          onClick={() => closeKeyModal("admin")}
+        />
+      )}
+      {searchKeysReturned && (
+        <ApiKeyDisplayModal
+          apiKey={searchAPIKeys.value || "No key"}
+          onClick={() => closeKeyModal("search")}
         />
       )}
       {openCurationModal && <AddCurationsModal />}

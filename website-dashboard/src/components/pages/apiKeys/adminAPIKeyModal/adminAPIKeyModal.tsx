@@ -9,28 +9,28 @@ import { ReactComponent as Cancel } from "./svgs/cancel.svg";
 import { openAdminAPIKeyModal } from "../../../../redux/slices/modalSlice/modalSlice";
 import { createAPIKey } from "../../../../redux/slices/typesenseSlice/asyncThunks";
 import { useAppDispatch } from "../../../../redux/store/store";
-
-const SEVENDAYS = 604800000;
-const THIRTYDAYS = 2592000000;
-const SIXTYDAYS = 5184000000;
-const NINETYDAYS = 7776000000;
+import handleExpiryDate from "../utils/handleExpiryDate";
+import * as epochTime from "../../../../constants/epochTime";
 
 function AdminAPIKeyModal() {
   const dispatch = useAppDispatch();
 
   const [APIKeyDescription, setAPIKKeyDescription] = useState<string>("");
   const [required, setRequired] = useState(false);
-  const [epochDate, setEpochDate] = useState<number>(Date.now() + 604800000);
+  const [epochDate, setEpochDate] = useState<number>(
+    Date.now() + epochTime.SEVENDAYS
+  );
   const [schema, setSchema] = useState({
     description: APIKeyDescription,
     actions: ["*"],
     collections: ["*"],
-    expires_at: epochDate === 1 ? 64723363199 : Math.round(epochDate / 1000),
+    expires_at:
+      epochDate === 1 ? epochTime.NEVER : Math.round(epochDate / 1000),
   });
 
-  const onChange = (value: any, event: any) => {
-    console.log(value);
-  };
+  // const onChange = (value: any, event: any) => {
+  //   console.log(value);
+  // };
 
   const generateAPIKey = () => {
     if (APIKeyDescription === "") {
@@ -52,28 +52,9 @@ function AdminAPIKeyModal() {
       description: event.currentTarget.value,
       actions: ["*"],
       collections: ["*"],
-      expires_at: epochDate === 1 ? 64723363199 : Math.round(epochDate / 1000),
+      expires_at:
+        epochDate === 1 ? epochTime.NEVER : Math.round(epochDate / 1000),
     });
-  };
-
-  const handleExpiryDate = (event: React.FormEvent<HTMLSelectElement>) => {
-    switch (event.currentTarget.value) {
-      case "7 days":
-        setEpochDate(Date.now() + SEVENDAYS);
-        break;
-      case "30 days":
-        setEpochDate(Date.now() + THIRTYDAYS);
-        break;
-      case "60 days":
-        setEpochDate(Date.now() + SIXTYDAYS);
-        break;
-      case "90 days":
-        setEpochDate(Date.now() + NINETYDAYS);
-        break;
-      default:
-        setEpochDate(1);
-        break;
-    }
   };
 
   const formatDate = (unformatedDate: number) => {
@@ -112,7 +93,7 @@ function AdminAPIKeyModal() {
             name="expiry"
             id="expiry"
             className="outline-none rounded-md border-2 p-1 w-36 font-lato text-gray-500"
-            onChange={handleExpiryDate}
+            onChange={(event) => handleExpiryDate(event, setEpochDate)}
           >
             <option value="7 days">7 days</option>
             <option value="30 days">30 days</option>
@@ -131,7 +112,7 @@ function AdminAPIKeyModal() {
           height="200px"
           defaultLanguage="json"
           defaultValue={JSON.stringify(schema, null, 2)}
-          onChange={onChange}
+          // onChange={onChange}
           loading={<Loading />}
           theme="light"
         />

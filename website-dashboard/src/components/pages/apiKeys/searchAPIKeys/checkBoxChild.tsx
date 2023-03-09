@@ -1,20 +1,41 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
+import { toggleChildCheckbox } from "../../../../redux/slices/searchCheckBoxes/searchCheckBoxes";
+import { useAppDispatch } from "../../../../redux/store/store";
+
 interface Props {
   label: string;
   description: string;
+  selectedByParent: boolean;
+  selectedBySelf: boolean;
+  parent: string;
 }
 
-function CheckboxChild({ label, description }: Props) {
+function CheckboxChild({
+  label,
+  description,
+  selectedByParent,
+  selectedBySelf,
+  parent,
+}: Props) {
+  const dispatch = useAppDispatch();
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    dispatch(toggleChildCheckbox({ value, parent }));
+  };
+
   return (
     <li className="ml-2">
       <label className=" grid grid-cols-2">
         <div className="text-sm font-lato">
           <input
             type="checkbox"
-            name=""
-            value="repo_deployment"
+            name={label}
+            value={label}
             className="mr-2"
+            onChange={onChange}
+            checked={selectedByParent || selectedBySelf}
+            disabled={selectedByParent}
           />
           {label}
         </div>
