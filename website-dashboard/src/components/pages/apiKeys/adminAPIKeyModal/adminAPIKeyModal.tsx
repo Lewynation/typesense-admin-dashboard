@@ -1,5 +1,4 @@
 import Editor from "@monaco-editor/react";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import date from "date-and-time";
 import Button from "../../../shared/button/button";
@@ -9,6 +8,7 @@ import { ReactComponent as Key } from "./svgs/key.svg";
 import { ReactComponent as Cancel } from "./svgs/cancel.svg";
 import { openAdminAPIKeyModal } from "../../../../redux/slices/modalSlice/modalSlice";
 import { createAPIKey } from "../../../../redux/slices/typesenseSlice/asyncThunks";
+import { useAppDispatch } from "../../../../redux/store/store";
 
 const SEVENDAYS = 604800000;
 const THIRTYDAYS = 2592000000;
@@ -16,7 +16,7 @@ const SIXTYDAYS = 5184000000;
 const NINETYDAYS = 7776000000;
 
 function AdminAPIKeyModal() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [APIKeyDescription, setAPIKKeyDescription] = useState<string>("");
   const [required, setRequired] = useState(false);
