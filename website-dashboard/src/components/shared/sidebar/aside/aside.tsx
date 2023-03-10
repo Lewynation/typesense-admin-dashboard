@@ -47,8 +47,8 @@ function Aside() {
         <SectionHeader title="OTHERS" />
       </div>
       <div className="">
-        <MoonIcon className="border-2 w-10 h-10 rounded-full p-2 cursor-pointer mb-4" />
-        <div className="font-lato flex items-center justify-center -ml-8 font-bold text-sm mb-2">
+        <MoonIcon className="border-2 w-10 h-10 rounded-full p-2 cursor-pointer mb-4 dark:border-gray-600 dark:text-gray-300" />
+        <div className="font-lato flex items-center justify-center -ml-8 font-bold text-sm mb-2 dark:text-gray-300">
           Ocluse
         </div>
       </div>

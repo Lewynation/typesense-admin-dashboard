@@ -18,7 +18,7 @@ function CurationsListTile({
   const className = clsx("font-lato text-sm ");
   const classNameFlex = clsx("flex items-center justify-center");
   return (
-    <div className="grid grid-cols-5 gap-4 px-3 border-b-2 py-2 ">
+    <div className="grid grid-cols-5 gap-4 px-3 border-b-2 py-2 dark:text-gray-300 dark:border-gray-600">
       <div>
         <p className={className}>{curationQuery}</p>
       </div>

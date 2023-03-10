@@ -2,7 +2,7 @@ function AliasesListTitle() {
   const titles = ["Alias Name", "Collection Name", "Actions"];
 
   return (
-    <div className="grid grid-cols-3 gap-4 px-3 border-b-2 pb-1">
+    <div className="grid grid-cols-3 gap-4 px-3 border-b-2 pb-1 dark:border-gray-600">
       {titles.map((title) => {
         if (title === "Alias Name") {
           return (

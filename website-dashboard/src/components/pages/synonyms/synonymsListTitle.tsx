@@ -4,7 +4,7 @@ function SynonymsListTitle() {
   const titles = ["Id", "Type", "Root", "Synonyms", "Actions"];
 
   return (
-    <div className="grid grid-cols-5 gap-4 px-3 border-b-2 pb-1">
+    <div className="grid grid-cols-5 gap-4 px-3 border-b-2 pb-1 dark:border-gray-600">
       {titles.map((title) => {
         if (title === "Id") {
           return (

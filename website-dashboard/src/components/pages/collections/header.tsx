@@ -8,7 +8,9 @@ function Heading() {
 
   return (
     <div className="flex items-center justify-between px-4 py-4">
-      <p className="font-bold font-lato text-xl">Collections</p>
+      <p className="font-bold font-lato text-xl dark:text-gray-300">
+        Collections
+      </p>
       <Button text="Add Collection" onClick={onCLick} Icon={PlusIcon} />
     </div>
   );

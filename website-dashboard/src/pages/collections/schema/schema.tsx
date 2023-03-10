@@ -34,7 +34,7 @@ function Schema() {
           defaultValue={JSON.stringify(schema, null, 2)}
           onChange={onChange}
           loading={<Loading />}
-          theme="light"
+          theme="vs-dark" // light, vs-dark, hc-black
         />
       )}
     </div>

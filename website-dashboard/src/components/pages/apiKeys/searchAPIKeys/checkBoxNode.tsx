@@ -49,7 +49,7 @@ function CheckboxNode({
     return false;
   };
   return (
-    <li className="border-b-2 p-2">
+    <li className="border-b-2 p-2 dark:border-gray-600">
       <CheckboxParent
         label={parentLabel}
         description={parentDescription}

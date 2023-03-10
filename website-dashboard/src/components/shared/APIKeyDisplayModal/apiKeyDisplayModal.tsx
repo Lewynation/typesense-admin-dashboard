@@ -8,17 +8,19 @@ interface Props {
 function ApiKeyDisplayModal({ apiKey, onClick }: Props) {
   return (
     <ModalBackground>
-      <div className="bg-white rounded-md p-4 ">
-        <h1 className="font-bold font-lato text-xl mb-2">Your API Key</h1>
-        <p className="font-lato text-base ">
+      <div className="bg-white rounded-md p-4 dark:bg-[#0d1117]">
+        <h1 className="font-bold font-lato text-xl mb-2 dark:text-gray-300">
+          Your API Key
+        </h1>
+        <p className="font-lato text-base dark:text-gray-400">
           This is your API key. Copy it as it will not be displayed again!
         </p>
-        <p className="font-lato font-bold">{apiKey}</p>
+        <p className="font-lato font-bold dark:text-gray-300">{apiKey}</p>
         <div className="flex justify-between">
           <div />
           <button
             type="button"
-            className="my-3 text-xl mx-2 outline-none font-lato font-bold"
+            className="my-3 text-xl mx-2 outline-none font-lato font-bold dark:text-gray-400"
             onClick={onClick}
           >
             OK

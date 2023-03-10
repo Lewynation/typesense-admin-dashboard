@@ -43,19 +43,24 @@ function AddCurationsModal() {
 
   return (
     <ModalBackground>
-      <div className="bg-white rounded-md p-4 w-3/5 h-[510px]">
+      <div className="bg-white rounded-md p-4 w-3/5 h-[510px] dark:bg-[#0d1117]">
         <div className="flex justify-between items-center mb-1">
           <div className="flex gap-1 items-start">
-            <p className="font-bold font-lato text-lg">Add Curation</p>
+            <p className="font-bold font-lato text-lg dark:text-gray-300">
+              Add Curation
+            </p>
             <a
               href="https://typesense.org/docs/0.24.0/api/curation.html#create-or-update-an-override"
               target="_blank"
               rel="noreferrer"
             >
-              <Question className="w-3 h-3 cursor-pointer" />
+              <Question className="w-3 h-3 cursor-pointer dark:text-gray-300" />
             </a>
           </div>
-          <Cancel className="cursor-pointer w-7 h-7" onClick={closeModal} />
+          <Cancel
+            className="cursor-pointer w-7 h-7 dark:text-gray-300"
+            onClick={closeModal}
+          />
         </div>
         <p className="mb-2 font-lato text-gray-500">
           Using overrides, you can include or exclude specific documents for a
@@ -63,7 +68,7 @@ function AddCurationsModal() {
         </p>
         <input
           type="text"
-          className="outline-none rounded-md border-2 p-1 w-full mb-2 font-lato text-gray-500"
+          className="outline-none rounded-md border-2 p-1 w-full mb-2 font-lato text-gray-500 dark:bg-[#010409] dark:border-gray-600"
           placeholder="Give the curation a name (required)"
         />
         <Editor
@@ -72,7 +77,7 @@ function AddCurationsModal() {
           defaultValue={JSON.stringify(schema, null, 2)}
           onChange={onChange}
           loading={<Loading />}
-          theme="light"
+          theme="vs-dark"
         />
         <div className="flex justify-between my-3">
           <div />

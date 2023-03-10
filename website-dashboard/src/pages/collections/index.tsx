@@ -27,10 +27,12 @@ function Index() {
       <div className="flex justify-between">
         <h1 className="text-xl font-bold font-lato mb-3">
           <Link to="/collections">
-            <span className="text-gray-400">{" Collection "}</span>
+            <span className="text-gray-400 dark:text-gray-300">
+              {" Collection "}
+            </span>
           </Link>
           <span className="text-gray-400">{"  >  "}</span>
-          <span>{collectionName}</span>
+          <span className="dark:text-gray-400">{collectionName}</span>
         </h1>
         <Button
           onClick={deleteCollection}
