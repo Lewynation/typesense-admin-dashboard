@@ -13,7 +13,11 @@ function Hit({ hit }: Props) {
     </div>
   );
 }
-
+//  host: string;
+//   port: number;
+//   protocol: string;
+//   path?: string;
+//   url?: string;
 function Query() {
   const { collectionName } = useParams();
   console.log(collectionName);
@@ -22,7 +26,7 @@ function Query() {
       apiKey: "abc",
       nodes: [
         {
-          port: "8108",
+          port: 8108,
           path: "",
           host: "localhost",
           protocol: "http",
@@ -30,7 +34,7 @@ function Query() {
       ],
     },
     additionalSearchParameters: {
-      queryBy: "title,authors",
+      query_by: "title,authors",
       queryByWeights: "title=10, authors=2",
     },
   });
