@@ -50,7 +50,7 @@ jobs:
         with:
           # Upload dist repository
           name: production-files
-          path: ./website-dashboard/dist
+          path: ./dist
           if-no-files-found: error
       - name: Deploy to GitHub Pages
         id: deployment
