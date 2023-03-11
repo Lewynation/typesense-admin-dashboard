@@ -8,12 +8,12 @@ interface Props {
 
 function SingleAction({ title, description, link }: Props) {
   return (
-    <div className="w-full border-t-2 mt-3 flex items-center gap-10">
+    <div className="w-full border-t-2 mt-3 flex items-center gap-10 dark:border-gray-600">
       <div>
         <div className="flex gap-1 items-start my-2">
           <p className="font-lato font-bold text-gray-600">{title}</p>
           <a href={link} target="_blank" rel="noreferrer">
-            <Question className="w-3 h-3 cursor-pointer" />
+            <Question className="w-3 h-3 cursor-pointer dark:text-gray-400" />
           </a>
         </div>
         <p className="w-96 text-sm font-lato text-gray-400">{description}</p>
@@ -26,7 +26,7 @@ function SingleAction({ title, description, link }: Props) {
 function Actions() {
   return (
     <div className="w-full">
-      <h2 className="font-lato font-bold mt-1">Actions</h2>
+      <h2 className="font-lato font-bold mt-1 dark:text-gray-400">Actions</h2>
       <SingleAction
         title="Create new"
         description="Creates a new document. Fails if a document with the same id already exists"

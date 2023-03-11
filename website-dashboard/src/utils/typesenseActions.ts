@@ -1,5 +1,6 @@
 import Typesense, { Client } from "typesense";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import { HealthResponse } from "typesense/lib/Typesense/Health";
 import { KeyCreateSchema, KeySchema } from "typesense/lib/Typesense/Key";
 import { KeysRetrieveSchema } from "typesense/lib/Typesense/Keys";
 import { OverridesRetrieveSchema } from "typesense/lib/Typesense/Overrides";
@@ -14,6 +15,8 @@ interface ITypesenseActions {
   getAPIKeys(): Promise<KeysRetrieveSchema>;
 
   createAPIKey(keySchema: KeyCreateSchema): Promise<KeySchema>;
+
+  getHealth(): Promise<HealthResponse>;
 }
 
 export default class TypesenseActions implements ITypesenseActions {
@@ -31,6 +34,10 @@ export default class TypesenseActions implements ITypesenseActions {
       apiKey: "abc",
       connectionTimeoutSeconds: 2,
     });
+  }
+
+  getHealth(): Promise<HealthResponse> {
+    return this.client.health.retrieve();
   }
 
   createAPIKey(keySchema: KeyCreateSchema): Promise<KeySchema> {

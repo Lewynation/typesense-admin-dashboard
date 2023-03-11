@@ -32,7 +32,7 @@ function CollectionListTiles({
     <div
       role="none"
       onClick={navigateToCollection}
-      className="grid grid-cols-4 gap-4 px-3 border-b-2 py-2 hover:bg-[#f1f0fe] cursor-pointer"
+      className="grid grid-cols-4 gap-4 px-3 border-b-2 py-2 hover:bg-[#f1f0fe] cursor-pointer hover:dark:bg-[#21262c] dark:border-gray-600 dark:text-gray-300"
     >
       <div>
         <p className={className}>{collectionName}</p>

@@ -12,8 +12,8 @@ function NavigationLink({ linkName, Icon, link }: Props) {
       to={link}
       className={(navData) =>
         navData.isActive
-          ? "flex items-center px-2 p-1 my-2 font-bold bg-[#f1f0fe] cursor-pointer rounded-md"
-          : "flex items-center px-2 p-1 my-2 hover:bg-[#f1f0fe] cursor-pointer rounded-md"
+          ? "flex items-center px-2 p-1 my-2 font-bold bg-[#f1f0fe] cursor-pointer rounded-md dark:bg-[#21262c] dark:text-gray-300"
+          : "flex items-center px-2 p-1 my-2 dark:text-gray-300 hover:bg-[#f1f0fe] cursor-pointer rounded-md hover:dark:bg-[#21262c]"
       }
     >
       <div className="flex items-center ">

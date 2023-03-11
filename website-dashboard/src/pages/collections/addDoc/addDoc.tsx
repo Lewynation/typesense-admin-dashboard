@@ -29,7 +29,7 @@ function AddDoc() {
             defaultValue={JSON.stringify(schema, null, 2)}
             onChange={onChange}
             loading={<Loading />}
-            theme="light"
+            theme="vs-dark"
           />
           <Actions />
           <div className="flex justify-between my-5 mx-8">

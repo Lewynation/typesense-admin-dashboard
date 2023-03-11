@@ -11,38 +11,29 @@ export const getCollectionSchema = createAsyncThunk(
   }
 );
 
-export const getDocumentTemplate = createAsyncThunk(
-  "typesense/getDocumentTemplate",
-  async (collectionName: string) => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
-    const response = await typesenseAPI.getCollectionSchema(collectionName);
-    return response;
-  }
-);
-
-export const getCollections = createAsyncThunk(
-  "typesense/getCollections",
-  async () => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
-    const response = await typesenseAPI.getCollections();
-    return response;
-  }
-);
-
-export const getCurations = createAsyncThunk(
-  "typesense/getCurations",
-  async (collectionName: string) => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
-    const response = await typesenseAPI.getCurations(collectionName);
-    return response;
-  }
-);
-
 export const createAPIKey = createAsyncThunk(
   "typesense/createAPIKey",
   async (keySchema: KeyCreateSchema) => {
     const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
     const response = await typesenseAPI.createAPIKey(keySchema);
+    return response;
+  }
+);
+
+export const createSearchOnlyAPIKey = createAsyncThunk(
+  "typesense/createSearchOnlyAPIKey",
+  async (keySchema: KeyCreateSchema) => {
+    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
+    const response = await typesenseAPI.createAPIKey(keySchema);
+    return response;
+  }
+);
+
+export const confirmHealth = createAsyncThunk(
+  "typesense/confirmHealth",
+  async () => {
+    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
+    const response = await typesenseAPI.getHealth();
     return response;
   }
 );

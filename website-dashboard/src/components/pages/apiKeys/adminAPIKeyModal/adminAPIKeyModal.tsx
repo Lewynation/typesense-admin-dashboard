@@ -1,5 +1,4 @@
 import Editor from "@monaco-editor/react";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import date from "date-and-time";
 import Button from "../../../shared/button/button";
@@ -9,28 +8,29 @@ import { ReactComponent as Key } from "./svgs/key.svg";
 import { ReactComponent as Cancel } from "./svgs/cancel.svg";
 import { openAdminAPIKeyModal } from "../../../../redux/slices/modalSlice/modalSlice";
 import { createAPIKey } from "../../../../redux/slices/typesenseSlice/asyncThunks";
-
-const SEVENDAYS = 604800000;
-const THIRTYDAYS = 2592000000;
-const SIXTYDAYS = 5184000000;
-const NINETYDAYS = 7776000000;
+import { useAppDispatch } from "../../../../redux/store/store";
+import handleExpiryDate from "../utils/handleExpiryDate";
+import * as epochTime from "../../../../constants/epochTime";
 
 function AdminAPIKeyModal() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [APIKeyDescription, setAPIKKeyDescription] = useState<string>("");
   const [required, setRequired] = useState(false);
-  const [epochDate, setEpochDate] = useState<number>(Date.now() + 604800000);
+  const [epochDate, setEpochDate] = useState<number>(
+    Date.now() + epochTime.SEVENDAYS
+  );
   const [schema, setSchema] = useState({
     description: APIKeyDescription,
     actions: ["*"],
     collections: ["*"],
-    expires_at: epochDate === 1 ? 64723363199 : Math.round(epochDate / 1000),
+    expires_at:
+      epochDate === 1 ? epochTime.NEVER : Math.round(epochDate / 1000),
   });
 
-  const onChange = (value: any, event: any) => {
-    console.log(value);
-  };
+  // const onChange = (value: any, event: any) => {
+  //   console.log(value);
+  // };
 
   const generateAPIKey = () => {
     if (APIKeyDescription === "") {
@@ -52,28 +52,9 @@ function AdminAPIKeyModal() {
       description: event.currentTarget.value,
       actions: ["*"],
       collections: ["*"],
-      expires_at: epochDate === 1 ? 64723363199 : Math.round(epochDate / 1000),
+      expires_at:
+        epochDate === 1 ? epochTime.NEVER : Math.round(epochDate / 1000),
     });
-  };
-
-  const handleExpiryDate = (event: React.FormEvent<HTMLSelectElement>) => {
-    switch (event.currentTarget.value) {
-      case "7 days":
-        setEpochDate(Date.now() + SEVENDAYS);
-        break;
-      case "30 days":
-        setEpochDate(Date.now() + THIRTYDAYS);
-        break;
-      case "60 days":
-        setEpochDate(Date.now() + SIXTYDAYS);
-        break;
-      case "90 days":
-        setEpochDate(Date.now() + NINETYDAYS);
-        break;
-      default:
-        setEpochDate(1);
-        break;
-    }
   };
 
   const formatDate = (unformatedDate: number) => {
@@ -83,14 +64,17 @@ function AdminAPIKeyModal() {
 
   return (
     <ModalBackground>
-      <div className="fixed top-0 right-0 bottom-0 w-96 bg-white z-10 py-3 px-4">
+      <div className="fixed top-0 right-0 bottom-0 w-96 bg-white z-10 py-3 px-4 dark:bg-[#0d1117]">
         <div className="flex justify-between">
-          <p className="font-bold font-lato text-lg mb-4">
+          <p className="font-bold font-lato text-lg mb-4 dark:text-gray-300">
             Generate Admin API Key
           </p>
-          <Cancel className="cursor-pointer w-7 h-7" onClick={closeModal} />
+          <Cancel
+            className="cursor-pointer w-7 h-7 dark:text-gray-300"
+            onClick={closeModal}
+          />
         </div>
-        <p className="font-lato font-bold text-sm pb-2">
+        <p className="font-lato font-bold text-sm pb-2 dark:text-gray-400">
           {" "}
           Description <span className="text-red-700">*</span>
         </p>
@@ -100,19 +84,19 @@ function AdminAPIKeyModal() {
           value={APIKeyDescription}
           className={`outline-none rounded-md ${
             required ? "border-2 border-red-600" : "border-2"
-          } p-1 w-full mb-4 font-lato text-gray-500`}
+          } p-1 w-full mb-4 font-lato text-gray-500  dark:bg-[#010409] dark:border-gray-600`}
           type="text"
           placeholder="Enter API Key description (Required)"
         />
-        <p className="font-lato font-bold text-sm pb-2">
+        <p className="font-lato font-bold text-sm pb-2 dark:text-gray-400">
           Expiration <span className="text-red-700">*</span>
         </p>
         <div className="flex gap-2 mb-4 items-center">
           <select
             name="expiry"
             id="expiry"
-            className="outline-none rounded-md border-2 p-1 w-36 font-lato text-gray-500"
-            onChange={handleExpiryDate}
+            className="outline-none rounded-md border-2 p-1 w-36 font-lato text-gray-500  dark:bg-[#010409] dark:border-gray-600"
+            onChange={(event) => handleExpiryDate(event, setEpochDate)}
           >
             <option value="7 days">7 days</option>
             <option value="30 days">30 days</option>
@@ -120,7 +104,7 @@ function AdminAPIKeyModal() {
             <option value="90 days">90 days</option>
             <option value="No expiration">No expiration</option>
           </select>
-          <p className="text-sm font-lato">
+          <p className="text-sm font-lato dark:text-gray-400">
             Expires on:{" "}
             {epochDate === 1
               ? "Never"
@@ -131,9 +115,9 @@ function AdminAPIKeyModal() {
           height="200px"
           defaultLanguage="json"
           defaultValue={JSON.stringify(schema, null, 2)}
-          onChange={onChange}
+          // onChange={onChange}
           loading={<Loading />}
-          theme="light"
+          theme="vs-dark"
         />
         <div className="mt-3 flex justify-between">
           <div />
