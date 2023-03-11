@@ -57,6 +57,7 @@ function App() {
         </Route>
       </Route>
       <Route path="/login" element={<Login />} />
+      <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );
 }
