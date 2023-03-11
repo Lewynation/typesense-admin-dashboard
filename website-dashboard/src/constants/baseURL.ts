@@ -1,4 +1,4 @@
-const USEGITHUBPAGES = true;
+const USEGITHUBPAGES = false;
 
 const BASEPATH = USEGITHUBPAGES ? "/typesense-admin-dashboard" : "";
 
