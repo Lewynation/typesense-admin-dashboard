@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { OverrideRuleQuerySchema } from "typesense/lib/Typesense/Overrides";
 import SecondaryButton from "../../../components/shared/secondaryButton/secondaryButton";
 import { openCurationsModal } from "../../../redux/slices/modalSlice/modalSlice";
 import CurationsListTile from "../../../components/pages/curations/curationsListTile";
@@ -16,6 +17,26 @@ function Curations() {
   };
   const { curations, loading, error } = useFetchCurations(collectionName || "");
 
+  const getQuery = (
+    query: OverrideRuleQuerySchema,
+    requestParam: "query" | "match"
+  ) => {
+    interface OverrideSchemaRefresh extends OverrideRuleQuerySchema {
+      query: string;
+      match: "exact" | "contains";
+    }
+    const override = query as OverrideSchemaRefresh;
+
+    switch (requestParam) {
+      case "query":
+        return override.query;
+      case "match":
+        return override.match;
+      default:
+        return "";
+    }
+  };
+
   return (
     <>
       <div className="">
@@ -31,8 +52,15 @@ function Curations() {
           return (
             <CurationsListTile
               key={override.id}
-              curationQuery={override.rule.query}
-              curationMatchType={override.rule.match}
+              curationQuery={getQuery(
+                override.rule as OverrideRuleQuerySchema,
+                "query"
+              )}
+              // curationMatchType={override.rule.match}
+              curationMatchType={getQuery(
+                override.rule as OverrideRuleQuerySchema,
+                "match"
+              )}
               curationIncudes={override.includes?.length || 0}
               curationExcludes={override.excludes?.length || 0}
             />

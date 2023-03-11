@@ -8,8 +8,12 @@ const fetchAPIKeys = async () => {
   return apiKeys.keys;
 };
 
+interface KeyShemaRefresh extends KeySchema {
+  value_prefix: string;
+}
+
 const useAPIKeys = () => {
-  const [apiKeys, setApiKeys] = useState<KeySchema[]>([]);
+  const [apiKeys, setApiKeys] = useState<KeyShemaRefresh[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -17,7 +21,7 @@ const useAPIKeys = () => {
     setLoading(true);
     fetchAPIKeys()
       .then((keys) => {
-        setApiKeys(keys);
+        setApiKeys(keys as KeyShemaRefresh[]);
       })
       .catch((err) => {
         setError(err);

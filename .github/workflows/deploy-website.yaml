@@ -30,7 +30,7 @@ jobs:
       #     working-directory: ./website-dashboard
 
       - name: Install Dependencies
-        run: cd ./website-dashboard && npm pkg delete scripts.prepare && npm ci --omit=dev
+        run: cd ./website-dashboard && npm pkg delete scripts.prepare && npm ci
 
       - name: Build project
         run: cd ./website-dashboard && npm run build
