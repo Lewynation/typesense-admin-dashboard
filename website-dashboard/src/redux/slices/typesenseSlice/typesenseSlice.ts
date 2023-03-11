@@ -15,6 +15,7 @@ interface IInitialState {
   keysReturned: boolean;
   searchKeysReturned: boolean;
   searchAPIKeys: KeySchema;
+  healthy: boolean;
 }
 
 const initialState: IInitialState = {
@@ -26,6 +27,7 @@ const initialState: IInitialState = {
   keysReturned: false,
   searchAPIKeys: {} as KeySchema,
   searchKeysReturned: false,
+  healthy: false,
 };
 
 const typesenseSlice = createSlice({
@@ -62,6 +64,10 @@ const typesenseSlice = createSlice({
         state.searchAPIKeys = action.payload;
       }
     );
+    builder.addCase(Thunks.confirmHealth.fulfilled, (state, action) => {
+      console.log("TypesenseSlice", action.payload);
+      state.healthy = action.payload.ok;
+    });
   },
 });
 

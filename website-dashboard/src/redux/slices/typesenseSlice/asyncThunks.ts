@@ -28,3 +28,12 @@ export const createSearchOnlyAPIKey = createAsyncThunk(
     return response;
   }
 );
+
+export const confirmHealth = createAsyncThunk(
+  "typesense/confirmHealth",
+  async () => {
+    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
+    const response = await typesenseAPI.getHealth();
+    return response;
+  }
+);
