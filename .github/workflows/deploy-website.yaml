@@ -14,9 +14,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./website-dashboard
 
     steps:
       - name: Checkout repo
@@ -32,12 +29,10 @@ jobs:
       #   with:
       #     working-directory: ./website-dashboard
       - name: Install Dependencies
-        run: npm ci
-        working-directory: ./website-dashboard
+        run: cd ./website-dashboard && npm ci
 
       - name: Build project
-        run: npm run build
-        working-directory: ./website-dashboard
+        run: cd ./website-dashboard && npm run build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
