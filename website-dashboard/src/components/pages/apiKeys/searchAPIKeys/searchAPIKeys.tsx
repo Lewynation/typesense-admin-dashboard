@@ -13,6 +13,7 @@ import {
 import { createSearchOnlyAPIKey } from "../../../../redux/slices/typesenseSlice/asyncThunks";
 import { generateKeySchema, validate } from "./utils/searchAPIKeyUtils";
 import SearchAPIKeysDataCollection from "./dataCollection/dataCollection";
+import BASEPATH from "../../../../constants/baseURL";
 
 function SearchAPIKeys() {
   const [invalid, setInvalid] = useState(false);
@@ -57,7 +58,7 @@ function SearchAPIKeys() {
     }
     dispatch(createSearchOnlyAPIKey(keySchema)).unwrap();
     setLoading(false);
-    navigate("/api-keys");
+    navigate(`${BASEPATH}/api-keys`);
   };
 
   return (
@@ -80,7 +81,7 @@ function SearchAPIKeys() {
           <button
             type="button"
             onClick={() => {
-              navigate("/api-keys");
+              navigate(`${BASEPATH}/api-keys`);
             }}
             className="outline-none text-blue-500 font-bold font-lato cursor-pointer"
           >

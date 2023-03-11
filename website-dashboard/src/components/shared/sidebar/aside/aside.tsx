@@ -5,27 +5,28 @@ import { ReactComponent as APIKeyIcon } from "./svgs/key.svg";
 import { ReactComponent as AliasesIcon } from "./svgs/alias.svg";
 import SectionHeader from "../sectionHeader/sectionHeader";
 import { ReactComponent as MoonIcon } from "./svgs/moon.svg";
+import BASEPATH from "../../../../constants/baseURL";
 
 const links = [
   {
     name: "Server Stats",
     svg: ServerStatsIcon,
-    link: "/",
+    link: `${BASEPATH}/`,
   },
   {
     name: "Collections",
     svg: CollectionIcon,
-    link: "/collections",
+    link: `${BASEPATH}/collections`,
   },
   {
     name: "Api Keys",
     svg: APIKeyIcon,
-    link: "/api-keys",
+    link: `${BASEPATH}/api-keys`,
   },
   {
     name: "Aliases",
     svg: AliasesIcon,
-    link: "/aliases",
+    link: `${BASEPATH}/aliases`,
   },
 ];
 

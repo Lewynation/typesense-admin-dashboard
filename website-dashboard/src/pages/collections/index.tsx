@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import Button from "../../components/shared/button/button";
 import { ReactComponent as DeleteIcon } from "./svgs/trash.svg";
+import BASEPATH from "../../constants/baseURL";
 
 interface IndexNav {
   queryString: string;
@@ -26,7 +27,7 @@ function Index() {
     <div className="w-full h-full p-5">
       <div className="flex justify-between">
         <h1 className="text-xl font-bold font-lato mb-3">
-          <Link to="/collections">
+          <Link to={`${BASEPATH}/collections`}>
             <span className="text-gray-400 dark:text-gray-300">
               {" Collection "}
             </span>
@@ -45,7 +46,7 @@ function Index() {
           return (
             <div key={nav.queryString} className="mb-3 font-bold font-lato">
               <NavLink
-                to={`/collections/${collectionName}/${nav.queryString}`}
+                to={`${BASEPATH}/collections/${collectionName}/${nav.queryString}`}
                 className={(navData) =>
                   navData.isActive
                     ? "text-[#4c3ded] underline underline-offset-8"

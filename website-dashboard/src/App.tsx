@@ -13,50 +13,54 @@ import Synonyms from "./pages/collections/synonyms/synonyms";
 import Login from "./pages/login/login";
 import ServerStats from "./pages/serverStats/serverStats";
 import PrivateRoutes from "./privateRoutes";
+import BASEPATH from "./constants/baseURL";
 
 function App() {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route path="/" element={<Home />}>
+        <Route path={`${BASEPATH}/`} element={<Home />}>
           <Route index element={<ServerStats />} />
-          <Route path="/collections" element={<Collections />}>
+          <Route path={`${BASEPATH}/collections`} element={<Collections />}>
             <Route index element={<CollectionIndex />} />
-            <Route path="/collections/:collectionName/" element={<Index />}>
+            <Route
+              path={`${BASEPATH}/collections/:collectionName/`}
+              element={<Index />}
+            >
               <Route
                 index
-                path="/collections/:collectionName/query"
+                path={`${BASEPATH}/collections/:collectionName/query`}
                 element={<Query />}
               />
               <Route
-                path="/collections/:collectionName/schema"
+                path={`${BASEPATH}/collections/:collectionName/schema`}
                 element={<Schema />}
               />
               <Route
-                path="/collections/:collectionName/curations"
+                path={`${BASEPATH}/collections/:collectionName/curations`}
                 element={<Curations />}
               />
               <Route
-                path="/collections/:collectionName/add-doc"
+                path={`${BASEPATH}/collections/:collectionName/add-doc`}
                 element={<AddDoc />}
               />
               <Route
-                path="/collections/:collectionName/synonyms"
+                path={`${BASEPATH}/collections/:collectionName/synonyms`}
                 element={<Synonyms />}
               />
             </Route>
           </Route>
-          <Route path="/api-keys" element={<ApiKeys />}>
+          <Route path={`${BASEPATH}/api-keys`} element={<ApiKeys />}>
             <Route index element={<ApiKeysIndex />} />
             <Route
-              path="/api-keys/search-api-key"
+              path={`${BASEPATH}/api-keys/search-api-key`}
               element={<SearchAPIKeys />}
             />
           </Route>
-          <Route path="/aliases" element={<Aliases />} />
+          <Route path={`${BASEPATH}/aliases`} element={<Aliases />} />
         </Route>
       </Route>
-      <Route path="/login" element={<Login />} />
+      <Route path={`${BASEPATH}/login`} element={<Login />} />
       <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import date from "date-and-time";
+import BASEPATH from "../../../constants/baseURL";
 
 interface Props {
   collectionName: string;
@@ -20,7 +21,7 @@ function CollectionListTiles({
   const navigate = useNavigate();
 
   const navigateToCollection = (): void => {
-    navigate(`/collections/${collectionName}/query`);
+    navigate(`${BASEPATH}/collections/${collectionName}/query`);
   };
 
   const formatDate = (unformatedDate: number) => {

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { openAdminAPIKeyModal } from "../../../redux/slices/modalSlice/modalSlice";
 import Button from "../../shared/button/button";
 import { ReactComponent as PlusIcon } from "./svgs/plus.svg";
+import BASEPATH from "../../../constants/baseURL";
 
 function ApiKeyHeading() {
   const [show, setShow] = React.useState(false);
@@ -32,7 +33,7 @@ function ApiKeyHeading() {
     dispatch(openAdminAPIKeyModal());
   };
   const generateSearchAPIKey = () => {
-    navigate("/api-keys/search-api-key");
+    navigate(`${BASEPATH}/api-keys/search-api-key`);
   };
   return (
     <div className="flex items-center justify-between px-4 py-4">

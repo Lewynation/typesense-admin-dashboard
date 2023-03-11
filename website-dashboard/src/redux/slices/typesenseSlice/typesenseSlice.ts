@@ -27,7 +27,7 @@ const initialState: IInitialState = {
   keysReturned: false,
   searchAPIKeys: {} as KeySchema,
   searchKeysReturned: false,
-  healthy: false,
+  healthy: true,
 };
 
 const typesenseSlice = createSlice({
