@@ -28,10 +28,13 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        uses:
+        with:
+          working-directory: ./website-dashboard
 
       - name: Build project
         run: npm run build
+        working-directory: ./website-dashboard
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
@@ -58,5 +61,5 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.DEPLOYMENT_TOKEN }}
           publish_dir: ./dist
