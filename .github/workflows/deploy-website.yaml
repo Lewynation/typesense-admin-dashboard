@@ -27,10 +27,13 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          working-directory: ./website-dashboard
+      # - name: Install dependencies
+      #   uses: bahmutov/npm-install@v1
+      #   with:
+      #     working-directory: ./website-dashboard
+      - name: Install Dependencies
+        run: npm ci
+        working-directory: ./website-dashboard
 
       - name: Build project
         run: npm run build
