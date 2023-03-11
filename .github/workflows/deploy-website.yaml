@@ -28,8 +28,9 @@ jobs:
       #   uses: bahmutov/npm-install@v1
       #   with:
       #     working-directory: ./website-dashboard
+
       - name: Install Dependencies
-        run: cd ./website-dashboard && npm ci
+        run: cd ./website-dashboard && npm pkg delete scripts.prepare && npm ci --omit=dev
 
       - name: Build project
         run: cd ./website-dashboard && npm run build
