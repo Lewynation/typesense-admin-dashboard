@@ -20,26 +20,34 @@ import { confirmHealth } from "./redux/slices/typesenseSlice/asyncThunks";
 import STORAGEKEY from "./constants/localStorage";
 import { ITypesenseAuthData } from "./utils/typesenseActions";
 import { setAPILoginCredentials } from "./redux/slices/loginSlice/loginSlice";
+import DEFAULTCREDS from "./constants/defaultCreds";
 
 function App() {
-  const { healthy } = useAppSelector((state) => state.typesense);
   const dispatch = useAppDispatch();
+
+  const { healthy } = useAppSelector((state) => state.typesense);
+  const [credentials, setCredentials] = useLocalStorage(STORAGEKEY, "");
   const { apiKey, host, path, port, protocol } = useAppSelector(
     (state) => state.login
   );
-  const [credentials, setCredentials] = useLocalStorage(STORAGEKEY, "");
 
   useEffect(() => {
     let creds: ITypesenseAuthData | null = null;
     if (credentials) {
-      creds = JSON.parse(credentials);
+      try {
+        creds = JSON.parse(credentials);
+      } catch (error) {
+        localStorage.removeItem(STORAGEKEY);
+        dispatch(setAPILoginCredentials(DEFAULTCREDS));
+        dispatch(confirmHealth(DEFAULTCREDS));
+      }
     }
-
     if (creds) {
       dispatch(setAPILoginCredentials(creds));
       dispatch(confirmHealth(creds)).unwrap();
     }
   }, [dispatch, apiKey, host, path, port, protocol, credentials]);
+
   return (
     <Routes>
       {healthy && (
@@ -85,8 +93,6 @@ function App() {
           <Route path="*" element={<Navigate to={`${BASEPATH}/`} />} />
         </Route>
       )}
-      {/* <Route path={`${BASEPATH}/login`} element={<Login />} /> */}
-
       <Route path="*" element={<Login />} />
     </Routes>
   );

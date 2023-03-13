@@ -1,3 +1,4 @@
+import DEFAULTCREDS from "../../../constants/defaultCreds";
 import STORAGEKEY from "../../../constants/localStorage";
 import { setAPILoginCredentials } from "../../../redux/slices/loginSlice/loginSlice";
 import { confirmHealth } from "../../../redux/slices/typesenseSlice/asyncThunks";
@@ -19,15 +20,8 @@ function Connection() {
   const dispatch = useAppDispatch();
   const logout = () => {
     localStorage.removeItem(STORAGEKEY);
-    const creds = {
-      apiKey: "",
-      host: "",
-      path: "",
-      port: 8108,
-      protocol: "http",
-    };
-    dispatch(setAPILoginCredentials(creds));
-    dispatch(confirmHealth(creds));
+    dispatch(setAPILoginCredentials(DEFAULTCREDS));
+    dispatch(confirmHealth(DEFAULTCREDS));
   };
   return (
     <div className="flex flex-row items-center">

@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
+import DEFAULTCREDS from "../../../constants/defaultCreds";
 
 interface IInitialState {
   apiKey: string;
@@ -10,11 +11,11 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  apiKey: "",
-  protocol: "http",
-  host: "",
-  port: 8108,
-  path: "",
+  apiKey: DEFAULTCREDS.apiKey,
+  protocol: DEFAULTCREDS.protocol,
+  host: DEFAULTCREDS.host,
+  port: DEFAULTCREDS.port,
+  path: DEFAULTCREDS.path,
 };
 
 const loginSlice = createSlice({

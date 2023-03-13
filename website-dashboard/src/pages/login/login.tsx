@@ -1,53 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "use-local-storage";
+import DEFAULTCREDS from "../../constants/defaultCreds";
 import STORAGEKEY from "../../constants/localStorage";
-
 import { setAPILoginCredentials } from "../../redux/slices/loginSlice/loginSlice";
 import { confirmHealth } from "../../redux/slices/typesenseSlice/asyncThunks";
 import { useAppDispatch } from "../../redux/store/store";
 import logo from "./images/logo.png";
-
-interface Props {
-  placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  textElement?: string;
-  errorText?: string;
-}
-
-function LoginInput({ placeholder, onChange, textElement, errorText }: Props) {
-  return (
-    <div className="w-full py-1">
-      <input
-        type="text"
-        className="outline-none rounded-sm border-b-[1px] px-2 py-2 w-full font-lato text-gray-200 bg-transparent border-gray-600"
-        placeholder={placeholder}
-        onChange={onChange}
-      />
-      {textElement && (
-        <p className="text-gray-500 text-xs pl-2">{textElement}</p>
-      )}
-      {errorText && <p className="text-red-500 text-xs pl-2">{errorText}</p>}
-    </div>
-  );
-}
-
-LoginInput.defaultProps = {
-  textElement: null,
-  errorText: null,
-};
+import LoginInput from "./loginInput";
 
 function Login() {
   const navigate = useNavigate();
-  const [apiKey, setApiKey] = useState("");
-  const [host, setHost] = useState("");
-  const [path, setPath] = useState("");
-  const [port, setPort] = useState(8108);
-  const [protocol, setProtocol] = useState("http");
+  const dispatch = useAppDispatch();
+
+  const [apiKey, setApiKey] = useState(DEFAULTCREDS.apiKey);
+  const [host, setHost] = useState(DEFAULTCREDS.host);
+  const [path, setPath] = useState(DEFAULTCREDS.path);
+  const [port, setPort] = useState(DEFAULTCREDS.port);
+  const [protocol, setProtocol] = useState(DEFAULTCREDS.protocol);
   const [isNotNumber, setIsNotNumber] = useState(false);
   const [credentials, setCredentials] = useLocalStorage(STORAGEKEY, "");
-
-  const dispatch = useAppDispatch();
 
   const login = async () => {
     if (apiKey.length === 0) return;
@@ -59,10 +31,7 @@ function Login() {
       port,
       protocol,
     };
-
     setCredentials(JSON.stringify(creds));
-
-    // Save to local storage
     dispatch(setAPILoginCredentials(creds));
     await dispatch(confirmHealth(creds)).unwrap();
     navigate("/");
@@ -78,7 +47,6 @@ function Login() {
             Typesense Dashboard
           </h1>
         </div>
-
         <div className="w-full">
           <LoginInput
             placeholder="API key"
@@ -87,7 +55,6 @@ function Login() {
               setApiKey(e.target.value);
             }}
           />
-
           <div className="w-full py-1">
             <select
               name="expiry"
@@ -126,7 +93,6 @@ function Login() {
               setPath(e.target.value);
             }}
           />
-
           <div className="flex justify-center">
             <button
               type="button"
