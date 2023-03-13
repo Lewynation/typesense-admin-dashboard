@@ -26,6 +26,7 @@
     "react-spinners": "^0.13.8",
     "typesense": "^1.5.2",
     "typesense-instantsearch-adapter": "^2.5.1",
+    "use-local-storage": "^2.3.6",
     "vite-plugin-svgr": "^2.4.0"
   },
   "devDependencies": {

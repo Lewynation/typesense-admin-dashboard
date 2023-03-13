@@ -5,6 +5,7 @@ import modalSlice from "../slices/modalSlice/modalSlice";
 import searchCheckBoxes from "../slices/searchCheckBoxes/searchCheckBoxes";
 import searchAPIKeyActionsSlice from "../slices/searchAPIKeyActions/serachAPIKeyActions";
 import loginSlice from "../slices/loginSlice/loginSlice";
+import themeSlice from "../slices/theme/themeSlice";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ export const store = configureStore({
     searchCheckBoxes,
     searchAPIKeyActionsSlice,
     login: loginSlice,
+    theme: themeSlice,
   },
 });
 

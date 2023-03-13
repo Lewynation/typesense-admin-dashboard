@@ -49,24 +49,13 @@ const typesenseSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(Thunks.getCollectionSchema.fulfilled, (state, action) => {
-      state.collectionSchema = action.payload;
-    });
-    builder.addCase(Thunks.createAPIKey.fulfilled, (state, action) => {
-      state.keysReturned = true;
-
-      state.adminApiKeys = action.payload;
-    });
-    builder.addCase(
-      Thunks.createSearchOnlyAPIKey.fulfilled,
-      (state, action) => {
-        state.searchKeysReturned = true;
-        state.searchAPIKeys = action.payload;
-      }
-    );
     builder.addCase(Thunks.confirmHealth.fulfilled, (state, action) => {
-      console.log("TypesenseSlice", action.payload);
+      console.log("TypesenseSlice:fulfilled", action.payload);
       state.healthy = action.payload.ok;
+    });
+    builder.addCase(Thunks.confirmHealth.rejected, (state, action) => {
+      console.log("TypesenseSlice: rejected", action.payload);
+      state.healthy = false;
     });
   },
 });

@@ -6,12 +6,15 @@ import { useParams } from "react-router-dom";
 import Actions from "../../../components/pages/collections/addDoc/actions";
 import Button from "../../../components/shared/button/button";
 import Loading from "../../../components/shared/loading/loading";
+import { useAppSelector } from "../../../redux/store/store";
 import useAddDocs from "./hooks/useAddDoc";
 
 import { ReactComponent as AddDocument } from "./svgs/doc.svg";
 
 function AddDoc() {
   const { collectionName } = useParams();
+
+  const { theme } = useAppSelector((state) => state.theme);
 
   const { schema, error, loading } = useAddDocs(collectionName || "");
 
@@ -29,7 +32,7 @@ function AddDoc() {
             defaultValue={JSON.stringify(schema, null, 2)}
             onChange={onChange}
             loading={<Loading />}
-            theme="vs-dark"
+            theme={theme === "dark" ? "vs-dark" : "light"} // light, vs-dark, hc-black
           />
           <Actions />
           <div className="flex justify-between my-5 mx-8">

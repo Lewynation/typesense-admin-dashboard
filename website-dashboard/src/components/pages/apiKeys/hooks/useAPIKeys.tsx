@@ -1,9 +1,24 @@
 import { useEffect, useState } from "react";
 import { KeySchema } from "typesense/lib/Typesense/Key";
-import TypesenseActions from "../../../../utils/typesenseActions";
+import { useAppSelector } from "../../../../redux/store/store";
+import TypesenseActions, {
+  ITypesenseAuthData,
+} from "../../../../utils/typesenseActions";
 
-const fetchAPIKeys = async () => {
-  const typesense = new TypesenseActions();
+const fetchAPIKeys = async ({
+  apiKey,
+  host,
+  path,
+  port,
+  protocol,
+}: ITypesenseAuthData) => {
+  const typesense = new TypesenseActions({
+    apiKey,
+    host,
+    path,
+    port,
+    protocol,
+  });
   const apiKeys = await typesense.getAPIKeys();
   return apiKeys.keys;
 };
@@ -16,10 +31,13 @@ const useAPIKeys = () => {
   const [apiKeys, setApiKeys] = useState<KeyShemaRefresh[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { apiKey, host, path, port, protocol } = useAppSelector(
+    (state) => state.login
+  );
 
   useEffect(() => {
     setLoading(true);
-    fetchAPIKeys()
+    fetchAPIKeys({ apiKey, host, path, port, protocol })
       .then((keys) => {
         setApiKeys(keys as KeyShemaRefresh[]);
       })
@@ -29,7 +47,7 @@ const useAPIKeys = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [apiKey, host, path, port, protocol]);
 
   return { apiKeys, loading, error };
 };

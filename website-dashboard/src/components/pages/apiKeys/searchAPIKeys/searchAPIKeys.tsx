@@ -26,6 +26,9 @@ function SearchAPIKeys() {
   const { APIKeyDescription, expiryDate, collectionList } = useAppSelector(
     (state) => state.searchAPIKeyActionsSlice
   );
+  const { apiKey, host, path, port, protocol } = useAppSelector(
+    (state) => state.login
+  );
 
   const validateDescription = () => {
     dispatch(setRequired(true));
@@ -56,7 +59,12 @@ function SearchAPIKeys() {
       setLoading(false);
       return;
     }
-    dispatch(createSearchOnlyAPIKey(keySchema)).unwrap();
+    const authData = { apiKey, host, path, port, protocol };
+    const SearchOnlyAPIKeySchema = {
+      keySchema,
+      authData,
+    };
+    dispatch(createSearchOnlyAPIKey(SearchOnlyAPIKeySchema)).unwrap();
     setLoading(false);
     navigate(`${BASEPATH}/api-keys`);
   };

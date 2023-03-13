@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import clsx from "clsx";
 import { useDispatch } from "react-redux";
+import useLocalStorage from "use-local-storage";
+import { useEffect } from "react";
 import classes from "./sass/home.module.scss";
 import Aside from "../../components/shared/sidebar/aside/aside";
 import Header from "../../components/shared/navbar/header";
@@ -11,6 +13,7 @@ import AdminAPIKeyModal from "../../components/pages/apiKeys/adminAPIKeyModal/ad
 import AddAliasesModal from "../../components/pages/aliases/addAliasesModal/addAliasesModal";
 import ApiKeyDisplayModal from "../../components/shared/APIKeyDisplayModal/apiKeyDisplayModal";
 import { closeAPIKeyModal } from "../../redux/slices/typesenseSlice/typesenseSlice";
+import { changeTheme } from "../../redux/slices/theme/themeSlice";
 
 function Home() {
   const dispatch = useDispatch();
@@ -29,8 +32,22 @@ function Home() {
     dispatch(closeAPIKeyModal({ value: adminOrSearch }));
   };
 
+  const defaultDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const [systheme, setTheme] = useLocalStorage(
+    "theme",
+    defaultDark ? "dark" : "light"
+  );
+  const switchTheme = () => {
+    const newTheme = systheme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+  };
+
+  useEffect(() => {
+    dispatch(changeTheme(systheme));
+  }, [dispatch, systheme]);
+
   return (
-    <div className={clsx(classes.Home, "dark")}>
+    <div className={clsx(classes.Home, systheme)}>
       {keysReturned && (
         <ApiKeyDisplayModal
           apiKey={adminApiKeys.value || "No key"}
@@ -53,7 +70,7 @@ function Home() {
           "px-5 pt-3 border-r-2 border-[#e5e5e5] dark:border-gray-600 dark:bg-[#0d1117]"
         )}
       >
-        <Aside />
+        <Aside changTheme={switchTheme} theme={systheme} />
       </aside>
       <header
         className={clsx(

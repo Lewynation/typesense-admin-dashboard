@@ -1,4 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import useLocalStorage from "use-local-storage";
 import SearchAPIKeys from "./components/pages/apiKeys/searchAPIKeys/searchAPIKeys";
 import Home from "./layouts/home/home";
 import Aliases from "./pages/aliases/aliases";
@@ -12,13 +14,35 @@ import Schema from "./pages/collections/schema/schema";
 import Synonyms from "./pages/collections/synonyms/synonyms";
 import Login from "./pages/login/login";
 import ServerStats from "./pages/serverStats/serverStats";
-import PrivateRoutes from "./privateRoutes";
 import BASEPATH from "./constants/baseURL";
+import { useAppDispatch, useAppSelector } from "./redux/store/store";
+import { confirmHealth } from "./redux/slices/typesenseSlice/asyncThunks";
+import STORAGEKEY from "./constants/localStorage";
+import { ITypesenseAuthData } from "./utils/typesenseActions";
+import { setAPILoginCredentials } from "./redux/slices/loginSlice/loginSlice";
 
 function App() {
+  const { healthy } = useAppSelector((state) => state.typesense);
+  const dispatch = useAppDispatch();
+  const { apiKey, host, path, port, protocol } = useAppSelector(
+    (state) => state.login
+  );
+  const [credentials, setCredentials] = useLocalStorage(STORAGEKEY, "");
+
+  useEffect(() => {
+    let creds: ITypesenseAuthData | null = null;
+    if (credentials) {
+      creds = JSON.parse(credentials);
+    }
+
+    if (creds) {
+      dispatch(setAPILoginCredentials(creds));
+      dispatch(confirmHealth(creds)).unwrap();
+    }
+  }, [dispatch, apiKey, host, path, port, protocol, credentials]);
   return (
     <Routes>
-      <Route element={<PrivateRoutes />}>
+      {healthy && (
         <Route path={`${BASEPATH}/`} element={<Home />}>
           <Route index element={<ServerStats />} />
           <Route path={`${BASEPATH}/collections`} element={<Collections />}>
@@ -58,10 +82,12 @@ function App() {
             />
           </Route>
           <Route path={`${BASEPATH}/aliases`} element={<Aliases />} />
+          <Route path="*" element={<Navigate to={`${BASEPATH}/`} />} />
         </Route>
-      </Route>
-      <Route path={`${BASEPATH}/login`} element={<Login />} />
-      <Route path="*" element={<h1>404</h1>} />
+      )}
+      {/* <Route path={`${BASEPATH}/login`} element={<Login />} /> */}
+
+      <Route path="*" element={<Login />} />
     </Routes>
   );
 }

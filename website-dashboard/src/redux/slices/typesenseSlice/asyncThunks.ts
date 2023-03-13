@@ -1,29 +1,30 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { KeyCreateSchema } from "typesense/lib/Typesense/Key";
-import TypesenseActions from "../../../utils/typesenseActions";
+import TypesenseActions, {
+  ITypesenseAuthData,
+} from "../../../utils/typesenseActions";
 
-export const getCollectionSchema = createAsyncThunk(
-  "typesense/getCollectionSchema",
-  async (collectionName: string) => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
-    const response = await typesenseAPI.getCollectionSchema(collectionName);
-    return response;
-  }
-);
-
+interface ICreateAPIKey {
+  schema: KeyCreateSchema;
+  authData: ITypesenseAuthData;
+}
 export const createAPIKey = createAsyncThunk(
   "typesense/createAPIKey",
-  async (keySchema: KeyCreateSchema) => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
-    const response = await typesenseAPI.createAPIKey(keySchema);
+  async ({ schema, authData }: ICreateAPIKey) => {
+    const typesenseAPI = new TypesenseActions(authData); // Handle this more gracefully
+    const response = await typesenseAPI.createAPIKey(schema);
     return response;
   }
 );
 
+interface ICreateSearchOnlyAPIKey {
+  keySchema: KeyCreateSchema;
+  authData: ITypesenseAuthData;
+}
 export const createSearchOnlyAPIKey = createAsyncThunk(
   "typesense/createSearchOnlyAPIKey",
-  async (keySchema: KeyCreateSchema) => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
+  async ({ keySchema, authData }: ICreateSearchOnlyAPIKey) => {
+    const typesenseAPI = new TypesenseActions(authData); // Handle this more gracefully
     const response = await typesenseAPI.createAPIKey(keySchema);
     return response;
   }
@@ -31,9 +32,13 @@ export const createSearchOnlyAPIKey = createAsyncThunk(
 
 export const confirmHealth = createAsyncThunk(
   "typesense/confirmHealth",
-  async () => {
-    const typesenseAPI = new TypesenseActions(); // Handle this more gracefully
-    const response = await typesenseAPI.getHealth();
-    return response;
+  async (typesenseAuthData: ITypesenseAuthData) => {
+    const typesenseAPI = new TypesenseActions(typesenseAuthData); // Handle this more gracefully
+    try {
+      const response = await typesenseAPI.getHealth();
+      return response;
+    } catch (error) {
+      throw new Error("Could not connect to Typesense");
+    }
   }
 );

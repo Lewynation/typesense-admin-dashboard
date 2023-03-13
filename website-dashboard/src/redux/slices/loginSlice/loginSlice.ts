@@ -21,24 +21,16 @@ const loginSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
-    setApiKey: (state, action) => {
-      state.apiKey = action.payload;
-    },
-    setProtocol: (state, action) => {
-      state.protocol = action.payload;
-    },
-    setHost: (state, action) => {
-      state.host = action.payload;
-    },
-    setPort: (state, action) => {
-      state.port = action.payload;
-    },
-    setPath: (state, action) => {
-      state.path = action.payload;
+    setAPILoginCredentials: (state, { payload }) => {
+      const { apiKey, protocol, host, port, path } = payload;
+      state.apiKey = apiKey;
+      state.protocol = protocol;
+      state.host = host;
+      state.port = port;
+      state.path = path;
     },
   },
 });
 
 export default loginSlice.reducer;
-export const { setApiKey, setHost, setPath, setPort, setProtocol } =
-  loginSlice.actions;
+export const { setAPILoginCredentials } = loginSlice.actions;

@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
-import TypesenseActions from "../../../../utils/typesenseActions";
+import { useAppSelector } from "../../../../redux/store/store";
+import TypesenseActions, {
+  ITypesenseAuthData,
+} from "../../../../utils/typesenseActions";
 
-const getSchema = async (collectionName: string) => {
-  const typesense = new TypesenseActions();
+const getSchema = async (
+  collectionName: string,
+  { apiKey, host, path, port, protocol }: ITypesenseAuthData
+) => {
+  const typesense = new TypesenseActions({
+    apiKey,
+    host,
+    path,
+    port,
+    protocol,
+  });
   const schema = await typesense.getCollectionSchema(collectionName);
   return schema;
 };
@@ -12,10 +24,13 @@ const useSchema = (collectionName: string) => {
   const [schema, setSchema] = useState<CollectionSchema>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { apiKey, host, path, port, protocol } = useAppSelector(
+    (state) => state.login
+  );
 
   useEffect(() => {
     setLoading(true);
-    getSchema(collectionName)
+    getSchema(collectionName, { apiKey, host, path, port, protocol })
       .then((response) => {
         setSchema(response);
       })
@@ -25,7 +40,7 @@ const useSchema = (collectionName: string) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [collectionName]);
+  }, [collectionName, apiKey, host, path, port, protocol]);
 
   return { schema, loading, error };
 };

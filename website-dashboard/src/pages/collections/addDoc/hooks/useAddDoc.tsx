@@ -1,9 +1,21 @@
 import { useEffect, useState } from "react";
-import TypesenseActions from "../../../../utils/typesenseActions";
+import { useAppSelector } from "../../../../redux/store/store";
+import TypesenseActions, {
+  ITypesenseAuthData,
+} from "../../../../utils/typesenseActions";
 import getOutput from "../../../../utils/typesenseFields";
 
-const getSchema = async (collectionName: string) => {
-  const typesense = new TypesenseActions();
+const getSchema = async (
+  collectionName: string,
+  { apiKey, host, path, port, protocol }: ITypesenseAuthData
+) => {
+  const typesense = new TypesenseActions({
+    apiKey,
+    host,
+    path,
+    port,
+    protocol,
+  });
   const schema = await typesense.getCollectionSchema(collectionName);
   return schema;
 };
@@ -12,10 +24,13 @@ const useAddDocs = (collectionName: string) => {
   const [schema, setSchema] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { apiKey, host, path, port, protocol } = useAppSelector(
+    (state) => state.login
+  );
 
   useEffect(() => {
     setLoading(true);
-    getSchema(collectionName)
+    getSchema(collectionName, { apiKey, host, path, port, protocol })
       .then((response) => {
         const docObject: any = {};
         response.fields?.forEach((field) => {
@@ -29,7 +44,7 @@ const useAddDocs = (collectionName: string) => {
       .finally(() => {
         setLoading(false);
       });
-  }, [collectionName]);
+  }, [collectionName, apiKey, host, path, port, protocol]);
 
   return { schema, loading, error };
 };

@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  setApiKey,
-  setHost,
-  setPath,
-  setPort,
-} from "../../redux/slices/loginSlice/loginSlice";
+import useLocalStorage from "use-local-storage";
+import STORAGEKEY from "../../constants/localStorage";
+
+import { setAPILoginCredentials } from "../../redux/slices/loginSlice/loginSlice";
 import { confirmHealth } from "../../redux/slices/typesenseSlice/asyncThunks";
-import { useAppDispatch, useAppSelector } from "../../redux/store/store";
+import { useAppDispatch } from "../../redux/store/store";
 import logo from "./images/logo.png";
 
 interface Props {
@@ -41,23 +39,32 @@ LoginInput.defaultProps = {
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const { apiKey, host, path, port, protocol } = useAppSelector(
-    (state) => state.login
-  );
+  const [apiKey, setApiKey] = useState("");
+  const [host, setHost] = useState("");
+  const [path, setPath] = useState("");
+  const [port, setPort] = useState(8108);
+  const [protocol, setProtocol] = useState("http");
   const [isNotNumber, setIsNotNumber] = useState(false);
-  useEffect(() => {
-    // if (!localStorage.getItem("token")) {
-    //   window.location.href = "/login";
-    // }
-    console.log("User is logged in");
-    // navigate("/"); // navigate if user is already logged in else just remain in the login screen
-  }, [navigate]);
+  const [credentials, setCredentials] = useLocalStorage(STORAGEKEY, "");
+
+  const dispatch = useAppDispatch();
 
   const login = async () => {
-    console.log(`${protocol}://${host}:${port}${path}`);
-    console.log(apiKey);
-    await dispatch(confirmHealth()).unwrap();
+    if (apiKey.length === 0) return;
+    if (host.length === 0) return;
+    const creds = {
+      apiKey,
+      host,
+      path,
+      port,
+      protocol,
+    };
+
+    setCredentials(JSON.stringify(creds));
+
+    // Save to local storage
+    dispatch(setAPILoginCredentials(creds));
+    await dispatch(confirmHealth(creds)).unwrap();
     navigate("/");
   };
 
@@ -77,7 +84,7 @@ function Login() {
             placeholder="API key"
             textElement="requires server with cors enabled."
             onChange={(e) => {
-              dispatch(setApiKey(e.target.value));
+              setApiKey(e.target.value);
             }}
           />
 
@@ -86,11 +93,10 @@ function Login() {
               name="expiry"
               id="expiry"
               className="outline-none rounded-sm border-b-[1px] px-2 py-2 w-full mb-3 font-lato text-gray-200 bg-transparent border-gray-600"
+              onChange={(e) => {
+                setProtocol(e.target.value);
+              }}
             >
-              {/* <option disabled selected>
-                {" "}
-                Select a protocol{" "}
-              </option> */}
               <option value="Http">http</option>
               <option value="Https">https</option>
             </select>
@@ -98,7 +104,7 @@ function Login() {
           <LoginInput
             placeholder="Host (e.g. localhost)"
             onChange={(e) => {
-              dispatch(setHost(e.target.value));
+              setHost(e.target.value);
             }}
           />
           <LoginInput
@@ -110,14 +116,14 @@ function Login() {
                 return;
               }
               setIsNotNumber(false);
-              dispatch(setPort(e.target.value));
+              setPort(Number(e.target.value));
             }}
           />
           <LoginInput
             placeholder="Path (e.g. /typesense)"
             textElement="optional: leave blank or start with / and end without /"
             onChange={(e) => {
-              dispatch(setPath(e.target.value));
+              setPath(e.target.value);
             }}
           />
 

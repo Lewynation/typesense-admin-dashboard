@@ -7,6 +7,7 @@ import { ReactComponent as Cancel } from "./svgs/cancel.svg";
 import { ReactComponent as Add } from "./svgs/plus.svg";
 import { openCurationsModal } from "../../../../redux/slices/modalSlice/modalSlice";
 import Button from "../../../shared/button/button";
+import { useAppSelector } from "../../../../redux/store/store";
 
 function AddCurationsModal() {
   const dispatch = useDispatch();
@@ -38,6 +39,8 @@ function AddCurationsModal() {
   const closeModal = () => {
     dispatch(openCurationsModal());
   };
+
+  const { theme } = useAppSelector((state) => state.theme);
 
   const addCuration = () => {};
 
@@ -77,7 +80,7 @@ function AddCurationsModal() {
           defaultValue={JSON.stringify(schema, null, 2)}
           onChange={onChange}
           loading={<Loading />}
-          theme="vs-dark"
+          theme={theme === "dark" ? "vs-dark" : "light"} // light, vs-dark, hc-black
         />
         <div className="flex justify-between my-3">
           <div />

@@ -8,7 +8,7 @@ import { ReactComponent as Key } from "./svgs/key.svg";
 import { ReactComponent as Cancel } from "./svgs/cancel.svg";
 import { openAdminAPIKeyModal } from "../../../../redux/slices/modalSlice/modalSlice";
 import { createAPIKey } from "../../../../redux/slices/typesenseSlice/asyncThunks";
-import { useAppDispatch } from "../../../../redux/store/store";
+import { useAppDispatch, useAppSelector } from "../../../../redux/store/store";
 import handleExpiryDate from "../utils/handleExpiryDate";
 import * as epochTime from "../../../../constants/epochTime";
 
@@ -20,6 +20,9 @@ function AdminAPIKeyModal() {
   const [epochDate, setEpochDate] = useState<number>(
     Date.now() + epochTime.SEVENDAYS
   );
+  const { apiKey, host, path, port, protocol } = useAppSelector(
+    (state) => state.login
+  );
   const [schema, setSchema] = useState({
     description: APIKeyDescription,
     actions: ["*"],
@@ -28,16 +31,19 @@ function AdminAPIKeyModal() {
       epochDate === 1 ? epochTime.NEVER : Math.round(epochDate / 1000),
   });
 
-  // const onChange = (value: any, event: any) => {
-  //   console.log(value);
-  // };
+  const { theme } = useAppSelector((state) => state.theme);
 
   const generateAPIKey = () => {
     if (APIKeyDescription === "") {
       setRequired(true);
       return;
     }
-    dispatch(createAPIKey(schema)).unwrap();
+    const authData = { apiKey, host, path, port, protocol };
+    const CreateAPIKeySchema = {
+      schema,
+      authData,
+    };
+    dispatch(createAPIKey(CreateAPIKeySchema)).unwrap();
     dispatch(openAdminAPIKeyModal());
   };
 
@@ -115,9 +121,8 @@ function AdminAPIKeyModal() {
           height="200px"
           defaultLanguage="json"
           defaultValue={JSON.stringify(schema, null, 2)}
-          // onChange={onChange}
           loading={<Loading />}
-          theme="vs-dark"
+          theme={theme === "dark" ? "vs-dark" : "light"} // light, vs-dark, hc-black
         />
         <div className="mt-3 flex justify-between">
           <div />
