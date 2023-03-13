@@ -16,10 +16,12 @@ import SearchAPIKeysDataCollection from "./dataCollection/dataCollection";
 import BASEPATH from "../../../../constants/baseURL";
 
 function SearchAPIKeys() {
-  const [invalid, setInvalid] = useState(false);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const [invalid, setInvalid] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { searchCheckBoxes } = useAppSelector(
     (state) => state.searchCheckBoxes
   );
