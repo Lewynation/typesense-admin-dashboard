@@ -14,8 +14,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["node"]
   },
-  "include": ["src", ".eslintrc.cjs", "redux/store"],
+  "include": ["src", ".eslintrc.cjs", "redux/store", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

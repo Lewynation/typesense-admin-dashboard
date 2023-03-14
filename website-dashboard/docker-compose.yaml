@@ -1,0 +1,11 @@
+version: "3"
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "website-dashboard:latest"
+    container_name: "website-dashboard"
+    restart: always
+    ports:
+      - "3030:80"
