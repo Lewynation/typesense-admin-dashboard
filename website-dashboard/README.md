@@ -1,1 +1,0 @@
-## Typesense admin website
