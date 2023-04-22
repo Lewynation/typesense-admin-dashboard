@@ -1,0 +1,8 @@
+{
+  "name": "tailwind-config",
+  "version": "1.0.0",
+  "description": "Tailwind config for the project",
+  "publishConfig": {
+    "access": "public"
+  }
+}
