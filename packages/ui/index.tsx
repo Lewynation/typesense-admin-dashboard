@@ -1,2 +1,3 @@
 import * as React from "react";
-export * from "./lib/Button";
+export * from "./lib";
+export * from "./hooks";
