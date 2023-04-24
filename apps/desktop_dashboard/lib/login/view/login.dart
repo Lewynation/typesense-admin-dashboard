@@ -1,11 +1,16 @@
 import 'dart:math';
 
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:desktop_dashboard/home/widgets/title_bar.dart';
+import 'package:desktop_dashboard/blocs/auth_credentials_collector/auth_credentials_collector_bloc.dart';
+import 'package:desktop_dashboard/blocs/authentication/authentication_bloc.dart';
+import 'package:desktop_dashboard/login/widgets/title_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:typesense/typesense.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,15 +69,21 @@ class Home extends StatelessWidget {
                             : 300,
                         child: TextFormField(
                           cursorColor: Colors.black,
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                          ),
                           cursorWidth: 1,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: "ApiKey",
-                            focusedBorder: UnderlineInputBorder(
+                            hintStyle: GoogleFonts.raleway(
+                              fontSize: 15,
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               vertical: 2,
                             ),
                           ),
@@ -84,16 +95,22 @@ class Home extends StatelessWidget {
                             : 300,
                         child: TextFormField(
                           cursorColor: Colors.black,
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                          ),
                           cursorWidth: 1,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             // labelText: "Email",
                             hintText: "Host",
-                            focusedBorder: UnderlineInputBorder(
+                            hintStyle: GoogleFonts.raleway(
+                              fontSize: 15,
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               vertical: 2,
                             ),
                           ),
@@ -105,16 +122,22 @@ class Home extends StatelessWidget {
                             : 300,
                         child: TextFormField(
                           cursorColor: Colors.black,
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                          ),
                           cursorWidth: 1,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             // labelText: "Email",
                             hintText: "Port",
-                            focusedBorder: UnderlineInputBorder(
+                            hintStyle: GoogleFonts.raleway(
+                              fontSize: 15,
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               vertical: 2,
                             ),
                           ),
@@ -126,16 +149,22 @@ class Home extends StatelessWidget {
                             : 300,
                         child: TextFormField(
                           cursorColor: Colors.black,
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                          ),
                           cursorWidth: 1,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             // labelText: "Email",
                             hintText: "Path",
-                            focusedBorder: UnderlineInputBorder(
+                            hintStyle: GoogleFonts.raleway(
+                              fontSize: 15,
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black,
                               ),
                             ),
-                            contentPadding: EdgeInsets.symmetric(
+                            contentPadding: const EdgeInsets.symmetric(
                               vertical: 2,
                             ),
                           ),
@@ -150,14 +179,35 @@ class Home extends StatelessWidget {
                             : 300,
                         height: 40,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .read<AuthCredentialsCollectorBloc>()
+                                .add(StoreAuthCredentialsEvent(
+                                  apiKey:
+                                      "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O19",
+                                  host: "typesense.exfinder.ocluse.com",
+                                  port: 443,
+                                  protocol: Protocol.https,
+                                ));
+
+                            Future.delayed(
+                              Duration.zero,
+                              () => {
+                                context
+                                    .read<AuthenticationBloc>()
+                                    .add(AuthLoginEvent())
+                              },
+                            );
+                          },
                           style: TextButton.styleFrom(
                             backgroundColor: Colors.black,
                           ),
-                          child: const Text(
+                          child: Text(
                             "Login",
-                            style: TextStyle(
+                            style: GoogleFonts.raleway(
+                              fontSize: 16,
                               color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
