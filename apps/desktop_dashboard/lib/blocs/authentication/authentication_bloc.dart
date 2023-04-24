@@ -23,7 +23,7 @@ class AuthenticationBloc
   })  : _authCredentialsCollectorBloc = authCredBloc,
         _localStorageComms = localStorageComms,
         _typesenseComms = typesenseComms,
-        super(const AuthenticationState.unauthenticated()) {
+        super(const AuthenticationState.unknown()) {
     on<CheckAuthenticationStateEvent>(_onCheckAuthenticationStateEvent);
     on<AuthLogoutEvent>(_onAuthLogoutEvent);
     on<AuthLoginEvent>(_onAuthLoginEvent);
@@ -47,8 +47,8 @@ class AuthenticationBloc
   void _onAuthLogoutEvent(
     AuthLogoutEvent event,
     Emitter<AuthenticationState> emit,
-  ) {
-    _localStorageComms.deleteAuthData();
+  ) async {
+    await _localStorageComms.deleteAuthData();
     emit(const AuthenticationState.unauthenticated());
   }
 
@@ -68,7 +68,7 @@ class AuthenticationBloc
     try {
       _typesenseComms.config = authData;
       final healthResponse = await _typesenseComms.getHealth();
-      _localStorageComms.storeAuthData(authData);
+      await _localStorageComms.storeAuthData(authData);
       emit(AuthenticationState.authenticated(authData));
       _logger.wtf("healthResponse: $healthResponse");
     } catch (e) {

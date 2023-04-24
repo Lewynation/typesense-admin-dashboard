@@ -22,13 +22,13 @@ class LocalStorageComms {
   }
 
   /// Store the auth data in the local storage
-  void storeAuthData(AuthData authData) {
-    prefs.setString("authData", json.encode(authData.toMap()));
+  Future<bool> storeAuthData(AuthData authData) async {
+    return prefs.setString("authData", json.encode(authData.toMap()));
   }
 
   /// Delete the auth data from the local storage
-  void deleteAuthData() {
-    prefs.remove("authData");
+  Future<bool> deleteAuthData() async {
+    return prefs.remove("authData");
   }
 }
 

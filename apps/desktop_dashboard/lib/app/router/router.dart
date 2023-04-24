@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:custom_logger/custom_logger.dart';
 import 'package:desktop_dashboard/app/router/route_constants.dart';
 import 'package:desktop_dashboard/blocs/authentication/authentication_bloc.dart';
+import 'package:desktop_dashboard/home/view/view.dart';
 import 'package:desktop_dashboard/login/view/view.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,7 @@ class AppRouter {
   late final GoRouter router = GoRouter(
     // navigatorKey: _rootNavigator,
     debugLogDiagnostics: true,
-    initialLocation: RouteConstants.login.toPath(),
+    initialLocation: RouteConstants.home.toPath(),
     routes: [
       GoRoute(
         path: RouteConstants.login.toPath(),
@@ -39,14 +40,7 @@ class AppRouter {
         pageBuilder: (context, state) {
           return MaterialPage(
             key: UniqueKey(),
-            child: Scaffold(
-              appBar: AppBar(
-                title: const Text("Hello"),
-              ),
-              body: const Center(
-                child: Text("Login"),
-              ),
-            ),
+            child: const Home(),
           );
         },
       ),
