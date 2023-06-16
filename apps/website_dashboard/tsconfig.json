@@ -22,8 +22,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/loginComponents/*": ["components/login/*"],
-      "@/dashboardComponents/*": ["components/dashboard/*"],
+      "@/loginComponents/*": ["components/pages/login/*"],
+      "@/dashboardComponents/*": ["components/pages/dashboard/*"],
       "@/images/*": ["assets/images/*"],
       "@/dependencies/*": ["dependencies/*"],
       "@/hooks/*": ["hooks/*"]

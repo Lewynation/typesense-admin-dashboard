@@ -5,3 +5,8 @@ export * from "./input";
 export * from "./hover_card";
 export * from "./circular_spinner";
 export * from "./toaster";
+export * from "./icons";
+export * from "./table/data_table";
+export * from "./drop_down_menu";
+export * as ShadCnButton from "./shadcn_button";
+export * from "./input";

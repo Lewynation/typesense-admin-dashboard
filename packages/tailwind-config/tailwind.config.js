@@ -61,6 +61,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
+        oswald: "var(--oswald)",
       },
       keyframes: {
         "accordion-down": {

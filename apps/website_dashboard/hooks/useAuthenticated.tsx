@@ -39,15 +39,19 @@ export const useAuthenticated = () => {
         try {
           const creds = JSON.parse(credentials);
           if (creds) {
+            console.log("credentials found");
             dependencies?.setTypesense(new TypesenseActions(creds));
+            console.log("Right credentials");
           } else {
             console.log("no creds");
             dependencies?.setTypesense(null);
             router.replace("/login");
           }
         } catch (error) {
+          console.log("Wrong credentials");
           localStorage.removeItem(LOCAL_STORAGE_KEY);
           dependencies?.setTypesense(null);
+          router.replace("/login");
         }
       } else {
         router.replace("/login");

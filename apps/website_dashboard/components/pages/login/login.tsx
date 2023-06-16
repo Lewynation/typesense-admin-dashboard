@@ -26,6 +26,7 @@ const LoginView = () => {
 
   const handleLogin = () => {
     const credentials = {
+      // apiKey: "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O",
       apiKey: "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O19",
       host: "typesense.exfinder.ocluse.com",
       path: "",
@@ -42,15 +43,15 @@ const LoginView = () => {
   };
 
   return (
-    <div className="grid grid-cols-3 h-screen">
-      <div className="h-full w-full relative flex col-span-2 flex-col justify-center">
-        <h1 className="z-10 text-white text-4xl leading-normal px-10">
+    <div className="grid h-screen grid-cols-3">
+      <div className="relative flex flex-col justify-center w-full h-full col-span-2">
+        <h1 className="z-10 px-10 text-4xl leading-normal text-white">
           &quot;We&apos;ve been using Untitled to
           <br /> kick start every new project and
           <br />
           can&apos;t imagine working Without it.&quot;
         </h1>
-        <div className="z-10 text-white text-sm leading-normal px-10 absolute bottom-5 flex flex-col">
+        <div className="absolute z-10 flex flex-col px-10 text-sm leading-normal text-white bottom-5">
           <p className="text-xl font-bold">Otieno_otieno</p>
           <p>Dev</p>
           <p>Ocluse</p>
@@ -58,11 +59,11 @@ const LoginView = () => {
         <Image
           src={image}
           alt="Login image"
-          className="object-cover absolute h-screen inset-0"
+          className="absolute inset-0 object-cover h-screen"
         />
       </div>
-      <div className="flex items-center justify-center flex-col px-3">
-        <p className="font-bold font-sans text-2xl">Welcome Back</p>
+      <div className="flex flex-col items-center justify-center px-3">
+        <p className="font-sans text-2xl font-bold">Welcome Back</p>
         <p className="font-sans text-sm mb-7">Please enter your details</p>
         <div>
           <Input placeholder="ApiKey" />
@@ -79,16 +80,16 @@ const LoginView = () => {
               Have a Question?
             </Button>
             <HoverCardContent>
-              <p className="text-xs font-sans">
+              <p className="font-sans text-xs">
                 - ApiKey: requires server running with enable cors
               </p>
-              <p className="text-xs font-sans">- Host: eg localhost</p>
-              <p className="text-xs font-sans">
+              <p className="font-sans text-xs">- Host: eg localhost</p>
+              <p className="font-sans text-xs">
                 - Port: default is 8108, if typesense server is running behind a
                 reverse proxy, use the port number of the reverse proxy. 443 if
                 https and 80 if http
               </p>
-              <p className="text-xs font-sans">
+              <p className="font-sans text-xs">
                 - Path: optional: leave blank or start with / and end without /
               </p>
             </HoverCardContent>

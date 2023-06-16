@@ -1,8 +1,5 @@
-"use client";
-
-import React, { useContext, useEffect } from "react";
-import { LoginView } from "@/loginComponents/index";
-import { useDependencies } from "@/contexts/dependency_provider";
+import React from "react";
+import { LoginView } from "@/components/pages/login/index";
 
 const Login = () => {
   return (
