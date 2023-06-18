@@ -11,11 +11,12 @@ import {
   storeCollections,
   storeExpiryDate,
 } from "@/redux/slices/search_api_key_acctions/search_api_key_actions";
-import { collectionData as collections } from "./mock_collections";
+// import { collectionData as collections } from "./mock_collections";
 import { formatDate } from "@/utils";
+import { useCollections } from "@/hooks";
 
 function SearchAPIKeysDataCollection() {
-  //   const { collections } = useFetchCollections();
+  const { collections } = useCollections();
   const dispatch = useAppDispatch();
   const {
     required,

@@ -7,7 +7,7 @@ import Logout from "./logout";
 
 const TopNavigation = () => {
   return (
-    <nav className="fixed left-0 flex items-center justify-between w-full h-24 px-10 border-b-[1px] border-gray-300 bg-white">
+    <nav className="fixed z-50 left-0 flex items-center justify-between w-full h-24 px-10 border-b-[1px] border-gray-300 bg-white">
       <Logo />
       <Logout />
     </nav>

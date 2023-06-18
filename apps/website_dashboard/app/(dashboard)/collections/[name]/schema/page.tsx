@@ -1,10 +1,10 @@
-import EditorView from "@/components/pages/dashboard/collections/collection_subroute_pages/schema/editor";
+import { SchemaView } from "@/components/pages/dashboard/collections/collection_subroute_pages/schema";
 import React from "react";
 
 const Schema = ({ params }: { params: { name: string } }) => {
   return (
     <div>
-      <EditorView schemaName={params.name} />
+      <SchemaView schemaName={params.name} />
     </div>
   );
 };

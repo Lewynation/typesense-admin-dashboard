@@ -10,10 +10,10 @@ interface LayoutWrapperProps {
 
 const LayoutWrapper: React.FC<LayoutWrapperProps> = ({ children }) => {
   return (
-    <main className="min-h-screen overflow-x-hidden overflow-y-auto">
+    <main className="min-h-screen overflow-x-hidden overflow-y-auto z-50">
       <TopNavigation />
       <SideNavigation />
-      <div className="p-6 mt-24 ml-72">{children}</div>
+      <div className="p-6 ml-0 md:ml-72 mt-24">{children}</div>
     </main>
   );
 };

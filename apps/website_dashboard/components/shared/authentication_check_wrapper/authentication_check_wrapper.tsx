@@ -12,7 +12,9 @@ const AuthenticationCheckWrapper: React.FC<AuthenticationCheckWrapperProps> = ({
   children,
 }) => {
   const { authenticated, loading } = useAuthenticated();
-  return <>{loading ? <CircularSpinner /> : <>{children}</>}</>;
+  return (
+    <div className="z-0">{loading ? <CircularSpinner /> : <>{children}</>}</div>
+  );
 };
 
 export default AuthenticationCheckWrapper;

@@ -13,8 +13,8 @@ const ApiKeys = () => {
     <AuthenticationCheckWrapper>
       <AdminKeyResultDialog />
       <ApiKeyHeaderSection />
-      <ApiKeysTable data={mockAPIKeys} />
-      {/* <ApiKeysHomeSection /> */}
+      {/* <ApiKeysTable data={mockAPIKeys} /> */}
+      <ApiKeysHomeSection />
     </AuthenticationCheckWrapper>
   );
 };

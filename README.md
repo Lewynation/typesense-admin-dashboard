@@ -1,81 +1,30 @@
-# Turborepo starter
+# Typesense admin dashboard
 
-This is an official starter Turborepo.
+![Typesense admin dashboard](apps/website_dashboard/public/og.png)
 
-## Using this example
+Welcome to the Typesense Admin Dashboard GitHub repository! This open-source project provides a user-friendly interface to manage your Typesense search engine effortlessly. It is built using [Turborepo](https://turbo.build/repo/docs/), [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [redux-toolkit](https://redux-toolkit.js.org/), [Shadcn](https://ui.shadcn.com/) and [Typesense](https://typesense.org/).
 
-Run the following command:
+It is still in active development and we are working on polishing,finetuning and adding more features. If you have any feedback or suggestions, please feel free to
+[open an issue](https://github.com/Lewynation/typesense-admin-dashboard/issues)
 
-```sh
-npx create-turbo@latest
-```
+## Features
 
-## What's inside?
+- **Intuitive Search Management**: Easily configure collections, define schema fields, and fine-tune search settings with a clean and intuitive interface.
+- **Real-time Monitoring**: Gain valuable insights into your search engine's performance, query analytics, and indexing status, enabling you to optimize and improve search results.
+- **User Management**: Control access and permissions for multiple users, allowing collaborative search engine management within your organization. `(Coming soon)`
+- **Indexing and Data Import**: Seamlessly index and import data from various sources, ensuring your search engine is always up-to-date. `(Coming soon)`
+- **Advanced Settings**: Fine-tune advanced search features, tokenization, ranking, and sorting parameters to customize the search experience. `(Coming soon)`
 
-This Turborepo includes the following packages/apps:
+## Getting Started
 
-### Apps and Packages
+### 1. Using Docker
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+The project contains two docker compose files at the root of the appliation:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
+- [`docker-compose.yml`](./docker-compose.yml) : Runs the dashboard alongside the typesense server. Exposes the dashboard on port `3000` and typesense on port `8108`. Perfect for development or just trying out the dashboard. Provide a suitable typesense server API Key by modifying the `--api-key` flag in the entrypoint of the `typesense` service. Ensure that cors is enabled on the typesense server with the `--enable-cors` flag. Typesense does not have a latest tag on the Docker Hub. You can find a list of all available tags [here](https://hub.docker.com/r/typesense/typesense/tags). The dashboard as well doesn't have a latest tag. Check the latest version [here](https://github.com/Lewynation/typesense-admin-dashboard/pkgs/container/typesense-admin-dashboard).
+- [`docker-compose-solo.yml`](./docker-compose-solo.yml) : Only runs the admin dashboard. A running instance of typesense with `--enable-cors` set to `true` is required. Exposes the dashboard on port `3005`. Check the latest version of the dashboard [here](https://github.com/Lewynation/typesense-admin-dashboard/pkgs/container/typesense-admin-dashboard).
 
 ## Useful Links
 
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Typesense](https://typesense.org/)
+- [Existing dashboard](https://bfritscher.github.io/typesense-dashboard/#)

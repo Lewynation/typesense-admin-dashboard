@@ -1,4 +1,7 @@
-import { CollectionTable } from "@/components/pages/dashboard/collections";
+import {
+  CollectionMainHomeSection,
+  CollectionTable,
+} from "@/components/pages/dashboard/collections";
 import { AuthenticationCheckWrapper } from "@/components/shared";
 import React from "react";
 import { collectionData } from "./mock";
@@ -6,7 +9,8 @@ import { collectionData } from "./mock";
 const Collections = async () => {
   return (
     <AuthenticationCheckWrapper>
-      <CollectionTable data={collectionData} />
+      {/* <CollectionTable data={collectionData} /> */}
+      <CollectionMainHomeSection />
     </AuthenticationCheckWrapper>
   );
 };

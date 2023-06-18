@@ -15,7 +15,7 @@ export const columns: ColumnDef<KeySchema>[] = [
     },
   },
   {
-    accessorKey: "value",
+    accessorKey: "value_prefix",
     header: () => <div className="font-oswald">Key Prefix</div>,
   },
   {

@@ -7,6 +7,7 @@ import {
   SortDesc,
   SortAsc,
   ChevronsUpDown,
+  ChevronLeft,
   EyeOff,
   Download,
   Upload,
@@ -18,6 +19,7 @@ import {
   Plus,
   Key,
   View,
+  Edit,
 } from "lucide-react";
 
 export const Icons = {
@@ -40,4 +42,6 @@ export const Icons = {
   Search,
   Plus,
   View,
+  Edit,
+  ChevronLeft,
 };

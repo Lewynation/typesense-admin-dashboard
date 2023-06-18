@@ -6,7 +6,7 @@ import { sideNavigationElements } from "@/constants/side_navigation_elements";
 
 const SideNavigation = () => {
   return (
-    <aside className="fixed left-0 h-full p-6 mt-24 border-r-[1px] border-gray-300 w-72 bg-white">
+    <aside className="fixed left-0 h-full p-6 mt-24 hidden md:block border-r-[1px] border-gray-300 w-72 bg-white">
       {sideNavigationElements.map(({ elements, title }, index) => {
         return (
           <AsideNavigationElement
