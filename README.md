@@ -17,7 +17,7 @@ It is still in active development and we are working on polishing,finetuning and
 
 ## Getting Started
 
-### 1. Using Docker
+### Using Docker compose
 
 The project contains two docker compose files at the root of the appliation:
 
