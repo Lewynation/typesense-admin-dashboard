@@ -35,6 +35,20 @@ const AsideNavigationElement: React.FC<AsideNavigationElementProps> = ({
 }) => {
   const pathName = usePathname();
 
+  const checkUrlMatch = (url: string, path: string): boolean => {
+    if (path === "/" && url === "/") {
+      return true;
+    }
+    if (url !== "/") {
+      if (path.includes(url)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="">
       <h1 className="text-xl font-semibold font-oswald">{title}</h1>
@@ -44,7 +58,10 @@ const AsideNavigationElement: React.FC<AsideNavigationElementProps> = ({
             <Link href={path} key={index}>
               <div
                 className={`flex items-center my-1 gap-3 py-1 px-3 rounded-lg hover:bg-black hover:text-white ${
-                  pathName === path ? "bg-black text-white" : "bg-transparent"
+                  // pathName.includes(path)
+                  checkUrlMatch(path, pathName)
+                    ? "bg-black text-white"
+                    : "bg-transparent"
                 }`}
               >
                 <Icon />

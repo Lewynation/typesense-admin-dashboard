@@ -1,13 +1,9 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Icons, ShadCnButton } from "ui";
 import CollectionTableRowActions from "./collection_table_row_actions";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
 import CollectionTableColumnHeader from "./collection_table_column_headers";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 
 export const columns: ColumnDef<CollectionSchema>[] = [
   {

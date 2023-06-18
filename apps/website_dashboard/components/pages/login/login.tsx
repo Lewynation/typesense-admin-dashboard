@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import image from "@/images/login_background.jpg";
@@ -24,14 +24,26 @@ const LoginView = () => {
   const [creds, setCreds] = useLocalStorage(LOCAL_STORAGE_KEY, "");
   const { toast } = useToast();
 
+  const [APIKey, setAPIKey] = useState("");
+  const [host, setHost] = useState("");
+  const [port, setPort] = useState<number>(8108);
+  const [path, setPath] = useState("");
+
   const handleLogin = () => {
+    // const credentials = {
+    //   // apiKey: "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O",
+    //   apiKey: "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O19",
+    //   host: "typesense.exfinder.ocluse.com",
+    //   path: "",
+    //   port: 443,
+    //   protocol: "https",
+    // };
     const credentials = {
-      // apiKey: "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O",
-      apiKey: "Bp0rmw4vwLynHUzZYzs6X1Y7yQbGEfssXCMOlhmFe4Fn1O19",
-      host: "typesense.exfinder.ocluse.com",
-      path: "",
-      port: 443,
-      protocol: "https",
+      apiKey: APIKey,
+      host: host,
+      path: path,
+      port: port,
+      protocol: "http",
     };
     setCreds(JSON.stringify(credentials));
     dependencies?.setTypesense(new TypesenseActions(credentials));
@@ -66,10 +78,30 @@ const LoginView = () => {
         <p className="font-sans text-2xl font-bold">Welcome Back</p>
         <p className="font-sans text-sm mb-7">Please enter your details</p>
         <div>
-          <Input placeholder="ApiKey" />
-          <Input placeholder="Host" />
-          <Input placeholder="Port" />
-          <Input placeholder="Path" />
+          <Input
+            placeholder="ApiKey"
+            onChange={(e) => {
+              setAPIKey(e.target.value);
+            }}
+          />
+          <Input
+            placeholder="Host"
+            onChange={(e) => {
+              setHost(e.target.value);
+            }}
+          />
+          <Input
+            placeholder="Port"
+            onChange={(e) => {
+              setPort(parseInt(e.target.value));
+            }}
+          />
+          <Input
+            placeholder="Path"
+            onChange={(e) => {
+              setPath(e.target.value);
+            }}
+          />
           <Button className="w-full mt-9" onClick={handleLogin}>
             Login
           </Button>

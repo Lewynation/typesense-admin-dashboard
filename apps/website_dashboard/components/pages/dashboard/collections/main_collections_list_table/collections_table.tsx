@@ -10,12 +10,7 @@ interface CollectionTableProps {
 const CollectionsTable: React.FC<CollectionTableProps> = ({ data }) => {
   return (
     <>
-      <DataTable
-        columns={columns}
-        data={data}
-        navigationFields="name"
-        baseNvigationLink="/collections"
-      />
+      <DataTable columns={columns} data={data} />
     </>
   );
 };

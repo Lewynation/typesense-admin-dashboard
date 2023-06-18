@@ -1,4 +1,5 @@
 import {
+  Copy,
   LogOut,
   MoreHorizontal,
   ArrowDown,
@@ -10,10 +11,20 @@ import {
   Download,
   Upload,
   Trash,
+  ChevronRight,
+  PlusCircle,
+  ShieldAlert,
+  Search,
+  Plus,
+  Key,
+  View,
 } from "lucide-react";
 
 export const Icons = {
+  Copy,
+  Key,
   LogOut,
+  ChevronRight,
   MoreHorizontal,
   ChevronsUpDown,
   EyeOff,
@@ -24,4 +35,9 @@ export const Icons = {
   Download,
   Upload,
   Trash,
+  PlusCircle,
+  ShieldAlert,
+  Search,
+  Plus,
+  View,
 };

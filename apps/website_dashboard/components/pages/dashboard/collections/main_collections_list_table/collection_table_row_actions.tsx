@@ -12,6 +12,7 @@ import {
   ShadCnButton,
 } from "ui";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import TableActionNavigation from "@/components/shared/table_action_navigation/table_action_navigation";
 
 interface CollectionTableRowActionsProps {
   row: Row<CollectionSchema>;
@@ -38,6 +39,10 @@ const CollectionTableRowActions: React.FC<CollectionTableRowActionsProps> = ({
         >
           <p className="font-oswald"> Copy Collection Name</p>
         </DropdownMenuItem>
+        <TableActionNavigation
+          baseUrl="/collections"
+          dynamicUrlSection={row.original.name}
+        />
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <div className="flex items-center gap-3 justify-between w-full">

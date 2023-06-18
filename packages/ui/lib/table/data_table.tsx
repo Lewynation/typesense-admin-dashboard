@@ -30,15 +30,11 @@ import { Input } from "../input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  navigationFields: keyof TData;
-  baseNvigationLink: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  navigationFields,
-  baseNvigationLink,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -99,12 +95,6 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className=" hover:cursor-pointer"
-                  onClick={() => {
-                    router.push(
-                      `${baseNvigationLink}/${row.original[navigationFields]}`
-                    );
-                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const QueryCollection = () => {
+const QueryCollection = ({ params }: { params: { name: string } }) => {
   return <div>QueryCollection</div>;
 };
 

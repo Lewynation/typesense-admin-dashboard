@@ -1,0 +1,22 @@
+version: "3"
+services:
+  typesense:
+    image: typesense/typesense:0.25.0.rc36
+    entrypoint: sh -c "/opt/typesense-server --data-dir /data --api-key=abc --enable-cors"
+    ports:
+      - "8108:8108"
+    volumes:
+      - typesense-data:/data
+
+  admin_dashboard:
+    container_name: admin_dashboard
+    build:
+      context: .
+      dockerfile: ./apps/website_dashboard/Dockerfile
+    restart: always
+    ports:
+      - 3005:3000
+
+volumes:
+  typesense-data:
+    driver: local

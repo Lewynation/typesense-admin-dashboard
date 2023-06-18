@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["ui"],
-  experimental: {
-    appDir: true,
-  },
+  output: "standalone",
 };
 
 module.exports = nextConfig;

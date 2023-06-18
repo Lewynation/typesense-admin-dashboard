@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.5.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@tanstack/react-table": "^8.9.2",
     "@types/node": "20.3.1",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
     "autoprefixer": "10.4.14",
+    "date-and-time": "^3.0.1",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.6",
     "next": "13.4.6",
