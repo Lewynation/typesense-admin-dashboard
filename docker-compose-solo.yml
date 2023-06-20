@@ -1,0 +1,10 @@
+version: "3"
+services:
+  admin_dashboard:
+    container_name: admin_dashboard
+    build:
+      context: .
+      dockerfile: ./apps/website_dashboard/Dockerfile
+    restart: always
+    ports:
+      - 3005:3000

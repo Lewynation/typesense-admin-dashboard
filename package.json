@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-custom": "*",
+    "prettier": "^2.8.8",
+    "turbo": "latest"
+  },
+  "name": "typesense-admin-dashboard",
+  "packageManager": "npm@9.4.1",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "sharp": "^0.32.1"
+  }
+}
