@@ -1,0 +1,40 @@
+name: desktop_dashboard
+description: A new Flutter project.
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.19.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  bitsdojo_window: ^0.1.5
+  custom_logger:
+    path: ./packages/custom_logger
+  typesense_comms:
+    path: ./packages/typesense_comms
+  local_storage_comms:
+    path: ./packages/local_storage_comms
+  go_router: ^6.5.7
+  google_fonts: ^4.0.3
+  lucide_icons: ^0.176.0
+  flutter_bloc: ^8.1.2
+  equatable: ^2.0.5
+  typesense: ^0.3.0+1
+  shared_preferences: ^2.1.0
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/

@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "include": [".", ".next/types/**/*.ts"],
+  "exclude": ["dist", "build", "node_modules", ".turbo"],
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
+}
