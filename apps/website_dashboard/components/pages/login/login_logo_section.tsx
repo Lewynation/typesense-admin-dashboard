@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logo from "@/images/logo.png";
+import logo from "@/assets/images/logo.png";
 
 const LoginLogoSection = () => {
   return (
