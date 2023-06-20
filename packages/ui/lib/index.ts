@@ -1,4 +1,3 @@
-export * from "./button";
 export * from "./avatar";
 export * from "./sheet";
 export * from "./input";
@@ -9,6 +8,7 @@ export * from "./icons";
 export * from "./table/data_table";
 export * from "./drop_down_menu";
 export * as ShadCnButton from "./shadcn_button";
+export * from "./button";
 export * from "./input";
 export * from "./bar_loader";
 export * from "./alert_dialog";
