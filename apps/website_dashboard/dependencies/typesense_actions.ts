@@ -31,11 +31,10 @@ export class TypesenseActions implements ITypesenseActions {
     try {
       const healthResponse = await this.client.health.retrieve();
       await this.client.metrics.retrieve();
-
       return healthResponse;
     } catch (error) {
       console.log(error);
-      throw new Error();
+      throw new Error("Something went ");
     }
   }
 

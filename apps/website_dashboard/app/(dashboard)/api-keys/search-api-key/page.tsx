@@ -8,8 +8,9 @@ import React from "react";
 
 const SearchApiKey = () => {
   return (
-    <AuthenticationCheckWrapper>
-      <div className="flex flex-col items-center relative">
+    <>
+      {/* <AuthenticationCheckWrapper> */}
+      <div className="relative flex flex-col items-center">
         <SearchAPIKeyBackBtn className="absolute top-0 left-0 z-0 cursor-pointer" />
         <div>
           <SearchAPIKeysDataCollection />
@@ -18,7 +19,8 @@ const SearchApiKey = () => {
           <SearchAPIKeyResultDialog />
         </div>
       </div>
-    </AuthenticationCheckWrapper>
+      {/* </AuthenticationCheckWrapper> */}
+    </>
   );
 };
 

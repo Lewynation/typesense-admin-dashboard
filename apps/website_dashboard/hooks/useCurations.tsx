@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDependencies } from "@/contexts/dependency_provider";
 import { OverrideSchema } from "typesense/lib/Typesense/Override";
+import { TypesenseError } from "typesense/lib/Typesense/Errors";
 
 export const useCurations = (collectionName: string) => {
   const dependencies = useDependencies();
   const [curations, setCurations] = useState<OverrideSchema[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<TypesenseError | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -16,7 +17,7 @@ export const useCurations = (collectionName: string) => {
         setCurations(response.overrides);
       })
       .catch((err) => {
-        setError(err);
+        setError(err as TypesenseError);
       })
       .finally(() => {
         setLoading(false);

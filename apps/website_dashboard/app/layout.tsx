@@ -1,7 +1,7 @@
 import { DependencyProvider } from "@/contexts/dependency_provider";
 import "tailwind-config/globals.css";
-// import { Nunito_Sans } from "next/font/google";
-import { Noto_Sans } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
+// import { Noto_Sans } from "next/font/google";
 import { Toaster } from "ui";
 import ReduxContextProvider from "@/redux/reduprovider/redux_context_provider";
 import { Metadata } from "next";
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   // manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
-const oswald = Noto_Sans({
+const oswald = Nunito_Sans({
   subsets: ["latin"],
   variable: "--oswald",
   weight: ["200", "200", "400", "300", "500", "600", "700"],

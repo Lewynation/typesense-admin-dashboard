@@ -20,6 +20,7 @@ import {
   Key,
   View,
   Edit,
+  X,
 } from "lucide-react";
 
 export const Icons = {
@@ -44,4 +45,5 @@ export const Icons = {
   View,
   Edit,
   ChevronLeft,
+  X,
 };

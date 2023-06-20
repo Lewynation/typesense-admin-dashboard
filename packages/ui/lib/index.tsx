@@ -12,3 +12,4 @@ export * as ShadCnButton from "./shadcn_button";
 export * from "./input";
 export * from "./bar_loader";
 export * from "./alert_dialog";
+export * from "./bar_loader_full_screen_width";

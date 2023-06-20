@@ -10,7 +10,7 @@ import {
   setRequired,
 } from "@/redux/slices/search_api_key_acctions/search_api_key_actions";
 import { useAppDispatch, useAppSelector } from "@/redux/store/store";
-import { generateKeySchema, validate } from "@/utils";
+import { generateKeySchema, validateSearchCheckBoxes } from "@/utils";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { BarLoaderSpinner, Icons, ShadCnButton } from "ui";
@@ -40,7 +40,7 @@ const SearchApiKeysDataSubmisssion = () => {
 
   const onGenerateSearchAPIKeyBtnClick = async () => {
     setLoading(true);
-    const isValid = validate(searchCheckBoxes);
+    const isValid = validateSearchCheckBoxes(searchCheckBoxes);
     if (!isValid) {
       setInvalid(true);
       setLoading(false);
@@ -70,14 +70,14 @@ const SearchApiKeysDataSubmisssion = () => {
   };
 
   return (
-    <div className="flex gap-6 mt-2 mb-6 ml-2 items-center">
+    <div className="flex items-center gap-6 mt-2 mb-6 ml-2">
       {loading ? (
         <div className="flex items-center ml-3">
           <BarLoaderSpinner />
         </div>
       ) : (
         <ShadCnButton.Button onClick={onGenerateSearchAPIKeyBtnClick}>
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <Icons.Key />
             <p className="font-oswald">Generate API Key</p>
           </div>
@@ -88,12 +88,12 @@ const SearchApiKeysDataSubmisssion = () => {
         onClick={() => {
           router.replace("/api-keys");
         }}
-        className="outline-none text-blue-500 font-oswald font-bold font-lato cursor-pointer"
+        className="font-bold text-blue-500 outline-none cursor-pointer font-oswald"
       >
         Cancel
       </button>
       {invalid && (
-        <p className="font-lato font-bold text-base text-red-600">
+        <p className="text-base font-bold text-red-600 font-oswald">
           Select a scope to continue...
         </p>
       )}

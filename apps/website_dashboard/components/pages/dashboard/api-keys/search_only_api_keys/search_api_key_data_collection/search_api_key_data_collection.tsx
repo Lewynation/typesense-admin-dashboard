@@ -11,7 +11,6 @@ import {
   storeCollections,
   storeExpiryDate,
 } from "@/redux/slices/search_api_key_acctions/search_api_key_actions";
-// import { collectionData as collections } from "./mock_collections";
 import { formatDate } from "@/utils";
 import { useCollections } from "@/hooks";
 
@@ -58,15 +57,15 @@ function SearchAPIKeysDataCollection() {
 
   return (
     <div className="px-4 pt-4 pb-1">
-      <p className="font-oswald font-bold text-lg pb-2 dark:text-gray-300">
+      <p className="pb-2 text-lg font-bold font-oswald dark:text-gray-300">
         {" "}
         Search only API Key
       </p>
-      <p className="font-oswald font-bold text-sm pb-2 dark:text-gray-400">
+      <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
         {" "}
         Description <span className="text-red-700">*</span>
       </p>
-      {required ? <p className="font-oswald text-red-600 ">Required</p> : null}{" "}
+      {required ? <p className="text-red-600 font-oswald ">Required</p> : null}{" "}
       <input
         onChange={handleAPIKeyInput}
         value={APIKeyDescription}
@@ -76,10 +75,10 @@ function SearchAPIKeysDataCollection() {
         type="text"
         placeholder="Enter API Key description (Required)"
       />
-      <p className="font-oswald font-bold text-sm pb-2 dark:text-gray-400">
+      <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
         Expiration <span className="text-red-700">*</span>
       </p>
-      <div className="flex gap-2 mb-4 items-center">
+      <div className="flex items-center gap-2 mb-4">
         <select
           name="expiry"
           id="expiry"
@@ -99,12 +98,12 @@ function SearchAPIKeysDataCollection() {
             : date.format(formatDate(expiryDate), "ddd, MMM DD YYYY")}
         </p>
       </div>
-      <p className="font-oswald font-bold text-sm pb-2 dark:text-gray-400">
+      <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
         Select Collections that this key is scoped to{" "}
         <span className="text-red-700">*</span>
       </p>
       {collectionEmpty ? (
-        <p className="font-oswald text-red-600">Required</p>
+        <p className="text-red-600 font-oswald">Required</p>
       ) : null}{" "}
       <div className="">
         <select
@@ -134,11 +133,11 @@ function SearchAPIKeysDataCollection() {
           ) : null}
         </div>
       </div>
-      <p className="font-oswald font-bold text-sm mt-3 dark:text-gray-400">
+      <p className="mt-3 text-sm font-bold font-oswald dark:text-gray-400">
         {" "}
         Select Scopes
       </p>
-      <p className="font-oswald text-gray-500 text-sm pb-2 dark:text-gray-500">
+      <p className="pb-2 text-sm text-gray-500 font-oswald dark:text-gray-500">
         {" "}
         Scopes define the access for search only API Keys.
       </p>

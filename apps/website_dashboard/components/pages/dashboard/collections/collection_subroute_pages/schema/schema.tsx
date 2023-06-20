@@ -7,11 +7,7 @@ interface SchemaProps {
 }
 
 const SchemaView: React.FC<SchemaProps> = ({ schemaName }) => {
-  return (
-    <AuthenticationCheckWrapper>
-      <EditorView schemaName={schemaName} />
-    </AuthenticationCheckWrapper>
-  );
+  return <EditorView schemaName={schemaName} />;
 };
 
 export default SchemaView;

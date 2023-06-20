@@ -1,15 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { Editor } from "@monaco-editor/react";
 import {
-  BarLoaderSpinner,
-  Button,
   Icons,
   ShadCnButton,
   Sheet,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -23,6 +18,7 @@ import {
   changeAdminApiKeyResultDialog,
   setAdminApiKey,
 } from "@/redux/slices/alert_modals/alert_modals";
+import Link from "next/link";
 
 const CreateAdminAPIKeySideSheet = () => {
   const dependencies = useDependencies();
@@ -74,18 +70,16 @@ const CreateAdminAPIKeySideSheet = () => {
       </SheetTrigger>
       <SheetContent position="right" size="lg">
         <SheetHeader>
-          <SheetTitle className="font-oswald text-2xl">
+          <SheetTitle className="text-2xl font-oswald">
             Generate Admin API Key
           </SheetTitle>
         </SheetHeader>
         <div className="">
-          <p className="font-oswald font-bold text-sm pb-2 dark:text-gray-400">
+          <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
             {" "}
             Description <span className="text-red-700">*</span>
           </p>
-          {required ? (
-            <p className="font-oswald text-red-600">Required</p>
-          ) : null}{" "}
+          {required && <p className="text-red-600 font-oswald">Required</p>}
           <input
             onChange={handleAPIKeyInput}
             value={APIKeyDescription}
@@ -95,10 +89,10 @@ const CreateAdminAPIKeySideSheet = () => {
             type="text"
             placeholder="Enter API Key description (Required)"
           />
-          <p className="font-oswald font-bold text-sm pb-2 dark:text-gray-400">
+          <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
             Expiration <span className="text-red-700">*</span>
           </p>
-          <div className="flex gap-2 mb-4 items-center">
+          <div className="flex items-center gap-2 mb-4">
             <select
               name="expiry"
               id="expiry"
@@ -118,15 +112,19 @@ const CreateAdminAPIKeySideSheet = () => {
                 : date.format(formatDate(epochDate), "ddd, MMM DD YYYY")}
             </p>
           </div>
-          <Editor
-            height="200px"
-            defaultLanguage="json"
-            defaultValue={JSON.stringify(schema, null, 2)}
-            loading={<BarLoaderSpinner />}
-            theme="light" //vs-dark,light,hc-black
-          />
         </div>
-        <div className="mt-3 flex justify-between">
+        <div>
+          <p className="font-oswald">
+            This API Key allows you to do all operations (ie gives you universal
+            access). Refrain from creating such widely scoped keys as much as
+            possible. Create a scoped key{" "}
+            <span className="text-blue-500">
+              <Link href="/api-keys/search-api-key">here</Link>
+            </span>
+            .
+          </p>
+        </div>
+        <div className="flex justify-between mt-3">
           <div />
           <ShadCnButton.Button onClick={generateAPIKey}>
             <div className="flex gap-2 font-mono">

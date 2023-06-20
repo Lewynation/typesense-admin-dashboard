@@ -58,7 +58,6 @@ const AsideNavigationElement: React.FC<AsideNavigationElementProps> = ({
             <Link href={path} key={index}>
               <div
                 className={`flex items-center my-1 gap-3 py-1 px-3 rounded-lg hover:bg-black hover:text-white ${
-                  // pathName.includes(path)
                   checkUrlMatch(path, pathName)
                     ? "bg-black text-white"
                     : "bg-transparent"

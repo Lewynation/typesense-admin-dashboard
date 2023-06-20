@@ -19,43 +19,37 @@ export const useAuthenticated = () => {
   const dependencies = useDependencies();
 
   useEffect(() => {
+    setLoading(true);
     if (dependencies?.typesense) {
       dependencies?.typesense
         ?.getHealth()
         .then((res) => {
-          console.log("trying to authenticate");
           res.ok ? setAuthenticated(true) : router.replace("/login");
         })
         .catch((err) => {
-          router.replace("/login");
           setError(err);
+          router.replace("/login");
         })
         .finally(() => {
           setLoading(false);
-          console.log("finally");
         });
     } else {
       if (credentials) {
         try {
           const creds = JSON.parse(credentials);
           if (creds) {
-            console.log("credentials found");
             dependencies?.setTypesense(new TypesenseActions(creds));
-            console.log("Right credentials");
           } else {
-            console.log("no creds");
             dependencies?.setTypesense(null);
             router.replace("/login");
           }
         } catch (error) {
-          console.log("Wrong credentials");
           localStorage.removeItem(LOCAL_STORAGE_KEY);
           dependencies?.setTypesense(null);
           router.replace("/login");
         }
       } else {
         router.replace("/login");
-        console.log("no creds");
       }
     }
   }, [dependencies, router, credentials]);

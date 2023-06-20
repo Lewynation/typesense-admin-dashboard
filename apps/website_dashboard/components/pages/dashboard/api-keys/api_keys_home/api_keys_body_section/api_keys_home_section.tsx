@@ -3,20 +3,24 @@
 import React from "react";
 import { ApiKeysTable } from ".";
 import { useAPIKeys } from "@/hooks";
-import { CircularSpinner } from "ui";
+import { BarLoaderFullScreenWidth, CircularSpinner } from "ui";
+import { ErrorComponent } from "@/components/shared/Error";
 
 const ApiKeysHomeSection = () => {
   const { apiKeys, loading, error } = useAPIKeys();
-  console.log(apiKeys);
+
+  const ApiKeysComponent = error ? (
+    <ErrorComponent error={error} />
+  ) : (
+    <ApiKeysTable data={apiKeys} />
+  );
 
   return (
     <div className="mt-2">
       {loading ? (
-        <>
-          <CircularSpinner />
-        </>
+        <BarLoaderFullScreenWidth loading={loading} />
       ) : (
-        <ApiKeysTable data={apiKeys} />
+        ApiKeysComponent
       )}
     </div>
   );

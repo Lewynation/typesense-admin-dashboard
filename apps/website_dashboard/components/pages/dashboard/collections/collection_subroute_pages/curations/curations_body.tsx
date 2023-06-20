@@ -5,8 +5,9 @@ import CurationsTable from "./cutations_list_table/curations_table";
 import { useDependencies } from "@/contexts/dependency_provider";
 import { OverrideSchema } from "typesense/lib/Typesense/Override";
 import { useCurations } from "@/hooks";
-import { CircularSpinner } from "ui";
+import { BarLoaderFullScreenWidth, CircularSpinner } from "ui";
 import { AuthenticationCheckWrapper } from "@/components/shared";
+import { ErrorComponent } from "@/components/shared/Error";
 
 interface CurationsBodyProps {
   collectionName: string;
@@ -15,18 +16,20 @@ interface CurationsBodyProps {
 const CurationsBody: React.FC<CurationsBodyProps> = ({ collectionName }) => {
   const { curations, error, loading } = useCurations(collectionName);
 
+  const CurationsComponent = error ? (
+    <ErrorComponent error={error} />
+  ) : (
+    <CurationsTable data={curations} />
+  );
+
   return (
-    <AuthenticationCheckWrapper>
-      <div>
-        {loading ? (
-          <>
-            <CircularSpinner />
-          </>
-        ) : (
-          <CurationsTable data={curations} />
-        )}
-      </div>
-    </AuthenticationCheckWrapper>
+    <div>
+      {loading ? (
+        <BarLoaderFullScreenWidth loading={loading} />
+      ) : (
+        CurationsComponent
+      )}
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import { Searches } from "@/redux/slices/search_check_boxes/search_check_boxes";
 import * as epochTime from "@/constants/epoch_time";
 
-const validate = (searches: Searches[]) => {
+const validateSearchCheckBoxes = (searches: Searches[]) => {
   const validatedList = searches.filter((search) => {
     return search.children.find(
       (child) => child.enabledBySelf === true || child.enabledByTitle === true
@@ -35,7 +35,6 @@ const generateKeySchema = ({
     const element = searchCheckBoxes[i];
     if (element.selected) {
       actions.push(`${element.value.toLowerCase()}:*`);
-      // eslint-disable-next-line no-continue
       continue;
     }
     const children = searchCheckBoxes[i].children.filter((child) => {
@@ -89,4 +88,9 @@ const handleExpiryDate = (
   }
 };
 
-export { validate, generateKeySchema, formatDate, handleExpiryDate };
+export {
+  validateSearchCheckBoxes,
+  generateKeySchema,
+  formatDate,
+  handleExpiryDate,
+};

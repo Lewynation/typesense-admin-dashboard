@@ -8,10 +8,12 @@ import { collectionData } from "./mock";
 
 const Collections = async () => {
   return (
-    <AuthenticationCheckWrapper>
+    <>
+      {/* <AuthenticationCheckWrapper> */}
       {/* <CollectionTable data={collectionData} /> */}
       <CollectionMainHomeSection />
-    </AuthenticationCheckWrapper>
+      {/* </AuthenticationCheckWrapper> */}
+    </>
   );
 };
 

@@ -7,7 +7,6 @@ services:
       - "8108:8108"
     volumes:
       - typesense-data:/data
-
   admin_dashboard:
     container_name: admin_dashboard
     build:
@@ -16,7 +15,6 @@ services:
     restart: always
     ports:
       - 3005:3000
-
 volumes:
   typesense-data:
     driver: local

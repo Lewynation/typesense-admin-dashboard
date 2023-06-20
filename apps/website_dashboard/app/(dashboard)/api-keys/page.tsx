@@ -10,12 +10,14 @@ import { mockAPIKeys } from "./mock";
 
 const ApiKeys = () => {
   return (
-    <AuthenticationCheckWrapper>
+    <>
+      {/* <AuthenticationCheckWrapper> */}
       <AdminKeyResultDialog />
       <ApiKeyHeaderSection />
       {/* <ApiKeysTable data={mockAPIKeys} /> */}
       <ApiKeysHomeSection />
-    </AuthenticationCheckWrapper>
+      {/* </AuthenticationCheckWrapper> */}
+    </>
   );
 };
 
