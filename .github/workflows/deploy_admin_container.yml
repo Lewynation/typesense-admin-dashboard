@@ -2,7 +2,7 @@ name: Create and publish Docker image to GHCR
 
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
     paths-ignore:
       - "build/**"
       - ".vscode/**"
