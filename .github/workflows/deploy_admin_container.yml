@@ -2,7 +2,7 @@ name: Create and publish Docker image to GHCR
 
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
     paths-ignore:
       - "build/**"
       - ".vscode/**"
@@ -45,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./apps/onboarding_website/Dockerfile
+          file: ./apps/website_dashboard/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
