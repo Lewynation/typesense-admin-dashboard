@@ -50,7 +50,7 @@ The project contains two docker compose files at the root of the appliation:
 
   Runs the dashboard alongside the typesense server. Exposes the dashboard on port `3000` and typesense on port `8108`. Perfect for development or just trying out the dashboard. Provide a suitable typesense server API Key by modifying the `--api-key` flag in the entrypoint of the `typesense` service. Ensure that cors is enabled on the typesense server with the `--enable-cors` flag. Typesense does not have a latest tag on the Docker Hub. You can find a list of all available tags [here](https://hub.docker.com/r/typesense/typesense/tags). The dashboard as well doesn't have a latest tag. Check the latest version [here](https://github.com/Lewynation/typesense-admin-dashboard/pkgs/container/typesense-admin-dashboard).
 
-- [`docker-compose-solo.yml`](./docker-compose-solo.yml) :
+- [`docker-compose-solo.yml`](./docker-compose-solo.yml)
 
   ```yml
   version: "3"
