@@ -11,7 +11,7 @@ interface ErrorProps {
 }
 
 const Error: React.FC<ErrorProps> = ({ error }) => {
-  return error.httpStatus === 404 ? (
+  return error && error.httpStatus === 404 ? (
     <div>
       <div className="flex items-center justify-center w-full">
         <Image

@@ -18,6 +18,7 @@ export const useSchema = (collectionName: string) => {
       })
       .catch((err) => {
         setError(err as TypesenseError);
+        console.log(err);
       })
       .finally(() => {
         setLoading(false);

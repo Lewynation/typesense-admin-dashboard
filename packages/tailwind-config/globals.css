@@ -79,3 +79,67 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
+
+.ais-HitsPerPage {
+  @apply py-2;
+}
+
+.ais-HitsPerPage-select {
+  @apply w-full px-3 py-1 rounded-lg outline-none font-oswald;
+}
+.ais-SortBy-select {
+  @apply w-full px-3 py-1 rounded-lg outline-none font-oswald;
+}
+
+.ais-SearchBox-input {
+  @apply w-full px-3 py-1 rounded-lg outline-none font-oswald;
+}
+
+.ais-Hits,
+.ais-Hits-list,
+.ais-Hits-item {
+  @apply w-full;
+}
+
+.ais-SearchBox-input {
+  @apply w-full border-2 border-gray-300 rounded-md outline-none font-oswald;
+}
+
+.ais-Stats {
+  @apply font-oswald;
+}
+
+.ais-SearchBox-form {
+  @apply flex gap-3;
+}
+
+.ais-SearchBox-submitIcon {
+  @apply w-4 h-4;
+}
+.ais-SearchBox-resetIcon {
+  @apply w-4 h-4;
+}
+.ais-RefinementList-list {
+  @apply py-2 font-oswald;
+}
+.ais-RefinementList-checkbox {
+  @apply mr-1;
+}
+.ais-RefinementList-count {
+  @apply font-semibold;
+}
+.ais-RangeInput {
+  @apply font-oswald;
+}
+.ais-RangeInput-input {
+  @apply px-2 py-1 my-1 rounded-lg outline-none;
+}
+.ais-RangeInput-separator {
+  @apply mx-1;
+}
+.ais-RangeInput-submit {
+  @apply pl-2 font-bold;
+}
+.ais-Pagination-list {
+  @apply flex items-center justify-center gap-3 font-oswald;
+}
