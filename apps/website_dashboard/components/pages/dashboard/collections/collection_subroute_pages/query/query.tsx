@@ -38,18 +38,24 @@ const Query: React.FC<QueryProps> = ({ schemaName }) => {
 
         <div className="flex">
           <aside className="w-1/3 px-5 py-5 mt-2 bg-gray-100">
-            <HitsPerPage
-              defaultRefinement={10}
-              items={[
-                { value: 10, label: "Show 10 hits" },
-                { value: 20, label: "Show 20 hits" },
-                { value: 30, label: "Show 30 hits" },
-              ]}
-            />
-            <SortBy
-              defaultRefinement={schemaManipulator.getSchemaName()}
-              items={schemaManipulator.getSortByList()}
-            />
+            <div>
+              <p className="text-base font-bold font-oswald">Hits per page</p>
+              <HitsPerPage
+                defaultRefinement={10}
+                items={[
+                  { value: 10, label: "Show 10 hits" },
+                  { value: 20, label: "Show 20 hits" },
+                  { value: 30, label: "Show 30 hits" },
+                ]}
+              />
+            </div>
+            <div>
+              <p className="text-base font-bold font-oswald">Sort By</p>
+              <SortBy
+                defaultRefinement={schemaManipulator.getSchemaName()}
+                items={schemaManipulator.getSortByList()}
+              />
+            </div>
             {schemaManipulator.getFacetedNumberFields().map((field, index) => {
               return (
                 <div key={index} className="flex flex-col gap-1 py-2">
