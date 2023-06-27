@@ -30,11 +30,15 @@ import { Input } from "../input";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchcolumn: string;
+  searchInputDefaultValue: string;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  searchInputDefaultValue,
+  searchcolumn,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -61,15 +65,17 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter collections ..."
+          placeholder={`Filter ${searchInputDefaultValue}...`}
           // value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table
+              .getColumn(`${searchcolumn}`)
+              ?.setFilterValue(event.target.value)
           }
           // className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
+      <div className="border rounded-md">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -110,7 +116,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center font-oswald"
                 >
                   No results.
                 </TableCell>
@@ -119,16 +125,18 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="flex items-center justify-end py-4 space-x-2">
         <Button
           variant="outline"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          className="font-oswald"
         >
           Previous
         </Button>
         <Button
+          className="font-oswald"
           variant="outline"
           size="sm"
           onClick={() => table.nextPage()}

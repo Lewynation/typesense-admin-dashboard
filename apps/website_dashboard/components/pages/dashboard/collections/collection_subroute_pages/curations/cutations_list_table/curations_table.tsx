@@ -10,7 +10,12 @@ interface CurationsTableProps {
 const CurationsTable: React.FC<CurationsTableProps> = ({ data }) => {
   return (
     <>
-      <DataTable columns={columns} data={data} />
+      <DataTable
+        columns={columns}
+        data={data}
+        searchcolumn="match"
+        searchInputDefaultValue="curations"
+      />
     </>
   );
 };

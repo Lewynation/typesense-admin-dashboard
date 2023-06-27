@@ -1,12 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import CurationsTable from "./cutations_list_table/curations_table";
-import { useDependencies } from "@/contexts/dependency_provider";
-import { OverrideSchema } from "typesense/lib/Typesense/Override";
 import { useCurations } from "@/hooks";
-import { BarLoaderFullScreenWidth, CircularSpinner } from "ui";
-import { AuthenticationCheckWrapper } from "@/components/shared";
+import { BarLoaderFullScreenWidth } from "ui";
 import { ErrorComponent } from "@/components/shared/Error";
 
 interface CurationsBodyProps {

@@ -11,7 +11,12 @@ interface ApiKeysTableProps {
 const ApiKeysTalbe: React.FC<ApiKeysTableProps> = ({ data }) => {
   return (
     <div>
-      <DataTable columns={columns} data={data} />
+      <DataTable
+        columns={columns}
+        data={data}
+        searchcolumn="description"
+        searchInputDefaultValue="API Keys"
+      />
     </div>
   );
 };

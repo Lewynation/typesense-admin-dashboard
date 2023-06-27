@@ -1,8 +1,10 @@
 "use client";
 
+import { useDependencies } from "@/contexts/dependency_provider";
 import { Row } from "@tanstack/react-table";
 import React from "react";
-
+import { CollectionAliasSchema } from "typesense/lib/Typesense/Aliases";
+import { useSWRConfig } from "swr";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,18 +24,13 @@ import {
   Icons,
   ShadCnButton,
 } from "ui";
-import { KeySchema } from "typesense/lib/Typesense/Key";
-import { useDependencies } from "@/contexts/dependency_provider";
-import { useSWRConfig } from "swr";
 
-interface APIKeyTableRowActionsProps {
-  row: Row<KeySchema>;
+interface AliasTableRowActionsProps {
+  row: Row<CollectionAliasSchema>;
 }
 
-const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
-  row,
-}) => {
-  const APIkey = row.original;
+const AliasTableRowActions: React.FC<AliasTableRowActionsProps> = ({ row }) => {
+  const aliases = row.original;
   const dependencies = useDependencies();
   const { mutate } = useSWRConfig();
 
@@ -51,31 +48,18 @@ const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
             <p className="font-oswald">Actions</p>
           </DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() =>
-              navigator.clipboard.writeText(APIkey.description || "")
-            }
+            onClick={() => navigator.clipboard.writeText(aliases.name)}
           >
-            <p className="font-oswald"> Copy API Key Description</p>
+            <p className="font-oswald"> Copy Alias Name</p>
           </DropdownMenuItem>
-
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => {
-              //set a search parameter with the id of the apikey and get the apikey details
-              //then open the side sheet
-              const openviewApiKeySideSheetButton = document.querySelector(
-                "#view_api_key_side_panel"
-              ) as HTMLElement;
-              if (openviewApiKeySideSheetButton) {
-                openviewApiKeySideSheetButton.click();
-              }
-            }}
-          >
+          <DropdownMenuItem>
             <div className="flex items-center justify-between w-full gap-3">
-              <p className="font-oswald">View api Key</p>
-              <Icons.View size={20} />
+              <p className="font-oswald">Edit</p>
+              <Icons.Edit size={20} />
             </div>
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <AlertDialogTrigger asChild>
             <DropdownMenuItem>
               <div className="flex items-center justify-between w-full gap-3">
@@ -92,8 +76,8 @@ const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
             Are you absolutely sure?
           </AlertDialogTitle>
           <AlertDialogDescription className="font-oswald">
-            This action cannot be undone. This will permanently delete this API
-            Key.
+            This action cannot be undone. This will permanently delete this
+            alias.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -101,8 +85,8 @@ const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
           <AlertDialogAction
             className="font-oswald"
             onClick={async () => {
-              await dependencies?.typesense?.deleteAPIKey(APIkey.id);
-              mutate("/api-keys");
+              await dependencies?.typesense?.deleteAlias(aliases.name);
+              mutate("/aliases");
             }}
           >
             Continue
@@ -113,4 +97,4 @@ const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
   );
 };
 
-export default APIKeyTableRowActions;
+export default AliasTableRowActions;

@@ -10,7 +10,12 @@ interface CollectionTableProps {
 const CollectionsTable: React.FC<CollectionTableProps> = ({ data }) => {
   return (
     <>
-      <DataTable columns={columns} data={data} />
+      <DataTable
+        columns={columns}
+        data={data}
+        searchcolumn="name"
+        searchInputDefaultValue="collections"
+      />
     </>
   );
 };
