@@ -38,4 +38,6 @@ export interface ITypesenseActions {
   deleteAlias(collectionName: string): Promise<CollectionAliasSchema>;
 
   deleteAPIKey(keyId: number): Promise<KeyDeleteSchema>;
+
+  retrieveAPIKeyDetails(keyId: number): Promise<KeySchema>;
 }

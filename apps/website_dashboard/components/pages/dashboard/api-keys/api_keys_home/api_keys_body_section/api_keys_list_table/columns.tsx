@@ -17,11 +17,17 @@ export const columns: ColumnDef<KeySchema>[] = [
   {
     accessorKey: "value_prefix",
     header: () => <div className="font-oswald">Key Prefix</div>,
+    cell: ({ row }) => {
+      return <div className="font-oswald"> {row.original["value_prefix"]}</div>;
+    },
   },
   {
     accessorKey: "id",
     header: ({ column }) => {
       return <APIKeyTableColumnHeader column={column} title="Id" />;
+    },
+    cell: ({ row }) => {
+      return <div className="font-oswald"> {row.original.id}</div>;
     },
   },
   {

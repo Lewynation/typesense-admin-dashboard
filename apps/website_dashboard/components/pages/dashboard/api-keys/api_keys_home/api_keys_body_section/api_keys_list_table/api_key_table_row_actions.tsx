@@ -25,6 +25,11 @@ import {
 import { KeySchema } from "typesense/lib/Typesense/Key";
 import { useDependencies } from "@/contexts/dependency_provider";
 import { useSWRConfig } from "swr";
+import { useAppDispatch } from "@/redux/store/store";
+import {
+  setKeyId,
+  setOpenSideMenu,
+} from "@/redux/slices/view_api_key_details/view_api_key_details";
 
 interface APIKeyTableRowActionsProps {
   row: Row<KeySchema>;
@@ -36,6 +41,7 @@ const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
   const APIkey = row.original;
   const dependencies = useDependencies();
   const { mutate } = useSWRConfig();
+  const dispatch = useAppDispatch();
 
   return (
     <AlertDialog>
@@ -63,12 +69,14 @@ const APIKeyTableRowActions: React.FC<APIKeyTableRowActionsProps> = ({
             onClick={() => {
               //set a search parameter with the id of the apikey and get the apikey details
               //then open the side sheet
-              const openviewApiKeySideSheetButton = document.querySelector(
-                "#view_api_key_side_panel"
-              ) as HTMLElement;
-              if (openviewApiKeySideSheetButton) {
-                openviewApiKeySideSheetButton.click();
-              }
+              // const openviewApiKeySideSheetButton = document.querySelector(
+              //   "#view_api_key_side_panel"
+              // ) as HTMLElement;
+              // if (openviewApiKeySideSheetButton) {
+              //   openviewApiKeySideSheetButton.click();
+              // }
+              dispatch(setKeyId(APIkey.id));
+              dispatch(setOpenSideMenu(true));
             }}
           >
             <div className="flex items-center justify-between w-full gap-3">

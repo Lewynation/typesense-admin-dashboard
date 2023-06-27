@@ -6,3 +6,4 @@ export * from "./useCollections";
 export * from "./useQuery";
 export * from "./useSynonyms";
 export * from "./useAliases";
+export * from "./useRetrieveAPIKeyDetails";

@@ -119,6 +119,10 @@ export class TypesenseActions implements ITypesenseActions {
   async deleteAPIKey(keyId: number): Promise<KeyDeleteSchema> {
     return this.client.keys(keyId).delete();
   }
+
+  async retrieveAPIKeyDetails(keyId: number): Promise<KeySchema> {
+    return this.client.keys(keyId).retrieve();
+  }
 }
 
 // const response = await fetch(url, {
