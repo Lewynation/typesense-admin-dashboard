@@ -3,6 +3,7 @@ import {
   CollectionAliasesResponseSchema,
 } from "typesense/lib/Typesense/Aliases";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import { CollectionCreateSchema } from "typesense/lib/Typesense/Collections";
 import { HealthResponse } from "typesense/lib/Typesense/Health";
 import {
   KeyCreateSchema,
@@ -40,4 +41,6 @@ export interface ITypesenseActions {
   deleteAPIKey(keyId: number): Promise<KeyDeleteSchema>;
 
   retrieveAPIKeyDetails(keyId: number): Promise<KeySchema>;
+
+  createCollection(schema: CollectionCreateSchema): Promise<CollectionSchema>;
 }

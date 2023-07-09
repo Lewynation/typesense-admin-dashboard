@@ -13,11 +13,11 @@ import { ITypesenseActions } from "./typesense_actions.interface";
 import { ITypesenseAuthData } from "./typesense_auth_data.interface";
 import { SynonymsRetrieveSchema } from "typesense/lib/Typesense/Synonyms";
 import { TypesenseError } from "typesense/lib/Typesense/Errors";
-import { type } from "os";
 import {
   CollectionAliasSchema,
   CollectionAliasesResponseSchema,
 } from "typesense/lib/Typesense/Aliases";
+import { CollectionCreateSchema } from "typesense/lib/Typesense/Collections";
 
 export class TypesenseActions implements ITypesenseActions {
   private client: Client;
@@ -122,6 +122,12 @@ export class TypesenseActions implements ITypesenseActions {
 
   async retrieveAPIKeyDetails(keyId: number): Promise<KeySchema> {
     return this.client.keys(keyId).retrieve();
+  }
+
+  async createCollection(
+    schema: CollectionCreateSchema
+  ): Promise<CollectionSchema> {
+    return this.client.collections().create(schema);
   }
 }
 
