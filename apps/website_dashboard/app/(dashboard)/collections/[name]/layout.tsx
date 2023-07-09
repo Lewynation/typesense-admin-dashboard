@@ -1,5 +1,6 @@
 import { CollectionNestedNavElement } from "@/components/pages/dashboard/collections";
 import { nestedCollectionNav } from "@/constants";
+import Link from "next/link";
 import React from "react";
 import { Icons } from "ui";
 
@@ -15,9 +16,11 @@ const CoolectionLayout: React.FC<CollectionLayoutProps> = ({
   return (
     <div>
       <div className="flex items-center gap-1 mb-2">
-        <h3 className="font-oswald text-2xl">Collections</h3>
+        <Link href="/collections">
+          <h3 className="text-2xl font-bold font-oswald">Collections</h3>
+        </Link>
         <Icons.ChevronRight />
-        <h3 className="font-oswald text-2xl">{params.name}</h3>
+        <h3 className="text-2xl font-oswald">{params.name}</h3>
       </div>
       <div className="flex items-center gap-4">
         {nestedCollectionNav.map(({ href, title }, index) => (

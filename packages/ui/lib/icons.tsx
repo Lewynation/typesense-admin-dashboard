@@ -21,9 +21,11 @@ import {
   View,
   Edit,
   X,
+  ChevronDown,
 } from "lucide-react";
 
 export const Icons = {
+  ChevronDown,
   Copy,
   Key,
   LogOut,

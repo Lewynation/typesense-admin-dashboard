@@ -14,6 +14,7 @@ import {
   useToast,
 } from "ui";
 import { changeAdminApiKeyResultDialog } from "@/redux/slices/alert_modals/alert_modals";
+import { useSWRConfig } from "swr";
 
 const AdminKeyResultDialog = () => {
   const dispatch = useAppDispatch();
@@ -25,12 +26,14 @@ const AdminKeyResultDialog = () => {
   const opemModal = (modalState: boolean): void => {
     dispatch(changeAdminApiKeyResultDialog(modalState));
   };
+  const { mutate } = useSWRConfig();
+
   return (
     <div>
       <AlertDialog open={adminAPIKeyResultDialog} onOpenChange={opemModal}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-xl font-oswald font-bold">
+            <AlertDialogTitle className="text-xl font-bold font-oswald">
               Your API Key
             </AlertDialogTitle>
             <div className="font-oswald">
@@ -45,6 +48,7 @@ const AdminKeyResultDialog = () => {
                     toast({
                       title: "Copied to clipboard",
                       description: "Sucessfuly Copied to clipboard",
+                      className: "font-oswald",
                     });
                   }}
                 >
@@ -56,7 +60,9 @@ const AdminKeyResultDialog = () => {
           <AlertDialogFooter>
             <AlertDialogAction
               onClick={() => {
-                router.push("/api-keys");
+                mutate("/api-keys");
+                opemModal(false);
+                // router.push("/api-keys");
               }}
               className="font-oswald"
             >

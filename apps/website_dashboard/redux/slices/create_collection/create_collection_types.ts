@@ -1,0 +1,30 @@
+export type FieldTypes =
+  | "string"
+  | "string[]"
+  | "int32"
+  | "int32[]"
+  | "int64"
+  | "int64[]"
+  | "float"
+  | "float[]"
+  | "bool"
+  | "bool[]"
+  | "geopoint"
+  | "geopoint[]"
+  | "object"
+  | "object[]"
+  | "string*"
+  | "auto";
+
+export type LocaleTypes =
+  | "ja"
+  | "zh"
+  | "ko"
+  | "th"
+  | "el"
+  | "ru"
+  | "sr"
+  | "uk"
+  | "be"
+  | "default"
+  | "";
