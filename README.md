@@ -37,9 +37,7 @@ The project contains two docker compose files at the root of the appliation:
         - typesense-data:/data
     admin_dashboard:
       container_name: admin_dashboard
-      build:
-        context: .
-        dockerfile: ./apps/website_dashboard/Dockerfile
+      image: ghcr.io/lewynation/typesense-admin-dashboard:latest
       restart: always
       ports:
         - 3005:3000
@@ -57,9 +55,7 @@ The project contains two docker compose files at the root of the appliation:
   services:
     admin_dashboard:
       container_name: admin_dashboard
-      build:
-        context: .
-        dockerfile: ./apps/website_dashboard/Dockerfile
+      image: ghcr.io/lewynation/typesense-admin-dashboard:latest
       restart: always
       ports:
         - 3005:3000
