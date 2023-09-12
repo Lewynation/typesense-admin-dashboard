@@ -19,7 +19,7 @@ const HitComponent = ({ hit, keys }: HitComponentProps) => {
                         <div key={index} className="flex gap-3 ">
                             <p className="font-semibold font-oswald">{field}</p>
                             <p>:</p>
-                            <p className="font-oswald">{hit[field]}</p>
+                            <p className="font-oswald">{showData(hit[field])}</p>
                         </div>
                     );
                 })}
