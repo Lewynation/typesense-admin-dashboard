@@ -18,3 +18,5 @@ export * from "./bar_loader";
 export * from "./circular_spinner";
 export * from "./icons";
 export * from "./table/data_table";
+export * from "./card";
+export * from "./label";

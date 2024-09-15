@@ -76,7 +76,7 @@ const LoginView = () => {
   }, [router, toast, handleLogin, dependencies, loading]);
 
   return (
-    <div className="h-screen flex items-center justify-center bg-[#f5f7fb]">
+    <div className="h-screen flex items-center justify-center">
       <BarLoaderFullScreenWidth loading={loading} />
       <div className="flex gap-10 px-10 py-3 bg-white">
         <LoginLogoSection />
