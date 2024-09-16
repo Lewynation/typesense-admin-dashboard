@@ -1,34 +1,41 @@
 import {
-  AliasIcon,
-  CollectionIcon,
-  KeyIcon,
-  ServerStatsIcon,
-} from "@/assets/svgs";
+  FileStack,
+  Key,
+  Library,
+  LineChart,
+  ShieldBan,
+  SlidersHorizontal,
+} from "lucide-react";
 
 export const sideNavigationElements = [
   {
-    title: "Main",
-    elements: [
-      {
-        name: "Server stats",
-        Icon: ServerStatsIcon,
-        path: "/",
-      },
-      {
-        name: "Collections",
-        Icon: CollectionIcon,
-        path: "/collections",
-      },
-      {
-        name: "Api Keys",
-        Icon: KeyIcon,
-        path: "/api-keys",
-      },
-      {
-        name: "Aliases",
-        Icon: AliasIcon,
-        path: "/aliases",
-      },
-    ],
+    name: "Collections",
+    Icon: Library,
+    path: "collections",
+  },
+  {
+    name: "API Keys",
+    Icon: Key,
+    path: "api-keys",
+  },
+  {
+    name: "Aliases",
+    Icon: FileStack,
+    path: "aliases",
+  },
+  {
+    name: "Analytics Rules",
+    Icon: LineChart,
+    path: "analytics-rules",
+  },
+  {
+    name: "Search Presets",
+    Icon: SlidersHorizontal,
+    path: "search-presets",
+  },
+  {
+    name: "Stop Words",
+    Icon: ShieldBan,
+    path: "stop-words",
   },
 ];

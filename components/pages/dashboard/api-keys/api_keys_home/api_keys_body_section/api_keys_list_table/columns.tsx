@@ -35,11 +35,11 @@ export const columns: ColumnDef<KeySchema>[] = [
       return <APIKeyTableColumnHeader column={column} title="Expires At" />;
     },
     cell: ({ row }) => {
-      const date = row.original.expires_at;
-      const formattedDate = new Date(date || 0).toLocaleDateString("en-US", {
-        weekday: "long",
+      const date = row.original.expires_at || 0;
+      const formattedDate = new Date(date * 1000).toLocaleDateString("en-US", {
+        weekday: "short",
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
       });
 

@@ -1,10 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import { DropdownMenuItem, Icons } from "@/components/ui";
+import { GetResourceByServerIdProps } from "@/types";
 
-const SearchKeyDropDownButton = () => {
+const SearchKeyDropDownButton: React.FC<GetResourceByServerIdProps> = ({
+  serverId,
+}) => {
   return (
-    <Link href="/api-keys/search-api-key">
+    <Link href={`/server/${serverId}/api-keys/search-api-key`}>
       <DropdownMenuItem className="cursor-pointer">
         <div className="flex items-center gap-3 justify-between w-full">
           <div>

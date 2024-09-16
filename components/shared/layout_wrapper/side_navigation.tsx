@@ -3,35 +3,63 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { sideNavigationElements } from "@/constants/side_navigation_elements";
+import { LucideIcon, Settings } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider,
+} from "@/components/ui";
+import { GetResourceByServerIdProps } from "@/types";
 
-const SideNavigation = () => {
+const SideNavigation: React.FC<GetResourceByServerIdProps> = ({ serverId }) => {
   return (
-    <aside className="fixed left-0 h-full p-6 mt-24 hidden md:block border-r-[1px] border-gray-300 w-72 bg-white">
-      {sideNavigationElements.map(({ elements, title }, index) => {
-        return (
-          <AsideNavigationElement
-            key={index}
-            title={title}
-            elements={elements}
-          />
-        );
-      })}
+    <aside className="fixed bottom-0 top-16 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+      <nav className="flex flex-col items-center gap-4 px-2 sm:py-4">
+        {sideNavigationElements.map(({ name, Icon, path }, index) => {
+          return (
+            <AsideNavigationElement
+              Icon={Icon}
+              name={name}
+              path={path}
+              key={index}
+              serverId={serverId}
+            />
+          );
+        })}
+      </nav>
+      <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-4">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="#"
+                className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+              >
+                <Settings className="h-5 w-5" />
+                <span className="sr-only">Settings</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Settings</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </nav>
     </aside>
   );
 };
 
 interface AsideNavigationElementProps {
-  title: string;
-  elements: {
-    name: string;
-    Icon: React.FC;
-    path: string;
-  }[];
+  name: string;
+  Icon: LucideIcon;
+  path: string;
+  serverId: string;
 }
 
 const AsideNavigationElement: React.FC<AsideNavigationElementProps> = ({
-  title,
-  elements,
+  name,
+  Icon,
+  path,
+  serverId,
 }) => {
   const pathName = usePathname();
 
@@ -50,27 +78,24 @@ const AsideNavigationElement: React.FC<AsideNavigationElementProps> = ({
   };
 
   return (
-    <div className="">
-      <h1 className="text-xl font-semibold font-oswald">{title}</h1>
-      <div className="my-3">
-        {elements.map(({ name, Icon, path }, index) => {
-          return (
-            <Link href={path} key={index}>
-              <div
-                className={`flex items-center my-1 gap-3 py-1 px-3 rounded-lg hover:bg-black hover:text-white ${
-                  checkUrlMatch(path, pathName)
-                    ? "bg-black text-white"
-                    : "bg-transparent"
-                }`}
-              >
-                <Icon />
-                <p className="text-base font-oswald">{name}</p>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Link
+            href={`/server/${serverId}/${path}`}
+            className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 hover:text-foreground ${
+              checkUrlMatch(path, pathName)
+                ? "bg-accent text-accent-foreground"
+                : "text-muted-foreground"
+            } `}
+          >
+            <Icon className="h-5 w-5" />
+            <span className="sr-only">{name}</span>
+          </Link>
+        </TooltipTrigger>
+        <TooltipContent side="right">{name}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 

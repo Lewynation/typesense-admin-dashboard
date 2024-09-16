@@ -10,7 +10,6 @@ import {
   SheetTrigger,
 } from "@/components/ui";
 import * as epochTime from "@/constants/epoch_time";
-import { useDependencies } from "@/contexts/dependency_provider";
 import { formatDate, handleExpiryDate } from "@/lib";
 import date from "date-and-time";
 import { useAppDispatch } from "@/redux/store/store";
@@ -19,9 +18,12 @@ import {
   setAdminApiKey,
 } from "@/redux/slices/alert_modals/alert_modals";
 import Link from "next/link";
+import { createAPIKey } from "@/actions";
+import { GetResourceByServerIdProps } from "@/types";
 
-const CreateAdminAPIKeySideSheet = () => {
-  const dependencies = useDependencies();
+const CreateAdminAPIKeySideSheet: React.FC<GetResourceByServerIdProps> = ({
+  serverId,
+}) => {
   const dispatch = useAppDispatch();
   const [APIKeyDescription, setAPIKKeyDescription] = useState<string>("");
   const [required, setRequired] = useState(false);
@@ -41,7 +43,7 @@ const CreateAdminAPIKeySideSheet = () => {
       setRequired(true);
       return;
     }
-    const createdAdminKey = await dependencies?.typesense?.createAPIKey(schema);
+    const createdAdminKey = await createAPIKey(serverId, schema);
     if (!createdAdminKey) {
       return;
     }
@@ -76,7 +78,6 @@ const CreateAdminAPIKeySideSheet = () => {
         </SheetHeader>
         <div className="">
           <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
-            {" "}
             Description <span className="text-red-700">*</span>
           </p>
           {required && <p className="text-red-600 font-oswald">Required</p>}
@@ -106,7 +107,7 @@ const CreateAdminAPIKeySideSheet = () => {
               <option value="No expiration">No expiration</option>
             </select>
             <p className="text-sm font-oswald dark:text-gray-400">
-              Expires on:{" "}
+              Expires on:
               {epochDate === 1
                 ? "Never"
                 : date.format(formatDate(epochDate), "ddd, MMM DD YYYY")}
@@ -119,7 +120,9 @@ const CreateAdminAPIKeySideSheet = () => {
             access). Refrain from creating such widely scoped keys as much as
             possible. Create a scoped key{" "}
             <span className="text-blue-500">
-              <Link href="/api-keys/search-api-key">here</Link>
+              <Link href={`/server/${serverId}/api-keys/search-api-key`}>
+                here
+              </Link>
             </span>
             .
           </p>

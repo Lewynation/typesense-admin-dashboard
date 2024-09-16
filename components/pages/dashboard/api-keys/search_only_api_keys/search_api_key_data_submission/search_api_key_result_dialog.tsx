@@ -15,6 +15,7 @@ import {
 } from "@/components/ui";
 
 import { useToast } from "@/hooks";
+import { useParams } from "next/navigation";
 
 const SearchAPIKeyResultDialog = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,7 @@ const SearchAPIKeyResultDialog = () => {
   );
 
   const { toast } = useToast();
+  const params = useParams<{ id: string }>();
 
   const opemModal = (modalState: boolean): void => {
     dispatch(changeSearchAPIKeyResultDialog(modalState));
@@ -60,7 +62,7 @@ const SearchAPIKeyResultDialog = () => {
           <AlertDialogFooter>
             <AlertDialogAction
               onClick={() => {
-                router.push("/api-keys");
+                router.push(`/server/${params.id}/api-keys`);
               }}
               className="font-oswald"
             >

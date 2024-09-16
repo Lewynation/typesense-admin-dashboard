@@ -12,10 +12,24 @@ import {
   storeExpiryDate,
 } from "@/redux/slices/search_api_key_acctions/search_api_key_actions";
 import { formatDate } from "@/lib";
-import { useCollections } from "@/hooks";
+import { useEffect, useState } from "react";
+import { getCollections } from "@/actions";
+import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import { GetResourceByServerIdProps } from "@/types";
 
-function SearchAPIKeysDataCollection() {
-  const { collections } = useCollections();
+const SearchAPIKeysDataCollection: React.FC<GetResourceByServerIdProps> = ({
+  serverId,
+}) => {
+  const [collections, setCollections] = useState<
+    CollectionSchema[] | undefined
+  >();
+  useEffect(() => {
+    const getAllCollections = async () => {
+      const colls = await getCollections(serverId);
+      setCollections(colls);
+    };
+    getAllCollections();
+  }, [serverId]);
   const dispatch = useAppDispatch();
   const {
     required,
@@ -58,14 +72,12 @@ function SearchAPIKeysDataCollection() {
   return (
     <div className="px-4 pt-4 pb-1">
       <p className="pb-2 text-lg font-bold font-oswald dark:text-gray-300">
-        {" "}
         Search only API Key
       </p>
       <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
-        {" "}
         Description <span className="text-red-700">*</span>
       </p>
-      {required ? <p className="text-red-600 font-oswald ">Required</p> : null}{" "}
+      {required ? <p className="text-red-600 font-oswald ">Required</p> : null}
       <input
         onChange={handleAPIKeyInput}
         value={APIKeyDescription}
@@ -92,19 +104,19 @@ function SearchAPIKeysDataCollection() {
           <option value="No expiration">No expiration</option>
         </select>
         <p className="text-sm font-oswald dark:text-gray-400">
-          Expires on:{" "}
+          Expires on:
           {expiryDate === 1
             ? "Never"
             : date.format(formatDate(expiryDate), "ddd, MMM DD YYYY")}
         </p>
       </div>
       <p className="pb-2 text-sm font-bold font-oswald dark:text-gray-400">
-        Select Collections that this key is scoped to{" "}
+        Select Collections that this key is scoped to
         <span className="text-red-700">*</span>
       </p>
       {collectionEmpty ? (
         <p className="text-red-600 font-oswald">Required</p>
-      ) : null}{" "}
+      ) : null}
       <div className="">
         <select
           defaultValue={"DEFAULT"}
@@ -116,10 +128,9 @@ function SearchAPIKeysDataCollection() {
           onChange={handleCollection}
         >
           <option value="DEFAULT" disabled>
-            {" "}
-            - select an option -{" "}
+            - select an option -
           </option>
-          {collections.map((collection) => {
+          {collections?.map((collection) => {
             return (
               <option key={collection.created_at} value={collection.name}>
                 {collection.name}
@@ -134,15 +145,13 @@ function SearchAPIKeysDataCollection() {
         </div>
       </div>
       <p className="mt-3 text-sm font-bold font-oswald dark:text-gray-400">
-        {" "}
         Select Scopes
       </p>
       <p className="pb-2 text-sm text-gray-500 font-oswald dark:text-gray-500">
-        {" "}
         Scopes define the access for search only API Keys.
       </p>
     </div>
   );
-}
+};
 
 export default SearchAPIKeysDataCollection;

@@ -1,120 +1,115 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Input, BarLoaderFullScreenWidth } from "@/components/ui";
-import { useDependencies } from "@/contexts/dependency_provider";
-import { TypesenseActions } from "@/dependencies";
+import React, { useState } from "react";
+import {
+  Button,
+  Input,
+  BarLoaderFullScreenWidth,
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from "@/components/ui";
 import { useRouter } from "next/navigation";
-import useLocalStorage from "use-local-storage";
-import { LOCAL_STORAGE_KEY } from "@/constants";
-import { ToastAction } from "@/components/ui";
-import HoverCard from "./hover_card";
-import LoginLogoSection from "./login_logo_section";
-import RadioButtonGroup from "./radio_button_group";
 import { useToast } from "@/hooks";
+import logo from "@/assets/images/logo.png";
+import { login } from "@/actions";
 
-const LoginView = () => {
-  const dependencies = useDependencies();
+interface LoginViewProps {
+  children: React.ReactNode;
+}
+
+const LoginView: React.FC<LoginViewProps> = ({ children }) => {
   const router = useRouter();
-  const [, setCreds] = useLocalStorage(LOCAL_STORAGE_KEY, "");
   const { toast } = useToast();
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  const [APIKey, setAPIKey] = useState("");
-  const [host, setHost] = useState("");
-  const [port, setPort] = useState<number>(8108);
-  const [path, setPath] = useState("");
-  const [protocol, setProtocol] = useState("http");
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = useCallback(() => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     setLoading(true);
-    const credentials = {
-      apiKey: APIKey,
-      host: host,
-      path: path,
-      port: port,
-      protocol: protocol,
-    };
-    setCreds(JSON.stringify(credentials));
-    dependencies?.setTypesense(new TypesenseActions(credentials));
-  }, [APIKey, host, path, port, protocol, setCreds, dependencies]);
-
-  useEffect(() => {
-    if (!loading) return;
-    dependencies?.typesense
-      ?.getHealth()
-      .then((res) => {
-        if (res && res.ok) {
-          router.replace("/");
-          toast({
-            className: "font-oswald",
-            title: "Success",
-            description: "Login succesful",
-          });
-        } else {
-          console.log("no res");
-        }
-      })
-      .catch(() => {
+    try {
+      const formData = new FormData();
+      formData.set("email", email);
+      formData.set("password", password);
+      const response = await login(formData);
+      console.log(response);
+      if (!response?.error) {
+        router.replace("/");
+      } else {
+        console.log(response?.error);
         toast({
-          className: "font-oswald",
+          title: "Error",
+          content: "Uh oh! Something went wrong.",
           variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description:
-            "There was a problem with your request. Confirm the details and try again.",
-          action: (
-            <ToastAction altText="Try again" onClick={handleLogin}>
-              Try again
-            </ToastAction>
-          ),
         });
-        dependencies?.setTypesense(null);
-      })
-      .finally(() => {
-        setLoading(false);
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        variant: "destructive",
+        content: "Uh oh! Something went wrong.",
+        title: "Error",
       });
-  }, [router, toast, handleLogin, dependencies, loading]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="h-screen flex items-center justify-center">
+      {children}
       <BarLoaderFullScreenWidth loading={loading} />
-      <div className="flex gap-10 px-10 py-3 bg-white">
-        <LoginLogoSection />
-        <div className="flex flex-col items-center justify-center px-3">
-          <p className="mt-2 mb-3 text-sm font-oswald">Login to your server</p>
-          <div>
-            <Input
-              placeholder="ApiKey"
-              onChange={(e) => {
-                setAPIKey(e.target.value);
-              }}
-            />
-            <Input
-              placeholder="Host"
-              onChange={(e) => {
-                setHost(e.target.value);
-              }}
-            />
-            <Input
-              placeholder="Port"
-              onChange={(e) => {
-                setPort(parseInt(e.target.value));
-              }}
-            />
-            <Input
-              placeholder="Path"
-              onChange={(e) => {
-                setPath(e.target.value);
-              }}
-            />
-            <RadioButtonGroup setProtocol={setProtocol} />
-            <Button className="w-full mt-4 font-oswald" onClick={handleLogin}>
-              Login
-            </Button>
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <div className="flex flex-col w-full items-center justify-center my-4">
+            <Avatar className="h-24 w-24">
+              <AvatarImage src={logo.src} />
+              <AvatarFallback>o_O</AvatarFallback>
+            </Avatar>
+            <h1 className="text-2xl leading-tight uppercase font-oswald ">
+              t y p e s e n s e
+            </h1>
+            <h2 className="text-base leading-tight uppercase font-oswald ">
+              D a s h b o a r d
+            </h2>
           </div>
-          <HoverCard />
-        </div>
-      </div>
+        </CardHeader>
+        <form onSubmit={handleLogin}>
+          <CardContent className="grid gap-4">
+            <div className="grid gap-2">
+              <Input
+                id="email"
+                type="email"
+                placeholder="Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Input
+                id="password"
+                type="password"
+                required
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button className="w-full" type="submit">
+              Sign in
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 };

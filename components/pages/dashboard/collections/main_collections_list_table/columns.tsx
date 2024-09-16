@@ -43,10 +43,10 @@ export const columns: ColumnDef<CollectionSchema>[] = [
     },
     cell: ({ row }) => {
       const date = row.original.created_at;
-      const formattedDate = new Date(date).toLocaleDateString("en-US", {
-        weekday: "long",
+      const formattedDate = new Date(date * 1000).toLocaleDateString("en-US", {
+        weekday: "short",
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
       });
 

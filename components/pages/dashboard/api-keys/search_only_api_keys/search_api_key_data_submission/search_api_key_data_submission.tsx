@@ -1,6 +1,5 @@
 "use client";
 
-import { useDependencies } from "@/contexts/dependency_provider";
 import {
   changeSearchAPIKeyResultDialog,
   setSearchApiKey,
@@ -14,11 +13,14 @@ import { generateKeySchema, validateSearchCheckBoxes } from "@/lib";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { CircularSpinner, Icons, Button } from "@/components/ui";
+import { GetResourceByServerIdProps } from "@/types";
+import { createAPIKey } from "@/actions";
 
-const SearchApiKeysDataSubmisssion = () => {
+const SearchApiKeysDataSubmisssion: React.FC<GetResourceByServerIdProps> = ({
+  serverId,
+}) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const dependencies = useDependencies();
 
   const [invalid, setInvalid] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -59,7 +61,7 @@ const SearchApiKeysDataSubmisssion = () => {
       setLoading(false);
       return;
     }
-    const createdKey = await dependencies?.typesense?.createAPIKey(keySchema);
+    const createdKey = await createAPIKey(serverId, keySchema);
     if (!createdKey) {
       return;
     }
@@ -86,7 +88,7 @@ const SearchApiKeysDataSubmisssion = () => {
       <button
         type="button"
         onClick={() => {
-          router.replace("/api-keys");
+          router.replace(`/server/${serverId}/api-keys`);
         }}
         className="font-bold text-blue-500 outline-none cursor-pointer font-oswald"
       >

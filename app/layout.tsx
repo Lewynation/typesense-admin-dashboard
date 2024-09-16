@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import ReduxContextProvider from "@/redux/reduprovider/redux_context_provider";
 import { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config";
+import { ThemeProvider } from "@/components/shared";
+import { SessionProvider } from "next-auth/react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -66,14 +68,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <ReduxContextProvider>
-        <DependencyProvider>
-          <body className={oswald.variable}>
-            {children}
-            <Toaster />
-          </body>
-        </DependencyProvider>
-      </ReduxContextProvider>
+      <body className={oswald.variable}>
+        <ReduxContextProvider>
+          <DependencyProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="light"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <SessionProvider>
+                {children}
+                <Toaster />
+              </SessionProvider>
+            </ThemeProvider>
+          </DependencyProvider>
+        </ReduxContextProvider>
+      </body>
     </html>
   );
 }

@@ -1,18 +1,16 @@
 import { Row } from "@tanstack/react-table";
 import React from "react";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-  Icons,
-  Button,
-} from "@/components/ui";
+import { Button } from "@/components/ui";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
-import TableActionNavigation from "@/components/shared/table_action_navigation/table_action_navigation";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui";
+import Link from "next/link";
+import { Download, Eye, Trash, Upload } from "lucide-react";
 
 interface CollectionTableRowActionsProps {
   row: Row<CollectionSchema>;
@@ -23,48 +21,67 @@ const CollectionTableRowActions: React.FC<CollectionTableRowActionsProps> = ({
 }) => {
   const collections = row.original;
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <Icons.MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>
-          <p className="font-oswald">Actions</p>
-        </DropdownMenuLabel>
-        <DropdownMenuItem
-          onClick={() => navigator.clipboard.writeText(collections.name)}
-        >
-          <p className="font-oswald"> Copy Collection Name</p>
-        </DropdownMenuItem>
-        <TableActionNavigation
-          baseUrl="/collections"
-          dynamicUrlSection={row.original.name}
-        />
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <div className="flex items-center gap-3 justify-between w-full">
-            <p className="font-oswald">Import</p>
-            <Icons.Upload size={20} />
-          </div>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <div className="flex items-center gap-3 justify-between w-full">
-            <p className="font-oswald">Export</p>
-            <Icons.Download size={20} />
-          </div>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <div className="flex items-center gap-3 justify-between w-full">
-            <p className="font-oswald text-red-500">Delete</p>
-            <Icons.Trash size={20} className="text-red-500" />
-          </div>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center justify-start gap-2">
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href={`collections/${collections.name}`}
+              className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 hover:text-foreground text-muted-foreground`}
+            >
+              <Eye className="h-5 w-5" />
+              <span className="sr-only">View</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">View</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href={`/server/`}
+              className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 hover:text-foreground text-muted-foreground`}
+            >
+              <Download className="h-5 w-5" />
+              <span className="sr-only">Download</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Download</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href={`/server/`}
+              className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 hover:text-foreground text-muted-foreground`}
+            >
+              <Upload className="h-5 w-5" />
+              <span className="sr-only">Upload</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Upload</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors md:h-8 md:w-8 hover:text-foreground text-muted-foreground`}
+              onClick={() => {}}
+            >
+              <div>
+                <Trash className="h-5 w-5" />
+                <span className="sr-only">Delete</span>
+              </div>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="right">Delete</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
   );
 };
 

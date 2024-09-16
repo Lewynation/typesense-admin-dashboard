@@ -3,3 +3,4 @@ node_modules
 .turbo
 out
 desktop_dashboard
+data

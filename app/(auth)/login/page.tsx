@@ -1,11 +1,13 @@
 import React from "react";
-import { LoginView } from "@/components/pages/login/index";
+import { LoginAuthenticationCheck, LoginView } from "@/components/pages/login";
 
 const Login = () => {
   return (
-    <div>
-      <LoginView />
-    </div>
+    <>
+      <LoginView>
+        <LoginAuthenticationCheck />
+      </LoginView>
+    </>
   );
 };
 

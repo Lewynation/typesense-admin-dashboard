@@ -1,3 +1,8 @@
-export default function Home() {
-  return <div className="font-oswald">Coming Soon</div>;
-}
+import { Home } from "@/components/pages/home";
+import React from "react";
+
+const Page = () => {
+  return <Home />;
+};
+
+export default Page;

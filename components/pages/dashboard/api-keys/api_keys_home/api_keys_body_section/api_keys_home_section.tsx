@@ -1,19 +1,24 @@
-"use client";
-
 import React from "react";
 import { ApiKeysTable } from ".";
-import { useAPIKeys } from "@/hooks";
-import { BarLoaderFullScreenWidth } from "@/components/ui";
-import { ErrorComponent } from "@/components/shared/Error";
+import { GetResourceByServerIdProps } from "@/types";
+import { getApiKeys } from "@/actions";
+import { notFound } from "next/navigation";
 
-const ApiKeysHomeSection = () => {
-  const { apiKeys, loading, error } = useAPIKeys();
-
+const ApiKeysHomeSection: React.FC<GetResourceByServerIdProps> = async ({
+  serverId,
+}) => {
+  const apiKeys = await getApiKeys(serverId);
+  if (!apiKeys) {
+    notFound();
+  }
   return (
     <div className="mt-2">
-      {loading && <BarLoaderFullScreenWidth loading={loading} />}
-      {error && <ErrorComponent error={error} />}
-      {apiKeys && <ApiKeysTable data={apiKeys} />}
+      {apiKeys && <ApiKeysTable data={apiKeys.keys} />}
+      {apiKeys && apiKeys.keys.length < 0 && (
+        <>
+          <div>There are no api keys</div>
+        </>
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui";
 
-const LoginHoverCard = () => {
+const ServerCreateHoverCard = () => {
   return (
     <HoverCard>
       <HoverCardTrigger>
@@ -36,4 +36,4 @@ const LoginHoverCard = () => {
   );
 };
 
-export default LoginHoverCard;
+export default ServerCreateHoverCard;

@@ -1,27 +1,21 @@
-"use client";
-
-import { useAuthenticated } from "@/hooks";
 import React from "react";
-import { CircularSpinner } from "@/components/ui";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 interface AuthenticationCheckWrapperProps {
   children: React.ReactNode;
 }
 
-const AuthenticationCheckWrapper: React.FC<AuthenticationCheckWrapperProps> = ({
-  children,
-}) => {
-  const { authenticated } = useAuthenticated();
+const AuthenticationCheckWrapper: React.FC<
+  AuthenticationCheckWrapperProps
+> = async ({ children }) => {
+  const session = await auth();
+  if (!session?.user) {
+    redirect("/login");
+  }
   return (
     <div className="z-0">
-      {!authenticated ? (
-        <div className="flex items-center justify-center h-screen">
-          {" "}
-          <CircularSpinner />
-        </div>
-      ) : (
-        <>{children}</>
-      )}
+      <>{children}</>
     </div>
   );
 };

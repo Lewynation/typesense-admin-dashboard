@@ -1,27 +1,28 @@
-"use client";
 import React from "react";
 import { CollectionTable } from ".";
-import { useCollections } from "@/hooks";
-import { BarLoaderFullScreenWidth } from "@/components/ui";
-import { ErrorComponent } from "@/components/shared/Error";
+import { getCollections } from "@/actions";
+import { GetResourceByServerIdProps } from "@/types";
+import { notFound } from "next/navigation";
 
-const CollectionMainHomeSection = () => {
-  const { collections, loading, error } = useCollections();
-
-  const CollectionComponent = error ? (
-    <ErrorComponent error={error} />
-  ) : (
-    <CollectionTable data={collections} />
-  );
+const CollectionMainHomeSection: React.FC<GetResourceByServerIdProps> = async ({
+  serverId,
+}) => {
+  const collections = await getCollections(serverId);
+  if (!collections) {
+    notFound();
+  }
 
   return (
-    <div>
-      {loading ? (
-        <BarLoaderFullScreenWidth loading={loading} />
-      ) : (
-        CollectionComponent
+    <>
+      {collections && collections.length > 0 && (
+        <CollectionTable data={collections} />
       )}
-    </div>
+      {collections.length < 0 && (
+        <>
+          <div>There are no colletions</div>
+        </>
+      )}
+    </>
   );
 };
 

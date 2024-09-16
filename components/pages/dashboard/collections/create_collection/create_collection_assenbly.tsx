@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { useDependencies } from "@/contexts/dependency_provider";
 import {
   clearCreateCollection,
   getFieldsForDefaultSorting,
@@ -16,13 +15,16 @@ import AddFieldInputDialog from "./add_field_input_dialog";
 import { useToast } from "@/hooks";
 import AddedFieldsList from "./added_fields_list/added_fields_list";
 import FieldTypeSelector from "./create_collection_inputs/field_type_selector";
+import { createCollection } from "@/actions";
+import { GetResourceByServerIdProps } from "@/types";
 
-const CreateCollectionAssembly = () => {
+const CreateCollectionAssembly: React.FC<GetResourceByServerIdProps> = ({
+  serverId,
+}) => {
   const [inputFields, setInputFields] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
 
   const { toast } = useToast();
-  const dependencies = useDependencies();
   const dispatch = useAppDispatch();
   const collection = useAppSelector((state) => state.createCollectionSlice);
 
@@ -47,15 +49,14 @@ const CreateCollectionAssembly = () => {
     };
 
     try {
-      const collection = await dependencies?.typesense?.createCollection(
-        schema
-      );
+      const collection = await createCollection(serverId, schema);
       toast({
         variant: "default",
         title: "Success",
         description: `${collection?.name} created successfully`,
         className: "font-oswald",
       });
+      dispatch(clearCreateCollection());
     } catch (error) {
       console.log(error);
       return toast({
@@ -66,7 +67,6 @@ const CreateCollectionAssembly = () => {
       });
     } finally {
       setLoading(false);
-      dispatch(clearCreateCollection());
     }
   };
 

@@ -5,15 +5,21 @@ import { SearchApiKeysDataSubmisssion } from "@/components/pages/dashboard/api-k
 import SearchAPIKeyResultDialog from "@/components/pages/dashboard/api-keys/search_only_api_keys/search_api_key_data_submission/search_api_key_result_dialog";
 import React from "react";
 
-const SearchApiKey = () => {
+interface SearchApiKeysProps {
+  params: {
+    id: string;
+  };
+}
+
+const SearchApiKey: React.FC<SearchApiKeysProps> = ({ params }) => {
   return (
     <>
       <div className="relative flex flex-col items-center">
         <SearchAPIKeyBackBtn className="absolute top-0 left-0 z-0 cursor-pointer" />
         <div>
-          <SearchAPIKeysDataCollection />
+          <SearchAPIKeysDataCollection serverId={params.id} />
           <CheckBoxTreeAssembly />
-          <SearchApiKeysDataSubmisssion />
+          <SearchApiKeysDataSubmisssion serverId={params.id} />
           <SearchAPIKeyResultDialog />
         </div>
       </div>

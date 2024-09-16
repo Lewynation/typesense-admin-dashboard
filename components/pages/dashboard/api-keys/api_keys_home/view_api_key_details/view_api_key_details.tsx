@@ -1,9 +1,8 @@
 "use client";
 
-import { useRetrieveAPIKeyDetails } from "@/hooks";
 import { setOpenSideMenu } from "@/redux/slices/view_api_key_details/view_api_key_details";
 import { useAppDispatch, useAppSelector } from "@/redux/store/store";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Button,
   Sheet,
@@ -12,18 +11,45 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui";
+import { KeySchema } from "typesense/lib/Typesense/Key";
+import { retrieveApiKeyDetails } from "@/actions";
+import { useParams } from "next/navigation";
 
 const ViweAPIKeyDetails = () => {
   const { openSideMenu } = useAppSelector(
     (state) => state.viewApiKeyDetailsSlice
   );
   const dispatch = useAppDispatch();
+  const params = useParams<{ id: string }>();
+
+  const [APIKeyDetails, setApiKeyDetails] = React.useState<
+    KeySchema | undefined
+  >();
+  const { keyId } = useAppSelector((state) => state.viewApiKeyDetailsSlice);
+
+  useEffect(() => {
+    const getApiKeyDetails = async () => {
+      if (keyId === null) return;
+      const details = await retrieveApiKeyDetails(params.id, keyId);
+      setApiKeyDetails(details);
+    };
+    getApiKeyDetails();
+  }, [keyId, params.id]);
 
   const closeSideMenu = (sideMenuOpenState: boolean) => {
     dispatch(setOpenSideMenu(sideMenuOpenState));
   };
 
-  const { APIKeyDetails } = useRetrieveAPIKeyDetails();
+  const formatDate = (date?: number): string | null => {
+    if (!date) return null;
+    const formattedDate = new Date(date * 1000).toLocaleDateString("en-US", {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+    return formattedDate;
+  };
 
   return (
     <Sheet open={openSideMenu} onOpenChange={closeSideMenu}>
@@ -56,7 +82,7 @@ const ViweAPIKeyDetails = () => {
               />
               <SingleKeyDesc
                 label="ExpiresAt"
-                value={APIKeyDetails.expires_at?.toString() || "No expiry date"}
+                value={formatDate(APIKeyDetails.expires_at) || "No expiry date"}
               />
               <SingleKeyDesc
                 label="Actions"
