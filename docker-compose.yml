@@ -1,7 +1,7 @@
 ---
 services:
   typesense:
-    image: typesense/typesense:0.25.0.rc36
+    image: typesense/typesense:27.0.rc23
     entrypoint: sh -c "/opt/typesense-server --data-dir /data --api-key=abc --enable-cors"
     ports:
       - "8108:8108"

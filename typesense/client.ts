@@ -22,7 +22,9 @@ export class TypesenseClient {
           },
         ],
         apiKey: server.apiKey,
-        connectionTimeoutSeconds: 2,
+        connectionTimeoutSeconds: 20,
+        numRetries: 3,
+        retryIntervalSeconds: 1,
       });
       const typesenseClientAction = new TypesenseClientActions(client);
       this.instanceClients[serverId] = typesenseClientAction;
