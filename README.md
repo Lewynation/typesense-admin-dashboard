@@ -1,8 +1,8 @@
 # **Typesense admin dashboard**
 
-![Typesense admin dashboard](apps/website_dashboard/public/og.png)
+![Typesense admin dashboard](public/og.png)
 
-Welcome to the Typesense Admin Dashboard GitHub repository! This open-source project provides a user-friendly interface to manage your Typesense search engine effortlessly. It is built using [Turborepo](https://turbo.build/repo/docs/), [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [redux-toolkit](https://redux-toolkit.js.org/), [Shadcn](https://ui.shadcn.com/) and [Typesense](https://typesense.org/).
+Welcome to the Typesense Admin Dashboard GitHub repository! This open-source project provides a user-friendly interface to manage your Typesense search engine effortlessly. It is built using [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [redux-toolkit](https://redux-toolkit.js.org/), [Shadcn](https://ui.shadcn.com/) and [Typesense](https://typesense.org/).
 
 It is still in active development and we are working on polishing,finetuning and adding more features. If you have any feedback or suggestions, please feel free to
 [open an issue](https://github.com/Lewynation/typesense-admin-dashboard/issues)

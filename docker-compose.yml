@@ -1,7 +1,7 @@
-version: "3"
+---
 services:
   typesense:
-    image: typesense/typesense:0.25.0.rc36
+    image: typesense/typesense:27.0.rc23
     entrypoint: sh -c "/opt/typesense-server --data-dir /data --api-key=abc --enable-cors"
     ports:
       - "8108:8108"
@@ -9,12 +9,19 @@ services:
       - typesense-data:/data
   admin_dashboard:
     container_name: admin_dashboard
+    # If you want to use the image from the registry, uncomment the following line
+    # image: ghcr.io/lewynation/docker-dash:latest # Confirm the latest image tag
+
+    # And comment the following build context lines
     build:
       context: .
-      dockerfile: ./apps/website_dashboard/Dockerfile
+    # end
     restart: always
     ports:
       - 3005:3000
+    environment:
+      - AUTH_TRUST_HOST=true
+      - AUTH_SECRET=5acd25d4b79182aeca70db52093facc7
 volumes:
   typesense-data:
     driver: local
