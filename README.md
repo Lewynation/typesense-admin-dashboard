@@ -40,7 +40,6 @@ The project aims to provide a user friendly interface to manage your typesense s
         - typesense
       environment:
         - BETTER_AUTH_SECRET=pass-a-secure-secret
-        - BETTER_AUTH_URL=http://localhost:3000
         - DISABLE_REGISTRATION=false
       volumes:
         - frontend-data:/app/data
@@ -60,7 +59,6 @@ The project aims to provide a user friendly interface to manage your typesense s
 The dashboard can be configured using the following environment variables:
 
 - `BETTER_AUTH_SECRET`: Secret key used to encrypt user sessions.
-- `BETTER_AUTH_URL`: Base Url of the app.
 - `DISABLE_REGISTRATION`: If set to `true`, user registration is disabled. Defaults to `false`.
 
 ## Connection Gotchas
