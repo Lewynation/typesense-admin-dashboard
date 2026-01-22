@@ -1,12 +1,11 @@
-import { AddDocPage } from "@/components/pages/dashboard/collections/collection_subroute_pages/add_doc";
-import React from "react";
+import AddDocAssembly from "@/components/collections/add_doc/add_doc_assembly";
 
-const AddDoc = () => {
+const AddDocPage = () => {
   return (
     <div>
-      <AddDocPage />
+      <AddDocAssembly />
     </div>
   );
 };
 
-export default AddDoc;
+export default AddDocPage;

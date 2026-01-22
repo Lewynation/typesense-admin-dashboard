@@ -1,12 +1,23 @@
 import { fetchServerById } from "@/actions";
 import Typesense from "typesense";
 import { TypesenseClientActions } from "./typesense_actions";
+import { CreateTypesenseServer } from "@/better_auth_plugins/typesense_plugin/typings";
+import { LRUCache } from "lru-cache";
 
 export class TypesenseClient {
-  instanceClients: Record<string, TypesenseClientActions> = {};
+  // instanceClients: Record<string, TypesenseClientActions> = {};
+  private instanceClients: LRUCache<string, TypesenseClientActions>;
+
+  constructor() {
+    this.instanceClients = new LRUCache({
+      max: 100,
+      ttl: 1000 * 60 * 10, // 10 minutes
+      updateAgeOnGet: true,
+    });
+  }
 
   async getInstance(serverId: string): Promise<TypesenseClientActions | null> {
-    const instance = this.instanceClients[serverId];
+    const instance = this.instanceClients.get(serverId);
     if (instance) return instance;
     const server = await fetchServerById(serverId);
     if (!server) {
@@ -16,18 +27,47 @@ export class TypesenseClient {
       const client = new Typesense.Client({
         nodes: [
           {
-            host: server.host,
-            port: server.port!,
-            protocol: server.protocol!,
+            host: server.server.host,
+            port: server.server.port!,
+            protocol: server.server.protocol!,
+            path: server.server.path,
           },
         ],
-        apiKey: server.apiKey,
+        apiKey: server.server.apiKey,
         connectionTimeoutSeconds: 20,
         numRetries: 3,
         retryIntervalSeconds: 1,
       });
       const typesenseClientAction = new TypesenseClientActions(client);
-      this.instanceClients[serverId] = typesenseClientAction;
+      this.instanceClients.set(serverId, typesenseClientAction);
+      return typesenseClientAction;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  deleteInstane(serverId: string) {
+    this.instanceClients.delete(serverId);
+  }
+
+  async createSingleInstance(
+    config: CreateTypesenseServer,
+  ): Promise<TypesenseClientActions | null> {
+    try {
+      const client = new Typesense.Client({
+        nodes: [
+          {
+            host: config.host,
+            port: config.port!,
+            protocol: config.protocol!,
+          },
+        ],
+        apiKey: config.apiKey,
+        connectionTimeoutSeconds: 20,
+        numRetries: 3,
+        retryIntervalSeconds: 1,
+      });
+      const typesenseClientAction = new TypesenseClientActions(client);
       return typesenseClientAction;
     } catch (error) {
       return null;

@@ -1,0 +1,1 @@
+create table "typesenseServer" ("id" text not null primary key, "userId" text not null references "user" ("id") on delete cascade, "name" text not null, "protocol" text, "host" text not null, "port" integer, "path" text, "apiKey" text not null, "createdAt" date not null, "updatedAt" date);

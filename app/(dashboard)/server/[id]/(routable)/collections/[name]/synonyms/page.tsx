@@ -1,23 +1,20 @@
-import {
-  SynonymsPageAssembly,
-  SynonymsHeader,
-} from "@/components/pages/dashboard/collections/collection_subroute_pages/synonyms";
-// import SynonymsHeader from "@/components/pages/dashboard/collections/collection_subroute_pages/synonyms/synonyms_header/synonyms_header";
-import React from "react";
+import SynonymList from "@/components/collections/synonyms/synonym_list";
+import SynonymsHeader from "@/components/collections/synonyms/synonyms_header";
 
-interface SynonymsProps {
-  params: {
-    name: string;
-  };
-}
+const SynonymsPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string; name: string }>;
+}) => {
+  const serverId = (await params).id;
+  const collectionName = (await params).name;
 
-const Synonyms: React.FC<SynonymsProps> = ({ params }) => {
   return (
     <div>
       <SynonymsHeader />
-      <SynonymsPageAssembly collectionName={params.name} />
+      <SynonymList serverId={serverId} collectionName={collectionName} />
     </div>
   );
 };
 
-export default Synonyms;
+export default SynonymsPage;

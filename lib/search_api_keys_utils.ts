@@ -1,5 +1,6 @@
-import { Searches } from "@/redux/slices/search_check_boxes/search_check_boxes";
 import * as epochTime from "@/constants/epoch_time";
+import { Searches } from "@/contexts/react_context/check_box_context";
+import { ExpiryDuration } from "@/zod/enums/expiry_duration";
 
 const validateSearchCheckBoxes = (searches: Searches[]) => {
   const validatedList = searches.filter((search) => {
@@ -18,8 +19,24 @@ export type GenerateSchemaInput = {
   APIKeyDescription: string;
   collectionList: string[];
   expiryDate: number;
-  validateDescription: () => void;
-  validateCollectionList: () => void;
+};
+
+export const getEpochTimes = (expiry: ExpiryDuration): number => {
+  switch (expiry) {
+    case "30days":
+      return Date.now() + epochTime.THIRTYDAYS;
+    case "60days":
+      return Date.now() + epochTime.SIXTYDAYS;
+    case "7days":
+      return Date.now() + epochTime.SEVENDAYS;
+    case "90days":
+      return Date.now() + epochTime.NINETYDAYS;
+    case "NoExpiration":
+      return Date.now() + epochTime.NEVER;
+    default:
+      const _exhaustiveCheck: never = expiry;
+      return _exhaustiveCheck;
+  }
 };
 
 const generateKeySchema = ({
@@ -27,14 +44,18 @@ const generateKeySchema = ({
   APIKeyDescription,
   collectionList,
   expiryDate,
-  validateDescription,
-  validateCollectionList,
 }: GenerateSchemaInput) => {
   const actions: string[] = [];
   for (let i = 0; i < searchCheckBoxes.length; i += 1) {
     const element = searchCheckBoxes[i];
     if (element.selected) {
-      actions.push(`${element.value.toLowerCase()}:*`);
+      if (element.allowsAllOperations) {
+        actions.push(`${element.value.toLowerCase()}:*`);
+      } else {
+        element.children.forEach((child) => {
+          actions.push(`${child.value.toLowerCase()}`);
+        });
+      }
       continue;
     }
     const children = searchCheckBoxes[i].children.filter((child) => {
@@ -43,14 +64,6 @@ const generateKeySchema = ({
     children.forEach((child) => {
       actions.push(`${child.value.toLowerCase()}`);
     });
-  }
-  if (APIKeyDescription === "") {
-    validateDescription();
-    return false;
-  }
-  if (collectionList.length === 0) {
-    validateCollectionList();
-    return false;
   }
   const schema = {
     description: APIKeyDescription,
@@ -65,32 +78,5 @@ const formatDate = (unformatedDate: number) => {
   const formatedDate = new Date(unformatedDate);
   return formatedDate;
 };
-const handleExpiryDate = (
-  event: React.FormEvent<HTMLSelectElement>,
-  setEpochDate: React.Dispatch<React.SetStateAction<number>>
-) => {
-  switch (event.currentTarget.value) {
-    case "7 days":
-      setEpochDate(Date.now() + epochTime.SEVENDAYS);
-      break;
-    case "30 days":
-      setEpochDate(Date.now() + epochTime.THIRTYDAYS);
-      break;
-    case "60 days":
-      setEpochDate(Date.now() + epochTime.SIXTYDAYS);
-      break;
-    case "90 days":
-      setEpochDate(Date.now() + epochTime.NINETYDAYS);
-      break;
-    default:
-      setEpochDate(1);
-      break;
-  }
-};
 
-export {
-  validateSearchCheckBoxes,
-  generateKeySchema,
-  formatDate,
-  handleExpiryDate,
-};
+export { validateSearchCheckBoxes, generateKeySchema, formatDate };

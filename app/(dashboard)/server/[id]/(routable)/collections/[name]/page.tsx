@@ -1,12 +1,14 @@
-import { QueryPage } from "@/components/pages/dashboard/collections/collection_subroute_pages/query";
-import React from "react";
+import { redirect } from "next/navigation";
 
-const QueryCollection = ({ params }: { params: { name: string } }) => {
-  return (
-    <div>
-      <QueryPage schemaName={params.name} />
-    </div>
-  );
+const Page = async ({
+  params,
+}: {
+  params: Promise<{ id: string; name: string }>;
+}) => {
+  const serverId = (await params).id;
+  const collectionName = (await params).name;
+
+  redirect(`/server/${serverId}/collections/${collectionName}/query`);
 };
 
-export default QueryCollection;
+export default Page;

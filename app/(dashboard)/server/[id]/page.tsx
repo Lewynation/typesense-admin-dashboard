@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
 
-const Page = ({ params }: { params: { id: string } }) => {
-  redirect(`/server/${params.id}/collections`);
+const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const serverId = (await params).id;
+
+  redirect(`/server/${serverId}/collections`);
 };
 
 export default Page;

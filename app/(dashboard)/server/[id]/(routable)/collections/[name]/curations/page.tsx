@@ -1,16 +1,21 @@
-import {
-  CurationsBody,
-  CurationsHeader,
-} from "@/components/pages/dashboard/collections/collection_subroute_pages/curations";
+import CurationsHeader from "@/components/collections/curations/curations_header";
+import CurationsList from "@/components/collections/curations/curations_list";
 import React from "react";
 
-const Curations = ({ params }: { params: { name: string } }) => {
+const CurationsPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string; name: string }>;
+}) => {
+  const serverId = (await params).id;
+  const collectionName = (await params).name;
+
   return (
     <div>
       <CurationsHeader />
-      <CurationsBody collectionName={params.name} />
+      <CurationsList collectionName={collectionName} serverId={serverId} />
     </div>
   );
 };
 
-export default Curations;
+export default CurationsPage;

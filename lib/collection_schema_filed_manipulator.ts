@@ -1,4 +1,4 @@
-import { ITypesenseAuthData } from "@/dependencies";
+import { ITypesenseAuthData } from "@/zod/create_typesense_server";
 import TypesenseInstantsearchAdapter from "typesense-instantsearch-adapter";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
 
@@ -12,7 +12,7 @@ export class CollectionSchemaFieldManipulator {
 
   constructor(
     private readonly collectionSchema: CollectionSchema,
-    authData: ITypesenseAuthData
+    authData: ITypesenseAuthData,
   ) {
     this.typesenseAdapter = new TypesenseInstantsearchAdapter({
       server: {

@@ -1,14 +1,17 @@
-import React from "react";
-import { LoginAuthenticationCheck, LoginView } from "@/components/pages/login";
+import { auth } from "@/auth/server";
+import SusiComponent from "@/components/susi/susi.component";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
-const Login = () => {
-  return (
-    <>
-      <LoginView>
-        <LoginAuthenticationCheck />
-      </LoginView>
-    </>
-  );
+const LoginPage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (session?.user) {
+    redirect("/");
+  }
+
+  return <SusiComponent />;
 };
 
-export default Login;
+export default LoginPage;

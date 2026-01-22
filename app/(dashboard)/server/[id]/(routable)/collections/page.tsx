@@ -1,26 +1,18 @@
-import {
-  CollectionHeader,
-  CollectionMainHomeSection,
-} from "@/components/pages/dashboard/collections";
-import React from "react";
+import CollectionHeader from "@/components/collections/collection_header";
+import CollectionMainHomeSection from "@/components/collections/collection_main_home_section";
 
-interface CollectionProps {
-  params: {
-    id: string;
-  };
-}
-
-const Collections: React.FC<CollectionProps> = async ({ params }) => {
+const CollectionsPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const serverId = (await params).id;
   return (
-    <>
-      <main className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-        <div className="mx-auto w-full max-w-6xl items-start gap-6">
-          <CollectionHeader />
-          <CollectionMainHomeSection serverId={params.id} />
-        </div>
-      </main>
-    </>
+    <div>
+      <CollectionHeader />
+      <CollectionMainHomeSection serverId={serverId} />
+    </div>
   );
 };
 
-export default Collections;
+export default CollectionsPage;

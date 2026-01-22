@@ -1,29 +1,27 @@
-import { DependencyProvider } from "@/contexts/dependency_provider";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Montserrat } from "next/font/google";
-import { Toaster } from "@/components/ui/toaster";
-import ReduxContextProvider from "@/redux/reduprovider/redux_context_provider";
-import { Metadata, Viewport } from "next";
-import { siteConfig } from "@/config";
-import { ThemeProvider } from "@/components/shared";
-import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "@/components/shared/theme_provider";
+import { Toaster } from "@/components/ui/sonner";
+import { siteConfig } from "@/config/site_config";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
+  description: siteConfig.description,
   title: {
     default: siteConfig.siteName,
     template: "%s | " + siteConfig.siteName,
   },
-
-  description: siteConfig.description,
   keywords: ["Typesense", "Dashboard", "UI"],
-  authors: [
-    {
-      name: "otieno_otieno",
-      url: "https://ocluse.com",
-    },
-  ],
-  creator: "otieno_otieno",
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -36,54 +34,34 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.siteName,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og.jpg`],
-    creator: "@lewynation29",
+    site: siteConfig.url,
   },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  // manifest: `${siteConfig.url}/site.webmanifest`,
 };
-
-export const viewPort: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
-};
-
-const oswald = Montserrat({
-  subsets: ["latin"],
-  variable: "--oswald",
-  weight: ["200", "200", "400", "300", "500", "600", "700"],
-  display: "swap",
-});
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
-      <body className={oswald.variable}>
-        <ReduxContextProvider>
-          <DependencyProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="light"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <SessionProvider>
-                {children}
-                <Toaster />
-              </SessionProvider>
-            </ThemeProvider>
-          </DependencyProvider>
-        </ReduxContextProvider>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

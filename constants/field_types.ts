@@ -1,7 +1,33 @@
-import {
-  FieldTypes,
-  LocaleTypes,
-} from "@/redux/slices/create_collection/create_collection_types";
+type FieldTypes =
+  | "string"
+  | "string[]"
+  | "int32"
+  | "int32[]"
+  | "int64"
+  | "int64[]"
+  | "float"
+  | "float[]"
+  | "bool"
+  | "bool[]"
+  | "geopoint"
+  | "geopoint[]"
+  | "object"
+  | "object[]"
+  | "string*"
+  | "auto";
+
+type LocaleTypes =
+  | "ja"
+  | "zh"
+  | "ko"
+  | "th"
+  | "el"
+  | "ru"
+  | "sr"
+  | "uk"
+  | "be"
+  | "default"
+  | "";
 
 export const fieldTypes: FieldTypes[] = [
   "string",

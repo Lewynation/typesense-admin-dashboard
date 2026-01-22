@@ -1,38 +1,51 @@
-import { CollectionNestedNavElement } from "@/components/pages/dashboard/collections";
-import { nestedCollectionNav } from "@/constants";
-import Link from "next/link";
+import CollectionNestedNavElement from "@/components/collections/collection_nested_nav_element";
 import React from "react";
-import { Icons } from "@/components/ui";
 
-interface CollectionLayoutProps {
-  children: React.ReactNode;
-  params: { name: string };
-}
+const nestedCollectionNav = [
+  {
+    title: "Query",
+    href: "query",
+  },
+  {
+    title: "Schema",
+    href: "schema",
+  },
+  {
+    title: "Curations",
+    href: "curations",
+  },
+  {
+    title: "Add doc",
+    href: "add-doc",
+  },
+  {
+    title: "Synonyms",
+    href: "synonyms",
+  },
+];
 
-const CoolectionLayout: React.FC<CollectionLayoutProps> = ({
+const CoolectionLayout = async ({
   children,
   params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ id: string; name: string }>;
 }) => {
+  const collectionName = (await params).name;
+
   return (
     <div>
-      <div className="flex items-center gap-1 mb-2">
-        <Link href="/collections">
-          <h3 className="text-2xl font-bold font-oswald">Collections</h3>
-        </Link>
-        <Icons.ChevronRight />
-        <h3 className="text-2xl font-oswald">{params.name}</h3>
-      </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-6">
         {nestedCollectionNav.map(({ href, title }, index) => (
           <CollectionNestedNavElement
             key={index}
-            param={params.name}
+            param={collectionName}
             href={href}
             title={title}
           />
         ))}
       </div>
-      {children}
+      <div className="flex flex-1 flex-col gap-4 pt-6">{children}</div>
     </div>
   );
 };

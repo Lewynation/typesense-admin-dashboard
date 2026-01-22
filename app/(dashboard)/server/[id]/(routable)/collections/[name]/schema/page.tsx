@@ -1,12 +1,11 @@
-import { SchemaView } from "@/components/pages/dashboard/collections/collection_subroute_pages/schema";
-import React from "react";
+import SchemaContentAssembly from "@/components/collections/schema/schema_assembly";
 
-const Schema = ({ params }: { params: { name: string } }) => {
+const SchemaPage = () => {
   return (
     <div>
-      <SchemaView schemaName={params.name} />
+      <SchemaContentAssembly />
     </div>
   );
 };
 
-export default Schema;
+export default SchemaPage;

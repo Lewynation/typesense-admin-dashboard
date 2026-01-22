@@ -1,5 +1,13 @@
-export const PASSWORD_HASH =
-  process.env.AUTH_PASSWORD_HASH ||
-  "$2a$12$/XRblNgB2iRxjAwwu8XMkeIUWYKPqH98/eWB5rNXbIJJ.quV89ezG";
-export const EMAIL = process.env.AUTH_EMAIL || "admin@example.com";
-export const CONFIG_PATH = process.env.CONFIG_PATH || "/app/data/";
+import z from "zod";
+
+const DatabaseAdapterSchema = z.enum(["memory", "sqlite"]);
+
+export const SQLITE_DB_PATH =
+  process.env.SQLITE_DB_PATH || "/app/data/database.sqlite";
+export const DATABASE_ADAPTER = DatabaseAdapterSchema.catch("sqlite").parse(
+  process.env.DATABASE_ADAPTER,
+);
+export const DISABLE_REGISTRATION =
+  process.env.DISABLE_REGISTRATION != undefined
+    ? Boolean(process.env.DISABLE_REGISTRATION)
+    : false;

@@ -1,16 +1,19 @@
-import {
-  AliasBody,
-  AliasHeader as AliasesHeader,
-} from "@/components/pages/dashboard/aliases";
-import React from "react";
+import AliasesHeader from "@/components/aliases/aliases_header";
+import AliasesList from "@/components/aliases/aliases_list";
 
-const Aliases = () => {
+const AlliasesPage = async ({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) => {
+  const serverId = (await params).id;
+
   return (
     <div>
       <AliasesHeader />
-      <AliasBody />
+      <AliasesList serverId={serverId} />
     </div>
   );
 };
 
-export default Aliases;
+export default AlliasesPage;

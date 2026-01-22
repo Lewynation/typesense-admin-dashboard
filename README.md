@@ -1,69 +1,78 @@
 # **Typesense admin dashboard**
 
-![Typesense admin dashboard](public/og.png)
+![Typesense admin dashboard](app/opengraph-image.png)
 
-Welcome to the Typesense Admin Dashboard GitHub repository! This open-source project provides a user-friendly interface to manage your Typesense search engine effortlessly. It is built using [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/), [redux-toolkit](https://redux-toolkit.js.org/), [Shadcn](https://ui.shadcn.com/) and [Typesense](https://typesense.org/).
-
-It is still in active development and we are working on polishing,finetuning and adding more features. If you have any feedback or suggestions, please feel free to
-[open an issue](https://github.com/Lewynation/typesense-admin-dashboard/issues)
+![UI Light mde](assets/images/ui_light.png)
 
 ## Project goals
 
 The project aims to provide a user friendly interface to manage your typesense server.
 
-## Features
-
-- **Intuitive Search Management**: Easily configure collections, define schema fields, and fine-tune search settings with a clean and intuitive interface.
-- **Real-time Monitoring**: Gain valuable insights into your search engine's performance, query analytics, and indexing status, enabling you to optimize and improve search results.
-- **Advanced Settings**: Fine-tune advanced search features to customize the search experience.
-
-## Getting Started
-
 ### Quick setup Using Docker compose
 
-The project contains two docker compose files at the root of the appliation:
-
-- [`docker-compose.yml`](./docker-compose.yml)
+- [`docker-compose.yaml`](./docker-compose.yaml)
 
   ```yml
-  version: "3"
+  name: typesense
   services:
     typesense:
-      image: typesense/typesense:0.25.0.rc36
-      entrypoint: sh -c "/opt/typesense-server --data-dir /data --api-key=abc --enable-cors"
+      container_name: typesense
+      image: typesense/typesense:29.0
+      restart: unless-stopped
       ports:
-        - "8108:8108"
+        - "127.0.0.1:8108:8108"
       volumes:
-        - typesense-data:/data
-    admin_dashboard:
-      container_name: admin_dashboard
+        - ./data:/data
+      networks:
+        - typesense
+      command:
+        - "--data-dir=/data"
+        - "--api-key=xyz"
+        - "--enable-cors"
+
+    dashboard:
+      container_name: typesense_dashboard
       image: ghcr.io/lewynation/typesense-admin-dashboard:latest
-      restart: always
+      restart: unless-stopped
       ports:
-        - 3005:3000
+        - "127.0.0.1:3000:3000"
+      networks:
+        - typesense
+      environment:
+        - BETTER_AUTH_SECRET=pass-a-secure-secret
+        - BETTER_AUTH_URL=http://localhost:3000
+        - DISABLE_REGISTRATION=false
+      volumes:
+        - frontend-data:/app/data
+
   volumes:
-    typesense-data:
-      driver: local
+    frontend-data:
+
+  networks:
+    typesense:
+      external: true
   ```
 
-  Runs the dashboard alongside the typesense server. Exposes the dashboard on port `3000` and typesense on port `8108`. Perfect for development or just trying out the dashboard. Provide a suitable typesense server API Key by modifying the `--api-key` flag in the entrypoint of the `typesense` service. Ensure that cors is enabled on the typesense server with the `--enable-cors` flag. Typesense does not have a latest tag on the Docker Hub. You can find a list of all available tags [here](https://hub.docker.com/r/typesense/typesense/tags). The dashboard as well doesn't have a latest tag. Check the latest version [here](https://github.com/Lewynation/typesense-admin-dashboard/pkgs/container/typesense-admin-dashboard).
+  Runs the dashboard alongside the typesense server. Exposes the dashboard on port `3000` and typesense on port `8108`. Perfect for development or just trying out the dashboard. Provide a suitable typesense server API Key by modifying the `--api-key` flag. Ensure that cors is enabled on the typesense server with the `--enable-cors` flag. Typesense does not have a latest tag on the Docker Hub. You can find a list of all available tags [here](https://hub.docker.com/r/typesense/typesense/tags).
 
-- [`docker-compose-solo.yml`](./docker-compose-solo.yml)
+## Configuration
 
-  ```yml
-  version: "3"
-  services:
-    admin_dashboard:
-      container_name: admin_dashboard
-      image: ghcr.io/lewynation/typesense-admin-dashboard:latest
-      restart: always
-      ports:
-        - 3005:3000
-  ```
+The dashboard can be configured using the following environment variables:
 
-  Only runs the admin dashboard. A running instance of typesense with `--enable-cors` set to `true` is required. Exposes the dashboard on port `3005`. Check the latest version of the dashboard [here](https://github.com/Lewynation/typesense-admin-dashboard/pkgs/container/typesense-admin-dashboard).
+- `BETTER_AUTH_SECRET`: Secret key used to encrypt user sessions.
+- `BETTER_AUTH_URL`: Base Url of the app.
+- `DISABLE_REGISTRATION`: If set to `true`, user registration is disabled. Defaults to `false`.
+
+## Connection Gotchas
+
+Where is localhost?
+
+- If you have the dashboard running as a docker container and want to connect to a locally running typesense instance (i.e typesense not in docker, say on your host machine), then when adding a server simply use `host.docker.internal` as the host.OR run the dahsboard container with network mode set to `host` and connect to your typesense server using `localhost` as the host.
+
+- If you have both the typesense server and the dashboard running in docker, then you can use the server's service name as the hostname to connect to it. Provided the two containers are in the same network.
+
+Perfect for situations where you don't want to expose your typesense server to the outside world.
 
 ## Useful Links
 
 - [Typesense](https://typesense.org/)
-- [Existing dashboard](https://bfritscher.github.io/typesense-dashboard/#)

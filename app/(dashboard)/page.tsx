@@ -1,8 +1,13 @@
-import { Home } from "@/components/pages/home";
-import React from "react";
+import { DashboardHeader } from "@/components/dashboard_home/dash_header";
+import { DashboradHomeComponent } from "@/components/dashboard_home/home";
 
-const Page = () => {
-  return <Home />;
+const DashboardHomePage = () => {
+  return (
+    <div>
+      <DashboardHeader />
+      <DashboradHomeComponent />
+    </div>
+  );
 };
 
-export default Page;
+export default DashboardHomePage;

@@ -1,6 +1,7 @@
 node_modules
 .next
+.env
+dist-migrate
 .turbo
 out
-desktop_dashboard
 data

@@ -1,0 +1,38 @@
+name: typesense
+services:
+  typesense:
+    container_name: typesense
+    image: typesense/typesense:29.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8108:8108"
+    volumes:
+      - ./data:/data
+    networks:
+      - typesense
+    command:
+      - "--data-dir=/data"
+      - "--api-key=xyz"
+      - "--enable-cors"
+
+  dashboard:
+    container_name: typesense_dashboard
+    image: ghcr.io/lewynation/typesense-admin-dashboard:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - typesense
+    environment:
+      - BETTER_AUTH_SECRET=pass-a-secure-secret
+      - BETTER_AUTH_URL=http://localhost:3000
+      - DISABLE_REGISTRATION=false
+    volumes:
+      - frontend-data:/app/data
+
+volumes:
+  frontend-data:
+
+networks:
+  typesense:
+    external: true
