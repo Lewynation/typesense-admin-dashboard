@@ -41,7 +41,7 @@ const AddServer = () => {
     defaultValues: {
       host: "localhost",
       port: 8108,
-      protocol: "http",
+      protocol: "https",
     },
     resolver: zodResolver(CreateTypesenseServerSchema),
   });
@@ -118,6 +118,7 @@ const AddServer = () => {
                   id="api-key"
                   placeholder="abc"
                   {...register("apiKey")}
+                  type="password"
                   className=""
                 />
                 {errors.apiKey && (
@@ -154,7 +155,7 @@ const AddServer = () => {
                 placeholder="8108"
                 className="col-span-3"
                 type="number"
-                {...register("port")}
+                {...register("port", { valueAsNumber: true })}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4 font-mono">

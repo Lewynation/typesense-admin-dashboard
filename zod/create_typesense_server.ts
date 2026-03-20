@@ -4,7 +4,7 @@ export const CreateTypesenseServerSchema = z.object({
   name: z.string().nonempty("Name is required"),
   protocol: z.enum(["http", "https"]).nullish(),
   host: z.string().nonempty("A host is required"),
-  port: z.number().nullish(),
+  port: z.number().positive().nullish(),
   path: z.string().nullish(),
   apiKey: z.string().nonempty("An API Key is required"),
 });
